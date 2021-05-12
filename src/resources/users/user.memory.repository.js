@@ -3,10 +3,7 @@ const User = require("./user.model");
 
 const users = [];
 
-const getAll = async () => 
-  // TODO: mock implementation. should be replaced during task development
-   users
-;
+const getAll = async () => users;
 
 const postUser = async (req) => {
   const newUser = new User({
@@ -29,4 +26,13 @@ const putUser = async (id, req) => {
   return users[index];
 };
 
-module.exports = { getAll, postUser, getById, putUser };
+const deleteUser = async (id) => {
+  const index = users.findIndex( user => user.id === id);
+  delete users[index].name;
+  delete users[index].login;
+  delete users[index].password; 
+  users.splice(index, 1);
+  
+};
+
+module.exports = { getAll, postUser, getById, putUser, deleteUser };

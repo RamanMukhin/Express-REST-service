@@ -8,4 +8,6 @@ const getById = (id) => usersRepo.getById(id);
 
 const putUser = (id, req) => usersRepo.putUser(id, req);
 
-module.exports = { getAll, postUser, getById, putUser };
+const deleteUser = (id) => usersRepo.deleteUser(id);
+
+module.exports = { getAll, postUser, getById, putUser, deleteUser };
