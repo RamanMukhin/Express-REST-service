@@ -8,7 +8,7 @@ const getAll = async () =>
    users
 ;
 
-const post = async (req) => {
+const postUser = async (req) => {
   const newUser = new User({
     id : uuid.v4(),
     name : req.body.name,
@@ -21,4 +21,12 @@ const post = async (req) => {
 
 const getById = async (id) => users.find( user => user.id === id);
 
-module.exports = { getAll, post, getById };
+const putUser = async (id, req) => {
+  const index = users.findIndex( user => user.id === id);
+  users[index].name = req.body.name;
+  users[index].login = req.body.login;
+  users[index].password = req.body.password; 
+  return users[index];
+};
+
+module.exports = { getAll, postUser, getById, putUser };
