@@ -4,4 +4,6 @@ const getAll = () => usersRepo.getAll();
 
 const post = (req) => usersRepo.post(req);
 
-module.exports = { getAll, post };
+const getById = (id) => usersRepo.getById(id);
+
+module.exports = { getAll, post, getById };

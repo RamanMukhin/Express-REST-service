@@ -19,4 +19,6 @@ const post = async (req) => {
   return newUser;
 };
 
-module.exports = { getAll, post };
+const getById = async (id) => users.find( user => user.id === id);
+
+module.exports = { getAll, post, getById };

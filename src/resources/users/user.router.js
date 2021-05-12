@@ -10,8 +10,13 @@ router.route('/').get(async (req, res) => {
 
 router.route('/').post(async (req, res) => {
   const user = await usersService.post(req);
-  // map user fields to exclude secret fields like "password"
   res.statusCode = 201;
+  res.json(User.toResponse(user));
+});
+
+router.route('/:id').get(async (req, res) => {
+  const {id} = req.params;
+  const user = await usersService.getById(id);
   res.json(User.toResponse(user));
 });
 
