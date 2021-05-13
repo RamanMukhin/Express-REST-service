@@ -1,19 +1,10 @@
-const uuid = require('uuid');
-const User = require("./user.model");
-
 const users = [];
 
 const getAll = async () => users;
 
-const postUser = async (req) => {
-  const newUser = new User({
-    id : uuid.v4(),
-    name : req.body.name,
-    login : req.body.login,
-    password : req.body.password,
-  });
-  users.push(newUser);
-  return newUser;
+const save = async (user) => {
+  users.push(user);
+  return user;
 };
 
 const getById = async (id) => users.find( user => user.id === id);
@@ -35,4 +26,4 @@ const deleteUser = async (id) => {
   
 };
 
-module.exports = { getAll, postUser, getById, putUser, deleteUser };
+module.exports = { getAll, save, getById, putUser, deleteUser };

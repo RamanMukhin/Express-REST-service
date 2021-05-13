@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const User = require('./user.model');
 const usersService = require('./user.service');
+const userUtil = require('../../common/userUtil');
 
 router.route('/').get(async (req, res) => {
   const users = await usersService.getAll();
@@ -8,7 +9,8 @@ router.route('/').get(async (req, res) => {
 });
 
 router.route('/').post(async (req, res) => {
-  const user = await usersService.postUser(req);
+  const newUser = userUtil.toUserDto(req);
+  const user = await usersService.create(newUser);
   res.statusCode = 201;
   res.json(User.toResponse(user));
 });
