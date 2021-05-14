@@ -15,6 +15,19 @@ function toUser (newUser) {
         password : newUser.password,
     });
 }
+/*
+function updateUser (user, update) {
+    user.name = update.name;
+    user.login = update.login;
+    user.password = update.password;
+    return user;
+}
+*/
 
 
-module.exports = { toUserDto, toUser };
+function findIndex (id, users) {
+    return users.findIndex( user => user.id === id);
+}
+
+
+module.exports = { toUserDto, toUser, findIndex, };
