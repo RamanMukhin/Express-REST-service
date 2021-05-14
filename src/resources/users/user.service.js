@@ -12,9 +12,7 @@ const find = (id) => usersRepo.find(id);
 
 const update = async (id, updateUser) => {
     const user = await usersRepo.find(id);
-    user.name = updateUser.name;
-    user.login = updateUser.login;
-    user.password = updateUser.password;
+    userUtil.updateUser(user, updateUser);
     return usersRepo.update(user);
 } 
 
