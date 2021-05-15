@@ -18,4 +18,18 @@ function findIndex(id, boards) {
   return boards.findIndex((board) => board.id === id);
 }
 
-module.exports = { toTask, toUpdateTask, findIndex };
+function findByBoardId(boardId, tasks) {
+  return tasks.filter((task) => task.boardId === boardId);
+}
+
+function findByUserId(userId, tasks) {
+  return tasks.filter((task) => task.userId === userId);
+}
+
+module.exports = {
+  toTask,
+  toUpdateTask,
+  findIndex,
+  findByBoardId,
+  findByUserId,
+};

@@ -18,4 +18,23 @@ const update = async (id, updateTask) => {
 
 const remove = (id) => tasksRepo.remove(id);
 
-module.exports = { getAll, create, find, update, remove };
+const removeWithBoard = (boardId) => tasksRepo.removeWithBoard(boardId);
+
+const updateWithUser = async (userId) => {
+  const arrOfTasks = await tasksRepo.findTasks(userId);
+  for (let i = 0; i < arrOfTasks.length; i += 1) {
+    const task = await tasksRepo.find(arrOfTasks[i].id);
+    task.userId = null;
+    tasksRepo.update(task);
+  }
+};
+
+module.exports = {
+  getAll,
+  create,
+  find,
+  update,
+  remove,
+  removeWithBoard,
+  updateWithUser,
+};
