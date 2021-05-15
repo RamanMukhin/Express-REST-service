@@ -1,0 +1,21 @@
+const Task = require('../resources/tasks/task.model');
+
+function toTask(newTask) {
+  return new Task(newTask);
+}
+
+function toUpdateTask(task, updateTask) {
+  task.title = updateTask.title;
+  task.order = updateTask.order;
+  task.description = updateTask.description;
+  task.userId = updateTask.userId;
+  task.boardId = updateTask.boardId;
+  task.columnId = updateTask.columnId;
+  return task;
+}
+
+function findIndex(id, boards) {
+  return boards.findIndex((board) => board.id === id);
+}
+
+module.exports = { toTask, toUpdateTask, findIndex };
