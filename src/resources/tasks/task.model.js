@@ -1,6 +1,13 @@
 const uuid = require('uuid');
 
+/**
+ * Class representing a Task
+ */
 class Task {
+  /**
+   * Create a task
+   * @param {Object} param0 
+   */
   constructor({
     id = uuid.v4(),
     title = 'TITLE',
