@@ -2,28 +2,28 @@ const Board = require('../resources/boards/board.model');
 const Column = require('../resources/boards/column.model');
 
 /**
- * Creates a string from the request  to create a new board and returns it
- * @param {Object} req
- * @returns {string}
+ * Creates and returns boardDto from the given req
+ * @param {Object} req given request
+ * @returns {string} boardDto from the given req
  */
 function toBoardDto(req) {
   return req.body.title;
 }
 
 /**
- * Creates an Array from the request  to create a new columns and returns it
- * @param {Object} req
- * @returns {Array}
+ * Creates and returns columnDto from given request
+ * @param {Object} req given request
+ * @returns {Array} columnDto
  */
 function toColumnDto(req) {
   return req.body.columns;
 }
 
 /**
- * Creates a new object of class Board and returns it
- * @param {string} title
- * @param {Object} columns
- * @returns {Object}
+ * Creates and returns a new object of class Board 
+ * @param {string} title boardDto
+ * @param {Object} columns columns
+ * @returns {Object} new object of class Board
  */
 function toBoard(title, columns) {
   return new Board({
@@ -34,8 +34,8 @@ function toBoard(title, columns) {
 
 /**
  * Сreates an array of new objects of the Column class
- * @param {Array} columns
- * @returns {Array}
+ * @param {Array} columns columnDto
+ * @returns {Array} columns
  */
 function toColumn(columns) {
   const createdColumns = [];
@@ -45,11 +45,11 @@ function toColumn(columns) {
   return createdColumns;
 }
 
-/**
- * Accepts an array of columns and an array of columns with updated properties. Updates and returns the first array
- * @param {Array} columns
- * @param {Array} updateColumns
- * @returns {Array}
+/** 
+ * Updates and returns array of columns 
+ * @param {Array} columns array to update
+ * @param {Array} updateColumns array update from
+ * @returns {Array} updated array of columns
  */
 function toUpdateColumns(columns, updateColumns) {
   for (let i = 0; i < updateColumns.length; i += 1) {
@@ -60,10 +60,10 @@ function toUpdateColumns(columns, updateColumns) {
 }
 
 /**
- * Updates the received Board object
- * @param {Object} board
- * @param {string} updateTitle
- * @param {Array} updateColumns
+ * Updates given Board object
+ * @param {Object} board given object
+ * @param {string} updateTitle title update from
+ * @param {Array} updateColumns columns update from
  */
 function updateBoard(board, updateTitle, updateColumns) {
   const { columns } = board;
@@ -72,10 +72,10 @@ function updateBoard(board, updateTitle, updateColumns) {
 }
 
 /**
- * Returns the index of the object in the received array by the received id
- * @param {string} id
- * @param {Array} boards
- * @returns {number}
+ * Searches and returns the index of the object with given id
+ * @param {string} id given id
+ * @param {Array} boards array for searching in
+ * @returns {number} the index of the object with given id
  */
 function findIndex(id, boards) {
   return boards.findIndex((board) => board.id === id);

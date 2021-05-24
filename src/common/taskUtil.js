@@ -1,18 +1,18 @@
 const Task = require('../resources/tasks/task.model');
 
 /**
- * Creates a new object of class Task and returns it
- * @param {Object} newTask 
- * @returns {Object}
+ * Creates and returns a new object of class Task
+ * @param {Object} newTask taskDto
+ * @returns {Object} new task
  */
 function toTask(newTask) {
   return new Task(newTask);
 }
 
 /**
- * Accepts two objects: one to be updated and an object with properties to be updated
- * @param {Object} task 
- * @param {Object} updateTask 
+ * Updates given task object
+ * @param {Object} task given task
+ * @param {Object} updateTask task from update
  */
 function toUpdateTask(task, updateTask) {
   task.title = updateTask.title;
@@ -24,30 +24,30 @@ function toUpdateTask(task, updateTask) {
 }
 
 /**
- * Returns the index of the object in the received array by the received id
- * @param {string} id 
- * @param {Array} tasks 
- * @returns {Number}
+ * Searches and returns the index of the object with given id
+ * @param {string} id given id
+ * @param {Array} tasks array for searching in
+ * @returns {Number} the index of the object with given id
  */
 function findIndex(id, tasks) {
   return tasks.findIndex((task) => task.id === id);
 }
 
 /**
- * Returns an array of tasks assigned to the accepted boardId
- * @param {string} boardId 
- * @param {Array} tasks 
- * @returns {Array}
+ * Returns an array of tasks assigned to boardId
+ * @param {string} boardId assigned boardId
+ * @param {Array} tasks array of tasks
+ * @returns {Array} array of task assigned to boardId
  */
 function findByBoardId(boardId, tasks) {
   return tasks.filter((task) => task.boardId === boardId);
 }
 
 /**
- * Returns an array of tasks assigned to the accepted UserId
- * @param {string} userId 
- * @param {Object} tasks 
- * @returns {Object}
+ * Returns an array of tasks assigned to userId
+ * @param {string} userId assigned boardId
+ * @param {Array} tasks array of tasks
+ * @returns {Array} array of task assigned to userId
  */
 function findByUserId(userId, tasks) {
   return tasks.filter((task) => task.userId === userId);

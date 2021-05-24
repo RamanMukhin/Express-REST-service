@@ -3,15 +3,15 @@ const userUtil = require('../../common/userUtil');
 const tasksService = require('../tasks/task.service');
 
 /**
- * Calls a function from the repository and returns an array of found users
- * @returns {Array}
+ * Returns all users
+ * @returns {Array} array of users
  */
 const getAll = () => usersRepo.getAll();
 
 /**
- * Creates a new user, calls the repository function to save this new user, returns it
- * @param {Object} newUser 
- * @returns {Object}
+ * Creates and returns a new user
+ * @param {Object} newUser user create from
+ * @returns {Object} new user
  */
 const create = (newUser) => {
   const user = userUtil.toUser(newUser);
@@ -19,17 +19,17 @@ const create = (newUser) => {
 };
 
 /**
- * Calls a function from the repository, passing the id to it, returns the found user
- * @param {string} id 
- * @returns {Object}
+ * Returns the user by given id
+ * @param {string} id given id
+ * @returns {Object} the user
  */
 const find = (id) => usersRepo.find(id);
 
 /**
- * Accepts the id of the object to update and an object with parameters to update. Returns the updated user
- * @param {string} id 
- * @param {Object} updateUser 
- * @returns {Object}
+ * Updates the user by given id
+ * @param {string} id given id
+ * @param {Object} updateUser user update from
+ * @returns {Object} the user
  */
 const update = async (id, updateUser) => {
   const user = await usersRepo.find(id);
@@ -38,8 +38,8 @@ const update = async (id, updateUser) => {
 };
 
 /**
- * Calls a function from the repository to delete a user by id and a function from the task service to update tasks
- * @param {string} id 
+ * Deletes user by given id and reassigned its tasks
+ * @param {string} id given id
  */
 const remove = (id) => {
   usersRepo.remove(id);

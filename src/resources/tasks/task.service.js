@@ -2,15 +2,15 @@ const tasksRepo = require('./task.memory.repository');
 const taskUtil = require('../../common/taskUtil');
 
 /**
- * Calls a function from the repository and returns an array of found tasks
- * @returns {Array}
+ * Returns all tasks
+ * @returns {Array} array of tasks
  */
 const getAll = () => tasksRepo.getAll();
 
 /**
- * Creates a new task, calls the repository function to save this new task, returns it
- * @param {Object} newTask 
- * @returns {Object}
+ * Creates and returns a new task
+ * @param {Object} newTask task create from
+ * @returns {Object} new task
  */
 const create = (newTask) => {
   const task = taskUtil.toTask(newTask);
@@ -18,17 +18,17 @@ const create = (newTask) => {
 };
 
 /**
- * Calls a function from the repository, passing the id to it, returns the found task
- * @param {string} id 
- * @returns {Object}
+ * Returns the task by given id
+ * @param {string} id given id
+ * @returns {Object} the task
  */
 const find = (id) => tasksRepo.find(id);
 
 /**
- * Accepts the id of the object to update and an object with parameters to update. Returns the updated task
- * @param {string} id 
- * @param {Object} updateTask 
- * @returns {Object}
+ * Updates the task by given id
+ * @param {string} id given id
+ * @param {Object} updateTask task update from
+ * @returns {Object} the task
  */
 const update = async (id, updateTask) => {
   const task = await tasksRepo.find(id);
@@ -37,24 +37,24 @@ const update = async (id, updateTask) => {
 };
 
 /**
- * Calls a function from the repository to delete a task. returns it
- * @param {string} id 
+ * Deletes task by given id
+ * @param {string} id given id
  */
 const remove = (id) => {
   tasksRepo.remove(id);
 };
 
 /**
- * Calls a function from the repository to delete a task assigned to the accepted boardId
- * @param {string} boardId 
+ * Deletes tasks by given boardId
+ * @param {string} boardId given boardId
  */
 const removeWithBoard = (boardId) => {
   tasksRepo.removeWithBoard(boardId);
 };
 
 /**
- * Calls a function from the repository to update a task assigned to the accepted UserId
- * @param {string} userId 
+ * Updates tasks assigned to the accepted UserId
+ * @param {string} userId given userId
  */
 const updateWithUser = async (userId) => {
   const arrOfTasks = await tasksRepo.findTasks(userId);

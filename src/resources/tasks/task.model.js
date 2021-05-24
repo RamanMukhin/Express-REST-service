@@ -6,7 +6,7 @@ const uuid = require('uuid');
 class Task {
   /**
    * Create a task
-   * @param {Object} param0 
+   * @param {Object} param0 object create from
    */
   constructor({
     id = uuid.v4(),

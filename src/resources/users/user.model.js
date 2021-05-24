@@ -1,6 +1,13 @@
 const uuid = require('uuid');
 
+/**
+ * Class representing a User
+ */
 class User {
+  /**
+   * Create a user
+   * @param {*} param0 object create from 
+   */
   constructor({
     id = uuid.v4(),
     name = 'USER',

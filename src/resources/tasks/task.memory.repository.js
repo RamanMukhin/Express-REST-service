@@ -3,15 +3,15 @@ const taskUtil = require('../../common/taskUtil');
 const tasks = [];
 
 /**
- * Returns an array of tasks
- * @returns {Array}
+ * Returns the array of tasks
+ * @returns {Array} array of tasks
  */
 const getAll = async () => tasks;
 
 /**
- * Saves the accepted task and returns it
- * @param {Object} task 
- * @returns {Object}
+ * Saves and returns given task
+ * @param {Object} task given task
+ * @returns {Object} task
  */
 const save = async (task) => {
   tasks.push(task);
@@ -19,16 +19,16 @@ const save = async (task) => {
 };
 
 /**
- * Searches for a task with an accepted id in array and returns it
- * @param {string} id 
- * @returns {Object}
+ * Searches and returns task by given id
+ * @param {string} id given id
+ * @returns {Object} task
  */
 const find = async (id) => tasks.find((task) => task.id === id);
 
 /**
- * Updates the board with the accepted id and returns it
- * @param {Object} task 
- * @returns {Object}
+ * Updates and returns the task with the given id
+ * @param {Object} task task to update
+ * @returns {Object} task
  */
 const update = async (task) => {
   tasks.splice(taskUtil.findIndex(task.id, tasks), 1, task);
@@ -36,16 +36,16 @@ const update = async (task) => {
 };
 
 /**
- * Searches for a task with an accepted id in array and deletes it
- * @param {string} id 
+ * Deletes task by given id
+ * @param {string} id given id
  */
 const remove = async (id) => {
   tasks.splice(taskUtil.findIndex(id, tasks), 1);
 };
 
 /**
- * Searches for a tasks with an assigned boardId in array and deletes them
- * @param {string} boardId 
+ * delettes tasks with given boardId
+ * @param {string} boardId given boardId
  */
 const removeWithBoard = async (boardId) => {
   const arrOfId = taskUtil.findByBoardId(boardId, tasks);
@@ -55,9 +55,9 @@ const removeWithBoard = async (boardId) => {
 };
 
 /**
- * Searches for a tasks with an assigned userId in array and returns them
- * @param {string} userId 
- * @returns {Array}
+ * Searches tasks with given userId
+ * @param {string} userId given userId
+ * @returns {Array} array of tasks
  */
 const findTasks = async (userId) => taskUtil.findByUserId(userId, tasks);
 

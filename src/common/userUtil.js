@@ -1,9 +1,9 @@
 const User = require('../resources/users/user.model');
 
 /**
- * Creates an object from the request  to create a new user and returns it
- * @param {Object} req 
- * @returns {Object}
+ * Creates and returns userdDto from the given req
+ * @param {Object} req give request
+ * @returns {Object} userDto
  */
 function toUserDto(req) {
   return {
@@ -14,9 +14,9 @@ function toUserDto(req) {
 }
 
 /**
- * Creates a new object of class User and returns it
- * @param {Object} newUser 
- * @returns {Object}
+ * Creates and returns a new object of class User
+ * @param {Object} newUser userDto
+ * @returns {Object} new user
  */
 function toUser(newUser) {
   return new User({
@@ -27,9 +27,9 @@ function toUser(newUser) {
 }
 
 /**
- * Accepts two objects: one to be updated and an object with properties to be updated
- * @param {Object} user 
- * @param {Object} update 
+ * Updates given User object
+ * @param {Object} user given object
+ * @param {Object} update object update from
  */
 function updateUser(user, update) {
   user.name = update.name;
@@ -38,10 +38,10 @@ function updateUser(user, update) {
 }
 
 /**
- * Returns the index of the object in the received array by the received id
- * @param {string} id 
- * @param {Array} users 
- * @returns {number}
+ * Searches and returns the index of the object with given id
+ * @param {string} id given id
+ * @param {Array} users array for searching in
+ * @returns {number} the index of the object with given id
  */
 function findIndex(id, users) {
   return users.findIndex((user) => user.id === id);

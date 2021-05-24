@@ -3,15 +3,15 @@ const userUtil = require('../../common/userUtil');
 const users = [];
 
 /**
- * Returns an array of users
- * @returns {Array}
+ * Returns the array of users
+ * @returns {Array} array of users
  */
 const getAll = async () => users;
 
 /**
- * Saves the accepted user and returns it
- * @param {Object} user 
- * @returns {Object}
+ * Saves and returns given user
+ * @param {Object} user given user
+ * @returns {Object} user
  */
 const save = async (user) => {
   users.push(user);
@@ -19,16 +19,16 @@ const save = async (user) => {
 };
 
 /**
- * Searches for a user with an accepted id in array and returns it
- * @param {string} id 
- * @returns {Object}
+ * Searches and returns user by given id
+ * @param {string} id given id
+ * @returns {Object} user
  */
 const find = async (id) => users.find((user) => user.id === id);
 
 /**
- * Updates the user with the accepted id and returns it
- * @param {Object} user 
- * @returns {Object}
+ * Updates and returns the user with the given id
+ * @param {Object} user user to update
+ * @returns {Object} user
  */
 const update = async (user) => {
   users.splice(userUtil.findIndex(user.id, users), 1, user);

@@ -3,15 +3,15 @@ const boardUtil = require('../../common/boardUtil');
 const boards = [];
 
 /**
- * Returns an array of boards
- * @returns {Array}
+ * Returns the array of boards
+ * @returns {Array} the array of boards
  */
 const getAll = async () => boards;
 
 /**
- * Saves the accepted board and returns it
- * @param {Object} board 
- * @returns {Object}
+ * Saves and returns given board
+ * @param {Object} board given board
+ * @returns {Object} board
  */
 const save = async (board) => {
   boards.push(board);
@@ -19,16 +19,16 @@ const save = async (board) => {
 };
 
 /**
- * Searches for a board with an accepted id in array and returns it
- * @param {string} id 
- * @returns {Object}
+ * Searches and returns board by given id
+ * @param {string} id given id
+ * @returns {Object} board
  */
 const find = async (id) => boards.find((board) => board.id === id);
 
 /**
- * Updates the board with the accepted id and returns it
- * @param {Object} board 
- * @returns {Object}
+ * Updates and returns the board with the given id
+ * @param {Object} board board to update
+ * @returns {Object} board
  */
 const update = async (board) => {
   boards.splice(boardUtil.findIndex(board.id, boards), 1, board);
@@ -36,8 +36,8 @@ const update = async (board) => {
 };
 
 /**
- * Searches for a board with an accepted id in array and deletes it
- * @param {string} id 
+ * Deletes user by given id
+ * @param {string} id given id
  */
 const remove = async (id) => {
   boards.splice(boardUtil.findIndex(id, boards), 1);

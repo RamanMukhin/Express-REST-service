@@ -7,7 +7,7 @@ const Column = require('./column.model');
 class Board {
   /**
    * Create a board
-   * @param {Object} param0 
+   * @param {Object} param0 object create from
    */
   constructor({
     id = uuid.v4(),

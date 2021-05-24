@@ -6,7 +6,7 @@ const uuid = require('uuid');
 class Column {
   /**
    * Create a column
-   * @param {Object} param0 
+   * @param {Object} param0 object create from
    */
   constructor({ id = uuid.v4(), title = 'title', order = 0 } = {}) {
     this.id = id;
