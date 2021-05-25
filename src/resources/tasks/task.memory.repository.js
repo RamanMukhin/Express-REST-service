@@ -1,4 +1,8 @@
-const taskUtil = require('../../common/taskUtil');
+import {
+  findIndex,
+  findByBoardId,
+  findByUserId,
+} from '../../common/taskUtil.js';
 
 const tasks = [];
 
@@ -31,7 +35,7 @@ const find = async (id) => tasks.find((task) => task.id === id);
  * @returns {Object} task
  */
 const update = async (task) => {
-  tasks.splice(taskUtil.findIndex(task.id, tasks), 1, task);
+  tasks.splice(findIndex(task.id, tasks), 1, task);
   return task;
 };
 
@@ -40,7 +44,7 @@ const update = async (task) => {
  * @param {string} id given id
  */
 const remove = async (id) => {
-  tasks.splice(taskUtil.findIndex(id, tasks), 1);
+  tasks.splice(findIndex(id, tasks), 1);
 };
 
 /**
@@ -48,9 +52,9 @@ const remove = async (id) => {
  * @param {string} boardId given boardId
  */
 const removeWithBoard = async (boardId) => {
-  const arrOfId = taskUtil.findByBoardId(boardId, tasks);
+  const arrOfId = findByBoardId(boardId, tasks);
   for (let i = 0; i < arrOfId.length; i += 1) {
-    tasks.splice(taskUtil.findIndex(arrOfId[i], tasks), 1);
+    tasks.splice(findIndex(arrOfId[i], tasks), 1);
   }
 };
 
@@ -59,14 +63,6 @@ const removeWithBoard = async (boardId) => {
  * @param {string} userId given userId
  * @returns {Array} array of tasks
  */
-const findTasks = async (userId) => taskUtil.findByUserId(userId, tasks);
+const findTasks = async (userId) => findByUserId(userId, tasks);
 
-module.exports = {
-  getAll,
-  save,
-  find,
-  update,
-  remove,
-  removeWithBoard,
-  findTasks,
-};
+export { getAll, save, find, update, remove, removeWithBoard, findTasks };

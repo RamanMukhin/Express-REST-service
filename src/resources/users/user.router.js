@@ -1,7 +1,10 @@
-const router = require('express').Router();
-const User = require('./user.model');
-const usersService = require('./user.service');
-const userUtil = require('../../common/userUtil');
+import express from 'express';
+import * as usersService from './user.service.js';
+import { toUserDto } from '../../common/userUtil.js';
+import { User } from './user.model.js';
+
+
+const router = express.Router();
 
 router.route('/').get(async (req, res) => {
   const users = await usersService.getAll();
@@ -9,17 +12,16 @@ router.route('/').get(async (req, res) => {
 });
 
 router.route('/').post(async (req, res) => {
-  const newUser = userUtil.toUserDto(req);
+  const newUser = toUserDto(req);
   const user = await usersService.create(newUser);
-  res.statusCode = 201;
-  res.json(User.toResponse(user));
+  res.status(201).json(User.toResponse(user));
 });
 
 router.route('/:id').get(async (req, res) => {
   const { id } = req.params;
   const user = await usersService.find(id);
   if (typeof user === 'undefined') {
-    res.statusCode = 404;
+    res.status(404);
   } else {
     res.json(User.toResponse(user));
   }
@@ -27,7 +29,7 @@ router.route('/:id').get(async (req, res) => {
 
 router.route('/:id').put(async (req, res) => {
   const { id } = req.params;
-  const updateUser = userUtil.toUserDto(req);
+  const updateUser = toUserDto(req);
   const user = await usersService.update(id, updateUser);
   res.json(User.toResponse(user));
 });
@@ -38,4 +40,4 @@ router.route('/:id').delete(async (req, res) => {
   res.json();
 });
 
-module.exports = router;
+export { router };

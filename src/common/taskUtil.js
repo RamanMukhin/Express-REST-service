@@ -1,4 +1,4 @@
-const Task = require('../resources/tasks/task.model');
+import { Task } from '../resources/tasks/task.model.js';
 
 /**
  * Creates and returns a new object of class Task
@@ -53,10 +53,4 @@ function findByUserId(userId, tasks) {
   return tasks.filter((task) => task.userId === userId);
 }
 
-module.exports = {
-  toTask,
-  toUpdateTask,
-  findIndex,
-  findByBoardId,
-  findByUserId,
-};
+export { toTask, toUpdateTask, findIndex, findByBoardId, findByUserId };

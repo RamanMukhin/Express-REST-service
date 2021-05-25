@@ -1,6 +1,8 @@
-const router = require('express').Router();
-const boardsService = require('./board.service');
-const boardUtil = require('../../common/boardUtil');
+import express from 'express';
+import * as boardsService from './board.service.js';
+import { toBoardDto, toColumnDto } from '../../common/boardUtil.js';
+
+const router = express.Router();
 
 router.route('/').get(async (req, res) => {
   const boards = await boardsService.getAll();
@@ -8,26 +10,25 @@ router.route('/').get(async (req, res) => {
 });
 
 router.route('/').post(async (req, res) => {
-  const title = boardUtil.toBoardDto(req);
-  const columns = boardUtil.toColumnDto(req);
+  const title = toBoardDto(req);
+  const columns = toColumnDto(req);
   const board = await boardsService.create(title, columns);
-  res.statusCode = 201;
-  res.json(board);
+  res.status(201).json(board);
 });
 
 router.route('/:id').get(async (req, res) => {
   const { id } = req.params;
   const board = await boardsService.find(id);
   if (typeof board === 'undefined') {
-    res.statusCode = 404;
+    res.status(404);
   }
   res.json(board);
 });
 
 router.route('/:id').put(async (req, res) => {
   const { id } = req.params;
-  const updateTitle = boardUtil.toBoardDto(req);
-  const updateColumns = boardUtil.toColumnDto(req);
+  const updateTitle = toBoardDto(req);
+  const updateColumns = toColumnDto(req);
   const board = await boardsService.update(id, updateTitle, updateColumns);
   res.json(board);
 });
@@ -38,4 +39,4 @@ router.route('/:id').delete(async (req, res) => {
   res.json();
 });
 
-module.exports = router;
+export { router };

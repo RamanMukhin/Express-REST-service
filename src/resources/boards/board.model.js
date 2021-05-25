@@ -1,23 +1,17 @@
-const uuid = require('uuid');
-const Column = require('./column.model');
+import { v4 as uuid } from 'uuid';
+import { Column } from './column.model.js';
 
 /**
- * Class representing a Board 
+ * Class representing a Board
  */
-class Board {
+export class Board {
   /**
    * Create a board
    * @param {Object} param0 object create from
    */
-  constructor({
-    id = uuid.v4(),
-    title = 'TITLE',
-    columns = [new Column()],
-  } = {}) {
+  constructor({ id = uuid(), title = 'TITLE', columns = [new Column()] } = {}) {
     this.id = id;
     this.title = title;
     this.columns = columns;
   }
 }
-
-module.exports = Board;

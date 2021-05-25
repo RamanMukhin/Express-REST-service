@@ -1,4 +1,4 @@
-const userUtil = require('../../common/userUtil');
+import { findIndex } from '../../common/userUtil.js';
 
 const users = [];
 
@@ -31,16 +31,16 @@ const find = async (id) => users.find((user) => user.id === id);
  * @returns {Object} user
  */
 const update = async (user) => {
-  users.splice(userUtil.findIndex(user.id, users), 1, user);
+  users.splice(findIndex(user.id, users), 1, user);
   return user;
 };
 
 /**
  * Searches for a user with an accepted id in array and deletes it
- * @param {string} id 
+ * @param {string} id
  */
 const remove = async (id) => {
-  users.splice(userUtil.findIndex(id, users), 1);
+  users.splice(findIndex(id, users), 1);
 };
 
-module.exports = { getAll, save, find, update, remove };
+export { getAll, save, find, update, remove };

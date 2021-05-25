@@ -1,4 +1,4 @@
-const boardUtil = require('../../common/boardUtil');
+import { findIndex } from '../../common/boardUtil.js';
 
 const boards = [];
 
@@ -31,7 +31,7 @@ const find = async (id) => boards.find((board) => board.id === id);
  * @returns {Object} board
  */
 const update = async (board) => {
-  boards.splice(boardUtil.findIndex(board.id, boards), 1, board);
+  boards.splice(findIndex(board.id, boards), 1, board);
   return board;
 };
 
@@ -40,7 +40,7 @@ const update = async (board) => {
  * @param {string} id given id
  */
 const remove = async (id) => {
-  boards.splice(boardUtil.findIndex(id, boards), 1);
+  boards.splice(findIndex(id, boards), 1);
 };
 
-module.exports = { getAll, save, find, update, remove };
+export { getAll, save, find, update, remove };

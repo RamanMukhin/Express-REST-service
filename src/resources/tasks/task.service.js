@@ -1,5 +1,5 @@
-const tasksRepo = require('./task.memory.repository');
-const taskUtil = require('../../common/taskUtil');
+import * as tasksRepo from './task.memory.repository.js';
+import { toTask, toUpdateTask } from '../../common/taskUtil.js';
 
 /**
  * Returns all tasks
@@ -13,7 +13,7 @@ const getAll = () => tasksRepo.getAll();
  * @returns {Object} new task
  */
 const create = (newTask) => {
-  const task = taskUtil.toTask(newTask);
+  const task = toTask(newTask);
   return tasksRepo.save(task);
 };
 
@@ -32,7 +32,7 @@ const find = (id) => tasksRepo.find(id);
  */
 const update = async (id, updateTask) => {
   const task = await tasksRepo.find(id);
-  taskUtil.toUpdateTask(task, updateTask);
+  toUpdateTask(task, updateTask);
   return tasksRepo.update(task);
 };
 
@@ -65,7 +65,7 @@ const updateWithUser = async (userId) => {
   }
 };
 
-module.exports = {
+export {
   getAll,
   create,
   find,

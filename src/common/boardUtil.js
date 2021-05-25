@@ -1,5 +1,5 @@
-const Board = require('../resources/boards/board.model');
-const Column = require('../resources/boards/column.model');
+import { Board } from '../resources/boards/board.model.js';
+import { Column } from '../resources/boards/column.model.js';
 
 /**
  * Creates and returns boardDto from the given req
@@ -20,7 +20,7 @@ function toColumnDto(req) {
 }
 
 /**
- * Creates and returns a new object of class Board 
+ * Creates and returns a new object of class Board
  * @param {string} title boardDto
  * @param {Object} columns columns
  * @returns {Object} new object of class Board
@@ -45,8 +45,8 @@ function toColumn(columns) {
   return createdColumns;
 }
 
-/** 
- * Updates and returns array of columns 
+/**
+ * Updates and returns array of columns
  * @param {Array} columns array to update
  * @param {Array} updateColumns array update from
  * @returns {Array} updated array of columns
@@ -81,7 +81,7 @@ function findIndex(id, boards) {
   return boards.findIndex((board) => board.id === id);
 }
 
-module.exports = {
+export {
   toBoardDto,
   toColumnDto,
   toBoard,

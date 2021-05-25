@@ -1,6 +1,6 @@
-const boardsRepo = require('./board.memory.repository');
-const boardUtil = require('../../common/boardUtil');
-const tasksService = require('../tasks/task.service');
+import * as boardsRepo from './board.memory.repository.js';
+import { toBoard, toColumn, toUpdateColumns } from '../../common/boardUtil.js';
+import { removeWithBoard } from '../tasks/task.service.js';
 
 /**
  * Returns all boards
@@ -15,7 +15,7 @@ const getAll = () => boardsRepo.getAll();
  * @returns {Object} new board
  */
 const create = (title, columns) => {
-  const board = boardUtil.toBoard(title, boardUtil.toColumn(columns));
+  const board = toBoard(title, toColumn(columns));
   return boardsRepo.save(board);
 };
 
@@ -27,7 +27,7 @@ const create = (title, columns) => {
 const find = (id) => boardsRepo.find(id);
 
 /**
- * Updates the board by given id 
+ * Updates the board by given id
  * @param {string} id given id
  * @param {string} updateTitle title update from
  * @param {Array} updateColumns columns update from
@@ -37,17 +37,17 @@ const update = async (id, updateTitle, updateColumns) => {
   const board = await boardsRepo.find(id);
   const { columns } = board;
   board.title = updateTitle;
-  board.columns = boardUtil.toUpdateColumns(columns, updateColumns);
+  board.columns = toUpdateColumns(columns, updateColumns);
   return boardsRepo.update(board);
 };
 
 /**
- * Deletes board and its tasks 
+ * Deletes board and its tasks
  * @param {string} id id of board to delete
  */
 const remove = (id) => {
   boardsRepo.remove(id);
-  tasksService.removeWithBoard(id);
+  removeWithBoard(id);
 };
 
-module.exports = { getAll, create, find, update, remove };
+export { getAll, create, find, update, remove };

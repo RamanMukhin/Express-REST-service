@@ -1,6 +1,6 @@
-const usersRepo = require('./user.memory.repository');
-const userUtil = require('../../common/userUtil');
-const tasksService = require('../tasks/task.service');
+import * as usersRepo from './user.memory.repository.js';
+import { toUser, toUpdateUser } from '../../common/userUtil.js';
+import { updateWithUser } from '../tasks/task.service.js';
 
 /**
  * Returns all users
@@ -14,7 +14,7 @@ const getAll = () => usersRepo.getAll();
  * @returns {Object} new user
  */
 const create = (newUser) => {
-  const user = userUtil.toUser(newUser);
+  const user = toUser(newUser);
   return usersRepo.save(user);
 };
 
@@ -33,7 +33,7 @@ const find = (id) => usersRepo.find(id);
  */
 const update = async (id, updateUser) => {
   const user = await usersRepo.find(id);
-  userUtil.updateUser(user, updateUser);
+  toUpdateUser(user, updateUser);
   return usersRepo.update(user);
 };
 
@@ -43,7 +43,7 @@ const update = async (id, updateUser) => {
  */
 const remove = (id) => {
   usersRepo.remove(id);
-  tasksService.updateWithUser(id);
+  updateWithUser(id);
 };
 
-module.exports = { getAll, create, find, update, remove };
+export { getAll, create, find, update, remove };

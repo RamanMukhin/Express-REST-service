@@ -1,4 +1,4 @@
-const User = require('../resources/users/user.model');
+import { User } from '../resources/users/user.model.js';
 
 /**
  * Creates and returns userdDto from the given req
@@ -31,7 +31,7 @@ function toUser(newUser) {
  * @param {Object} user given object
  * @param {Object} update object update from
  */
-function updateUser(user, update) {
+function toUpdateUser(user, update) {
   user.name = update.name;
   user.login = update.login;
   user.password = update.password;
@@ -47,4 +47,4 @@ function findIndex(id, users) {
   return users.findIndex((user) => user.id === id);
 }
 
-module.exports = { toUserDto, toUser, updateUser, findIndex };
+export { toUserDto, toUser, toUpdateUser, findIndex };
