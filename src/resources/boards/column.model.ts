@@ -4,6 +4,12 @@ import { v4 as uuid } from 'uuid';
  * Class representing a Column
  */
 export class Column {
+  id: string;
+
+  title: string;
+
+  order: number;
+
   /**
    * Create a column
    * @param {Object} param0 object create from

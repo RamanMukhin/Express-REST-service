@@ -1,9 +1,9 @@
 import express from 'express';
-import * as  tasksService from './task.service.js';
+import * as tasksService from './task.service.js';
 
 const router = express.Router();
 
-router.route('/').get(async (req, res) => {
+router.route('/').get(async (_req, res) => {
   const tasks = await tasksService.getAll();
   res.json(tasks);
 });

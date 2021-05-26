@@ -1,6 +1,7 @@
 import * as boardsRepo from './board.memory.repository.js';
 import { toBoard, toColumn, toUpdateColumns } from '../../common/boardUtil.js';
 import { removeWithBoard } from '../tasks/task.service.js';
+import { Column } from './column.model.js';
 
 /**
  * Returns all boards
@@ -14,7 +15,7 @@ const getAll = () => boardsRepo.getAll();
  * @param {Array} columns the board columns
  * @returns {Object} new board
  */
-const create = (title, columns) => {
+const create = (title: string, columns: Column[]) => {
   const board = toBoard(title, toColumn(columns));
   return boardsRepo.save(board);
 };
@@ -24,7 +25,7 @@ const create = (title, columns) => {
  * @param {string} id given id
  * @returns {Object} the board
  */
-const find = (id) => boardsRepo.find(id);
+const find = (id: string) => boardsRepo.find(id);
 
 /**
  * Updates the board by given id
@@ -33,11 +34,15 @@ const find = (id) => boardsRepo.find(id);
  * @param {Array} updateColumns columns update from
  * @returns {Object} updated board
  */
-const update = async (id, updateTitle, updateColumns) => {
-  const board = await boardsRepo.find(id);
-  const { columns } = board;
+const update = async (
+  id: string,
+  updateTitle: string,
+  updateColumns: Column[]
+) => {
+  const board = (await boardsRepo.find(id))!;
+  const columnsToUpdate: Column[] = board.columns;
   board.title = updateTitle;
-  board.columns = toUpdateColumns(columns, updateColumns);
+  board.columns = toUpdateColumns(columnsToUpdate, updateColumns);
   return boardsRepo.update(board);
 };
 
@@ -45,7 +50,7 @@ const update = async (id, updateTitle, updateColumns) => {
  * Deletes board and its tasks
  * @param {string} id id of board to delete
  */
-const remove = (id) => {
+const remove = (id: string) => {
   boardsRepo.remove(id);
   removeWithBoard(id);
 };

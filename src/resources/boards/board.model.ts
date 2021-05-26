@@ -5,6 +5,12 @@ import { Column } from './column.model.js';
  * Class representing a Board
  */
 export class Board {
+  id: string;
+
+  title: string;
+
+  columns: Column[];
+
   /**
    * Create a board
    * @param {Object} param0 object create from

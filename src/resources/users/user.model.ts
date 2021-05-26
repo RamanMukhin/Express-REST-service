@@ -4,6 +4,14 @@ import { v4 as uuid } from 'uuid';
  * Class representing a User
  */
 export class User {
+  id: string;
+
+  name: string;
+
+  login: string;
+
+  password: string;
+
   /**
    * Create a user
    * @param {*} param0 object create from
@@ -20,7 +28,12 @@ export class User {
     this.password = password;
   }
 
-  static toResponse(user) {
+  static toResponse(user: {
+    id: string;
+    name: string;
+    login: string;
+    password: string;
+  }) {
     const { id, name, login } = user;
     return { id, name, login };
   }

@@ -4,6 +4,20 @@ import { v4 as uuid } from 'uuid';
  * Class representing a Task
  */
 export class Task {
+  id: string;
+
+  title: string;
+
+  order: number;
+
+  description: string;
+
+  userId: string | null;
+
+  boardId: string;
+
+  columnId: string;
+
   /**
    * Create a task
    * @param {Object} param0 object create from

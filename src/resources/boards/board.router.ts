@@ -4,14 +4,14 @@ import { toBoardDto, toColumnDto } from '../../common/boardUtil.js';
 
 const router = express.Router();
 
-router.route('/').get(async (req, res) => {
+router.route('/').get(async (_req, res) => {
   const boards = await boardsService.getAll();
   res.json(boards);
 });
 
 router.route('/').post(async (req, res) => {
-  const title = toBoardDto(req);
-  const columns = toColumnDto(req);
+  const title = toBoardDto(req.body);
+  const columns = toColumnDto(req.body);
   const board = await boardsService.create(title, columns);
   res.status(201).json(board);
 });
@@ -27,8 +27,8 @@ router.route('/:id').get(async (req, res) => {
 
 router.route('/:id').put(async (req, res) => {
   const { id } = req.params;
-  const updateTitle = toBoardDto(req);
-  const updateColumns = toColumnDto(req);
+  const updateTitle = toBoardDto(req.body);
+  const updateColumns = toColumnDto(req.body);
   const board = await boardsService.update(id, updateTitle, updateColumns);
   res.json(board);
 });
