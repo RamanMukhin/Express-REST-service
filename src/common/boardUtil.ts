@@ -1,5 +1,5 @@
-import { Board } from '../resources/boards/board.model.js';
-import { Column } from '../resources/boards/column.model.js';
+import { Board } from '../resources/boards/board.model';
+import { Column } from '../resources/boards/column.model';
 
 interface IBoard {
   id?: string;
@@ -8,17 +8,17 @@ interface IBoard {
 }
 
 /**
- * Creates and returns boardDto from the given req
- * @param {Object} req given request
- * @returns {string} boardDto from the given req
+ * Creates and returns boardDto from the given request body
+ * @param {Object} req given request body
+ * @returns {string} boardDto from the given req body
  */
 function toBoardDto(req: IBoard) {
   return req.title;
 }
 
 /**
- * Creates and returns columnDto from given request
- * @param {Object} req given request
+ * Creates and returns columnDto from given request body
+ * @param {Object} req given request body
  * @returns {Array} columnDto
  */
 function toColumnDto(req: IBoard) {

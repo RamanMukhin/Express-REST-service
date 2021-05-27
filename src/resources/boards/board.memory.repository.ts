@@ -1,5 +1,5 @@
-import { Board } from './board.model.js';
-import { findIndex } from '../../common/boardUtil.js';
+import { Board } from './board.model';
+import { findIndex } from '../../common/boardUtil';
 
 const boards: Board[] = [];
 

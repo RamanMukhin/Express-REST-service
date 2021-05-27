@@ -1,13 +1,16 @@
-import { v4 as uuid } from 'uuid';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Task = void 0;
+const uuid_1 = require("uuid");
 /**
  * Class representing a Task
  */
-export class Task {
+class Task {
     /**
      * Create a task
      * @param {Object} param0 object create from
      */
-    constructor({ id = uuid(), title = 'TITLE', order = 0, description = 'description', userId = 'userId', boardId = 'boardId', columnId = 'columnId', } = {}) {
+    constructor({ id = uuid_1.v4(), title = 'TITLE', order = 0, description = 'description', userId = 'userId', boardId = 'boardId', columnId = 'columnId', } = {}) {
         this.id = id;
         this.title = title;
         this.order = order;
@@ -17,3 +20,4 @@ export class Task {
         this.columnId = columnId;
     }
 }
+exports.Task = Task;

@@ -1,5 +1,5 @@
-import { findIndex } from '../../common/userUtil.js';
-import { User } from './user.model.js';
+import { findIndex } from '../../common/userUtil';
+import { User } from './user.model';
 
 const users: User[] = [];
 

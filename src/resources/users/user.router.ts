@@ -1,7 +1,7 @@
 import express from 'express';
-import * as usersService from './user.service.js';
-import { toUserDto } from '../../common/userUtil.js';
-import { User } from './user.model.js';
+import * as usersService from './user.service';
+import { toUserDto } from '../../common/userUtil';
+import { User } from './user.model';
 
 const router = express.Router();
 

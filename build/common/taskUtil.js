@@ -1,11 +1,14 @@
-import { Task } from '../resources/tasks/task.model.js';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.findByUserId = exports.findByBoardId = exports.findIndex = exports.toUpdateTask = exports.toTask = void 0;
+const task_model_1 = require("../resources/tasks/task.model");
 /**
  * Creates and returns a new object of class Task
  * @param {Object} newTask taskDto
  * @returns {Object} new task
  */
 function toTask(newTask) {
-    return new Task({
+    return new task_model_1.Task({
         title: newTask.title,
         order: newTask.order,
         description: newTask.description,
@@ -14,6 +17,7 @@ function toTask(newTask) {
         columnId: newTask.columnId,
     });
 }
+exports.toTask = toTask;
 /**
  * Updates given task object
  * @param {Object} task given task
@@ -27,6 +31,7 @@ function toUpdateTask(task, updateTask) {
     task.boardId = updateTask.boardId;
     task.columnId = updateTask.columnId;
 }
+exports.toUpdateTask = toUpdateTask;
 /**
  * Searches and returns the index of the object with given id
  * @param {string} id given id
@@ -36,6 +41,7 @@ function toUpdateTask(task, updateTask) {
 function findIndex(id, tasks) {
     return tasks.findIndex((task) => task.id === id);
 }
+exports.findIndex = findIndex;
 /**
  * Returns an array of tasks assigned to boardId
  * @param {string} boardId assigned boardId
@@ -45,6 +51,7 @@ function findIndex(id, tasks) {
 function findByBoardId(boardId, tasks) {
     return tasks.filter((task) => task.boardId === boardId);
 }
+exports.findByBoardId = findByBoardId;
 /**
  * Returns an array of tasks assigned to userId
  * @param {string} userId assigned boardId
@@ -54,4 +61,4 @@ function findByBoardId(boardId, tasks) {
 function findByUserId(userId, tasks) {
     return tasks.filter((task) => task.userId === userId);
 }
-export { toTask, toUpdateTask, findIndex, findByBoardId, findByUserId };
+exports.findByUserId = findByUserId;

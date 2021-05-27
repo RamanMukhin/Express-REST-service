@@ -1,4 +1,4 @@
-import { Task } from '../resources/tasks/task.model.js';
+import { Task } from '../resources/tasks/task.model';
 
 interface ITask {
   id?: string;

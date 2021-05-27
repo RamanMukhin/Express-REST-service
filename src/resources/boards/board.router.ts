@@ -1,6 +1,6 @@
 import express from 'express';
-import * as boardsService from './board.service.js';
-import { toBoardDto, toColumnDto } from '../../common/boardUtil.js';
+import * as boardsService from './board.service';
+import { toBoardDto, toColumnDto } from '../../common/boardUtil';
 
 const router = express.Router();
 

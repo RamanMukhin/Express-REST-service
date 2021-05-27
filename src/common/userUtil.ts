@@ -1,4 +1,4 @@
-import { User } from '../resources/users/user.model.js';
+import { User } from '../resources/users/user.model';
 
 interface IUser {
   name: string;

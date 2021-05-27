@@ -1,7 +1,7 @@
-import * as boardsRepo from './board.memory.repository.js';
-import { toBoard, toColumn, toUpdateColumns } from '../../common/boardUtil.js';
-import { removeWithBoard } from '../tasks/task.service.js';
-import { Column } from './column.model.js';
+import * as boardsRepo from './board.memory.repository';
+import { toBoard, toColumn, toUpdateColumns } from '../../common/boardUtil';
+import { removeWithBoard } from '../tasks/task.service';
+import { Column } from './column.model';
 
 /**
  * Returns all boards

@@ -1,21 +1,26 @@
-import { Board } from '../resources/boards/board.model.js';
-import { Column } from '../resources/boards/column.model.js';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.findIndex = exports.toUpdateColumns = exports.updateBoard = exports.toColumn = exports.toBoard = exports.toColumnDto = exports.toBoardDto = void 0;
+const board_model_1 = require("../resources/boards/board.model");
+const column_model_1 = require("../resources/boards/column.model");
 /**
- * Creates and returns boardDto from the given req
- * @param {Object} req given request
- * @returns {string} boardDto from the given req
+ * Creates and returns boardDto from the given request body
+ * @param {Object} req given request body
+ * @returns {string} boardDto from the given req body
  */
 function toBoardDto(req) {
     return req.title;
 }
+exports.toBoardDto = toBoardDto;
 /**
- * Creates and returns columnDto from given request
- * @param {Object} req given request
+ * Creates and returns columnDto from given request body
+ * @param {Object} req given request body
  * @returns {Array} columnDto
  */
 function toColumnDto(req) {
     return req.columns;
 }
+exports.toColumnDto = toColumnDto;
 /**
  * Creates and returns a new object of class Board
  * @param {string} title boardDto
@@ -23,11 +28,12 @@ function toColumnDto(req) {
  * @returns {Object} new object of class Board
  */
 function toBoard(title, columns) {
-    return new Board({
+    return new board_model_1.Board({
         title,
         columns,
     });
 }
+exports.toBoard = toBoard;
 /**
  * Сreates an array of new objects of the Column class
  * @param {Array} columns columnDto
@@ -36,10 +42,11 @@ function toBoard(title, columns) {
 function toColumn(columns) {
     const createdColumns = [];
     for (let i = 0; i < columns.length; i += 1) {
-        createdColumns.push(new Column(columns[i]));
+        createdColumns.push(new column_model_1.Column(columns[i]));
     }
     return createdColumns;
 }
+exports.toColumn = toColumn;
 /**
  * Updates and returns array of columns
  * @param {Array} columns array to update
@@ -55,6 +62,7 @@ function toUpdateColumns(columns, updateColumns) {
     }
     return columns;
 }
+exports.toUpdateColumns = toUpdateColumns;
 /**
  * Updates given Board object
  * @param {Object} board given object
@@ -66,6 +74,7 @@ function updateBoard(board, updateTitle, updateColumns) {
     board.title = updateTitle;
     board.columns = toUpdateColumns(columns, updateColumns);
 }
+exports.updateBoard = updateBoard;
 /**
  * Searches and returns the index of the object with given id
  * @param {string} id given id
@@ -75,4 +84,4 @@ function updateBoard(board, updateTitle, updateColumns) {
 function findIndex(id, boards) {
     return boards.findIndex((board) => board.id === id);
 }
-export { toBoardDto, toColumnDto, toBoard, toColumn, updateBoard, toUpdateColumns, findIndex, };
+exports.findIndex = findIndex;

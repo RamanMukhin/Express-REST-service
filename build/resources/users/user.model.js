@@ -1,13 +1,16 @@
-import { v4 as uuid } from 'uuid';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.User = void 0;
+const uuid_1 = require("uuid");
 /**
  * Class representing a User
  */
-export class User {
+class User {
     /**
      * Create a user
      * @param {*} param0 object create from
      */
-    constructor({ id = uuid(), name = 'USER', login = 'user', password = 'P@55w0rd', } = {}) {
+    constructor({ id = uuid_1.v4(), name = 'USER', login = 'user', password = 'P@55w0rd', } = {}) {
         this.id = id;
         this.name = name;
         this.login = login;
@@ -18,3 +21,4 @@ export class User {
         return { id, name, login };
     }
 }
+exports.User = User;

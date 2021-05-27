@@ -1,9 +1,9 @@
-import { Task } from './task.model.js';
+import { Task } from './task.model';
 import {
   findIndex,
   findByBoardId,
   findByUserId,
-} from '../../common/taskUtil.js';
+} from '../../common/taskUtil';
 
 const tasks: Task[] = [];
 

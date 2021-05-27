@@ -1,6 +1,6 @@
-import * as usersRepo from './user.memory.repository.js';
-import { toUser, toUpdateUser, IUser } from '../../common/userUtil.js';
-import { updateWithUser } from '../tasks/task.service.js';
+import * as usersRepo from './user.memory.repository';
+import { toUser, toUpdateUser, IUser } from '../../common/userUtil';
+import { updateWithUser } from '../tasks/task.service';
 
 /**
  * Returns all users

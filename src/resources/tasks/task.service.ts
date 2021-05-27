@@ -1,5 +1,5 @@
-import * as tasksRepo from './task.memory.repository.js';
-import { toTask, toUpdateTask, ITask } from '../../common/taskUtil.js';
+import * as tasksRepo from './task.memory.repository';
+import { toTask, toUpdateTask, ITask } from '../../common/taskUtil';
 
 /**
  * Returns all tasks
