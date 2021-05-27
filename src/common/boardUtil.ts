@@ -1,12 +1,18 @@
 import { Board } from '../resources/boards/board.model.js';
 import { Column } from '../resources/boards/column.model.js';
 
+interface IBoard {
+  id?: string;
+  title: string;
+  columns: Column[];
+}
+
 /**
  * Creates and returns boardDto from the given req
  * @param {Object} req given request
  * @returns {string} boardDto from the given req
  */
-function toBoardDto(req: { id: string, title: string, columns: Column[] }) {
+function toBoardDto(req: IBoard) {
   return req.title;
 }
 
@@ -15,7 +21,7 @@ function toBoardDto(req: { id: string, title: string, columns: Column[] }) {
  * @param {Object} req given request
  * @returns {Array} columnDto
  */
-function toColumnDto(req: { id: string, title: string, columns: Column[] }) {
+function toColumnDto(req: IBoard) {
   return req.columns;
 }
 
@@ -53,8 +59,8 @@ function toColumn(columns: Column[]) {
  */
 function toUpdateColumns(columns: Column[], updateColumns: Column[]) {
   for (let i = 0; i < updateColumns.length; i += 1) {
-    const columnToUpdate: Column = (columns[i])!;
-    const columnUpdateFrom: Column = (updateColumns[i])!;
+    const columnToUpdate: Column = columns[i]!;
+    const columnUpdateFrom: Column = updateColumns[i]!;
     columnToUpdate.title = columnUpdateFrom.title;
     columnToUpdate.order = columnUpdateFrom.order;
   }
@@ -95,4 +101,5 @@ export {
   updateBoard,
   toUpdateColumns,
   findIndex,
+  IBoard,
 };

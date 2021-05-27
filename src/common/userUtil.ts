@@ -1,11 +1,17 @@
 import { User } from '../resources/users/user.model.js';
 
+interface IUser {
+  name: string;
+  login: string;
+  password: string;
+}
+
 /**
  * Creates and returns userdDto from the given req
  * @param {Object} req give request
  * @returns {Object} userDto
  */
-function toUserDto(req: { name: string; login: string; password: string }) {
+function toUserDto(req: IUser) {
   return {
     name: req.name,
     login: req.login,
@@ -18,7 +24,7 @@ function toUserDto(req: { name: string; login: string; password: string }) {
  * @param {Object} newUser userDto
  * @returns {Object} new user
  */
-function toUser(newUser: { name: string; login: string; password: string }) {
+function toUser(newUser: IUser) {
   return new User({
     name: newUser.name,
     login: newUser.login,
@@ -31,10 +37,7 @@ function toUser(newUser: { name: string; login: string; password: string }) {
  * @param {Object} user given object
  * @param {Object} update object update from
  */
-function toUpdateUser(
-  user: User,
-  update: { name: string; login: string; password: string }
-) {
+function toUpdateUser(user: User, update: IUser) {
   user.name = update.name;
   user.login = update.login;
   user.password = update.password;
@@ -50,4 +53,4 @@ function findIndex(id: string, users: User[]) {
   return users.findIndex((user) => user.id === id);
 }
 
-export { toUserDto, toUser, toUpdateUser, findIndex };
+export { toUserDto, toUser, toUpdateUser, findIndex, IUser };

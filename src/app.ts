@@ -8,7 +8,9 @@ import { router as boardRouter } from './resources/boards/board.router.js';
 import { router as taskRouter } from './resources/tasks/task.router.js';
 
 const app = express();
-const swaggerDocument = YAML.load(path.join(dirname(fileURLToPath(import.meta.url)),'../doc/api.yaml'));
+const swaggerDocument = YAML.load(
+  path.join(dirname(fileURLToPath(import.meta.url)), '../doc/api.yaml')
+);
 
 app.use(express.json());
 

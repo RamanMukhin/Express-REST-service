@@ -43,7 +43,7 @@ const remove = async (id) => {
 const removeWithBoard = async (boardId) => {
     const arrayTaskWithBoardId = findByBoardId(boardId, tasks);
     for (let i = 0; i < arrayTaskWithBoardId.length; i += 1) {
-        const id = arrayTaskWithBoardId[i]?.id;
+        const { id } = arrayTaskWithBoardId[i];
         tasks.splice(findIndex(id, tasks), 1);
     }
 };

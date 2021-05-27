@@ -1,18 +1,21 @@
 import { Task } from '../resources/tasks/task.model.js';
 
-/**
- * Creates and returns a new object of class Task
- * @param {Object} newTask taskDto
- * @returns {Object} new task
- */
-function toTask(newTask: {
+interface ITask {
+  id?: string;
   title: string;
   order: number;
   description: string;
   userId: string | null;
   boardId: string;
   columnId: string;
-}) {
+}
+
+/**
+ * Creates and returns a new object of class Task
+ * @param {Object} newTask taskDto
+ * @returns {Object} new task
+ */
+function toTask(newTask: ITask) {
   return new Task({
     title: newTask.title,
     order: newTask.order,
@@ -28,17 +31,7 @@ function toTask(newTask: {
  * @param {Object} task given task
  * @param {Object} updateTask task from update
  */
-function toUpdateTask(
-  task: Task,
-  updateTask: {
-    title: string;
-    order: number;
-    description: string;
-    userId: string | null;
-    boardId: string;
-    columnId: string;
-  }
-) {
+function toUpdateTask(task: Task, updateTask: ITask) {
   task.title = updateTask.title;
   task.order = updateTask.order;
   task.description = updateTask.description;
@@ -77,4 +70,4 @@ function findByUserId(userId: string, tasks: Task[]) {
   return tasks.filter((task: Task) => task.userId === userId);
 }
 
-export { toTask, toUpdateTask, findIndex, findByBoardId, findByUserId };
+export { toTask, toUpdateTask, findIndex, findByBoardId, findByUserId, ITask };

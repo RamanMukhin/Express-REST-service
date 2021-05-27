@@ -1,5 +1,5 @@
 import * as usersRepo from './user.memory.repository.js';
-import { toUser, toUpdateUser } from '../../common/userUtil.js';
+import { toUser, toUpdateUser, IUser } from '../../common/userUtil.js';
 import { updateWithUser } from '../tasks/task.service.js';
 
 /**
@@ -13,7 +13,7 @@ const getAll = () => usersRepo.getAll();
  * @param {Object} newUser user create from
  * @returns {Object} new user
  */
-const create = (newUser: { name: string; login: string; password: string }) => {
+const create = (newUser: IUser) => {
   const user = toUser(newUser);
   return usersRepo.save(user);
 };
@@ -31,10 +31,7 @@ const find = (id: string) => usersRepo.find(id);
  * @param {Object} updateUser user update from
  * @returns {Object} the user
  */
-const update = async (
-  id: string,
-  updateUser: { name: string; login: string; password: string }
-) => {
+const update = async (id: string, updateUser: IUser) => {
   const user = (await usersRepo.find(id))!;
   toUpdateUser(user, updateUser);
   return usersRepo.update(user);

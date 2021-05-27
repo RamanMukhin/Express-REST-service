@@ -52,8 +52,7 @@ const removeWithBoard = (boardId) => {
 const updateWithUser = async (userId) => {
     const arrOfTasks = await tasksRepo.findTasks(userId);
     for (let i = 0; i < arrOfTasks.length; i += 1) {
-        const taskId = (arrOfTasks[i]?.id);
-        const task = (await tasksRepo.find(taskId));
+        const task = arrOfTasks[i];
         task.userId = null;
         await tasksRepo.update(task);
     }

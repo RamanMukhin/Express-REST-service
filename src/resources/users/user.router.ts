@@ -3,7 +3,6 @@ import * as usersService from './user.service.js';
 import { toUserDto } from '../../common/userUtil.js';
 import { User } from './user.model.js';
 
-
 const router = express.Router();
 
 router.route('/').get(async (_req, res) => {
