@@ -7,8 +7,8 @@ interface IUser {
 }
 
 /**
- * Creates and returns userdDto from the given req
- * @param {Object} req give request
+ * Creates and returns userdDto from the given request body
+ * @param {Object} req give request body
  * @returns {Object} userDto
  */
 function toUserDto(req: IUser) {
