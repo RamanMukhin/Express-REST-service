@@ -5,16 +5,16 @@ import { toTask, toUpdateTask, ITask } from '../../common/taskUtil.js';
  * Returns all tasks
  * @returns {Array} array of tasks
  */
-const getAll = () => tasksRepo.getAll();
+const getAll = async () => await tasksRepo.getAll();
 
 /**
  * Creates and returns a new task
  * @param {Object} newTask task create from
  * @returns {Object} new task
  */
-const create = (newTask: ITask) => {
+const create = async (newTask: ITask) => {
   const task = toTask(newTask);
-  return tasksRepo.save(task);
+  return await tasksRepo.save(task);
 };
 
 /**
@@ -22,7 +22,7 @@ const create = (newTask: ITask) => {
  * @param {string} id given id
  * @returns {Object} the task
  */
-const find = (id: string) => tasksRepo.find(id);
+const find = async (id: string) => await tasksRepo.find(id);
 
 /**
  * Updates the task by given id
@@ -33,23 +33,23 @@ const find = (id: string) => tasksRepo.find(id);
 const update = async (id: string, updateTask: ITask) => {
   const task = (await tasksRepo.find(id))!;
   toUpdateTask(task, updateTask);
-  return tasksRepo.update(task);
+  return await tasksRepo.update(task);
 };
 
 /**
  * Deletes task by given id
  * @param {string} id given id
  */
-const remove = (id: string) => {
-  tasksRepo.remove(id);
+const remove = async (id: string) => {
+  await tasksRepo.remove(id);
 };
 
 /**
  * Deletes tasks by given boardId
  * @param {string} boardId given boardId
  */
-const removeWithBoard = (boardId: string) => {
-  tasksRepo.removeWithBoard(boardId);
+const removeWithBoard = async (boardId: string) => {
+  await tasksRepo.removeWithBoard(boardId);
 };
 
 /**

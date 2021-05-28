@@ -5,23 +5,23 @@ import { removeWithBoard } from '../tasks/task.service.js';
  * Returns all boards
  * @returns {Array} array of boards
  */
-const getAll = () => boardsRepo.getAll();
+const getAll = async () => await boardsRepo.getAll();
 /**
  * Creates and returns a new board
  * @param {string} title the board title
  * @param {Array} columns the board columns
  * @returns {Object} new board
  */
-const create = (title, columns) => {
+const create = async (title, columns) => {
     const board = toBoard(title, toColumn(columns));
-    return boardsRepo.save(board);
+    return await boardsRepo.save(board);
 };
 /**
  * Returns the board by given id
  * @param {string} id given id
  * @returns {Object} the board
  */
-const find = (id) => boardsRepo.find(id);
+const find = async (id) => await boardsRepo.find(id);
 /**
  * Updates the board by given id
  * @param {string} id given id
@@ -34,14 +34,14 @@ const update = async (id, updateTitle, updateColumns) => {
     const columnsToUpdate = board.columns;
     board.title = updateTitle;
     board.columns = toUpdateColumns(columnsToUpdate, updateColumns);
-    return boardsRepo.update(board);
+    return await boardsRepo.update(board);
 };
 /**
  * Deletes board and its tasks
  * @param {string} id id of board to delete
  */
-const remove = (id) => {
-    boardsRepo.remove(id);
-    removeWithBoard(id);
+const remove = async (id) => {
+    await boardsRepo.remove(id);
+    await removeWithBoard(id);
 };
 export { getAll, create, find, update, remove };

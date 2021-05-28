@@ -6,16 +6,16 @@ import { updateWithUser } from '../tasks/task.service.js';
  * Returns all users
  * @returns {Array} array of users
  */
-const getAll = () => usersRepo.getAll();
+const getAll =async () => await usersRepo.getAll();
 
 /**
  * Creates and returns a new user
  * @param {Object} newUser user create from
  * @returns {Object} new user
  */
-const create = (newUser: IUser) => {
+const create = async (newUser: IUser) => {
   const user = toUser(newUser);
-  return usersRepo.save(user);
+  return await usersRepo.save(user); 
 };
 
 /**
@@ -23,7 +23,7 @@ const create = (newUser: IUser) => {
  * @param {string} id given id
  * @returns {Object} the user
  */
-const find = (id: string) => usersRepo.find(id);
+const find = async (id: string) => await usersRepo.find(id);
 
 /**
  * Updates the user by given id
@@ -34,16 +34,16 @@ const find = (id: string) => usersRepo.find(id);
 const update = async (id: string, updateUser: IUser) => {
   const user = (await usersRepo.find(id))!;
   toUpdateUser(user, updateUser);
-  return usersRepo.update(user);
+  return await usersRepo.update(user);
 };
 
 /**
  * Deletes user by given id and reassigned its tasks
  * @param {string} id given id
  */
-const remove = (id: string) => {
-  usersRepo.remove(id);
-  updateWithUser(id);
+const remove = async (id: string) => {
+  await usersRepo.remove(id);
+  await updateWithUser(id);
 };
 
 export { getAll, create, find, update, remove };

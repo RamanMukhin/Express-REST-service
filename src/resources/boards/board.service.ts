@@ -7,7 +7,7 @@ import { Column } from './column.model.js';
  * Returns all boards
  * @returns {Array} array of boards
  */
-const getAll = () => boardsRepo.getAll();
+const getAll = async () => await boardsRepo.getAll();
 
 /**
  * Creates and returns a new board
@@ -15,9 +15,9 @@ const getAll = () => boardsRepo.getAll();
  * @param {Array} columns the board columns
  * @returns {Object} new board
  */
-const create = (title: string, columns: Column[]) => {
+const create = async (title: string, columns: Column[]) => {
   const board = toBoard(title, toColumn(columns));
-  return boardsRepo.save(board);
+  return await boardsRepo.save(board);
 };
 
 /**
@@ -25,7 +25,7 @@ const create = (title: string, columns: Column[]) => {
  * @param {string} id given id
  * @returns {Object} the board
  */
-const find = (id: string) => boardsRepo.find(id);
+const find = async (id: string) => await boardsRepo.find(id);
 
 /**
  * Updates the board by given id
@@ -43,16 +43,16 @@ const update = async (
   const columnsToUpdate: Column[] = board.columns;
   board.title = updateTitle;
   board.columns = toUpdateColumns(columnsToUpdate, updateColumns);
-  return boardsRepo.update(board);
+  return await boardsRepo.update(board);
 };
 
 /**
  * Deletes board and its tasks
  * @param {string} id id of board to delete
  */
-const remove = (id: string) => {
-  boardsRepo.remove(id);
-  removeWithBoard(id);
+const remove = async (id: string) => {
+  await boardsRepo.remove(id);
+  await removeWithBoard(id);
 };
 
 export { getAll, create, find, update, remove };
