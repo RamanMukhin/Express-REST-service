@@ -20,12 +20,7 @@ function toTask(newTask) {
  * @param {Object} updateTask task from update
  */
 function toUpdateTask(task, updateTask) {
-    task.title = updateTask.title;
-    task.order = updateTask.order;
-    task.description = updateTask.description;
-    task.userId = updateTask.userId;
-    task.boardId = updateTask.boardId;
-    task.columnId = updateTask.columnId;
+    Object.assign(task, updateTask);
 }
 /**
  * Searches and returns the index of the object with given id

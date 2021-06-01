@@ -50,8 +50,7 @@ function toUpdateColumns(columns, updateColumns) {
     for (let i = 0; i < updateColumns.length; i += 1) {
         const columnToUpdate = columns[i];
         const columnUpdateFrom = updateColumns[i];
-        columnToUpdate.title = columnUpdateFrom.title;
-        columnToUpdate.order = columnUpdateFrom.order;
+        Object.assign(columnToUpdate, columnUpdateFrom);
     }
     return columns;
 }

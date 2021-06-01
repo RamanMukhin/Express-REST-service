@@ -32,12 +32,7 @@ function toTask(newTask: ITask) {
  * @param {Object} updateTask task from update
  */
 function toUpdateTask(task: Task, updateTask: ITask) {
-  task.title = updateTask.title;
-  task.order = updateTask.order;
-  task.description = updateTask.description;
-  task.userId = updateTask.userId;
-  task.boardId = updateTask.boardId;
-  task.columnId = updateTask.columnId;
+  Object.assign(task, updateTask);
 }
 
 /**

@@ -17,11 +17,7 @@ function toUserDto(req) {
  * @returns {Object} new user
  */
 function toUser(newUser) {
-    return new User({
-        name: newUser.name,
-        login: newUser.login,
-        password: newUser.password,
-    });
+    return new User(newUser);
 }
 /**
  * Updates given User object
@@ -29,9 +25,7 @@ function toUser(newUser) {
  * @param {Object} update object update from
  */
 function toUpdateUser(user, update) {
-    user.name = update.name;
-    user.login = update.login;
-    user.password = update.password;
+    Object.assign(user, update);
 }
 /**
  * Searches and returns the index of the object with given id

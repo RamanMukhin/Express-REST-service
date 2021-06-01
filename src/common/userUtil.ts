@@ -1,6 +1,7 @@
 import { User } from '../resources/users/user.model.js';
 
 interface IUser {
+  id?: string;
   name: string;
   login: string;
   password: string;
@@ -25,11 +26,7 @@ function toUserDto(req: IUser) {
  * @returns {Object} new user
  */
 function toUser(newUser: IUser) {
-  return new User({
-    name: newUser.name,
-    login: newUser.login,
-    password: newUser.password,
-  });
+  return new User(newUser);
 }
 
 /**
@@ -38,9 +35,7 @@ function toUser(newUser: IUser) {
  * @param {Object} update object update from
  */
 function toUpdateUser(user: User, update: IUser) {
-  user.name = update.name;
-  user.login = update.login;
-  user.password = update.password;
+  Object.assign(user, update );
 }
 
 /**

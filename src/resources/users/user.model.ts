@@ -28,12 +28,7 @@ export class User {
     this.password = password;
   }
 
-  static toResponse(user: {
-    id: string;
-    name: string;
-    login: string;
-    password: string;
-  }) {
+  static toResponse(user: User) {
     const { id, name, login } = user;
     return { id, name, login };
   }
