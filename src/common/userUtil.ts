@@ -7,11 +7,6 @@ interface IUser {
   password: string;
 }
 
-/**
- * Creates and returns userdDto from the given request body
- * @param {Object} req give request body
- * @returns {Object} userDto
- */
 function toUserDto(req: IUser) {
   return {
     name: req.name,
@@ -20,30 +15,14 @@ function toUserDto(req: IUser) {
   };
 }
 
-/**
- * Creates and returns a new object of class User
- * @param {Object} newUser userDto
- * @returns {Object} new user
- */
 function toUser(newUser: IUser) {
   return new User(newUser);
 }
 
-/**
- * Updates given User object
- * @param {Object} user given object
- * @param {Object} update object update from
- */
 function toUpdateUser(user: User, update: IUser) {
   Object.assign(user, update );
 }
 
-/**
- * Searches and returns the index of the object with given id
- * @param {string} id given id
- * @param {Array} users array for searching in
- * @returns {number} the index of the object with given id
- */
 function findIndex(id: string, users: User[]) {
   return users.findIndex((user) => user.id === id);
 }
