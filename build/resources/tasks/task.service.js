@@ -1,9 +1,5 @@
 import * as tasksRepo from './task.memory.repository.js';
 import { toTask, toUpdateTask } from '../../common/taskUtil.js';
-/**
- * Returns all tasks
- * @returns {Array} array of tasks
- */
 const getAll = async () => await tasksRepo.getAll();
 const create = async (newTask) => {
     const task = toTask(newTask);
