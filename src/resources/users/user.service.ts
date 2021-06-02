@@ -9,15 +9,20 @@ const create = async (newUser: IUser) => {
   return await usersRepo.save(user); 
 };
 
-const find = async (id: string) => await usersRepo.find(id);
+const find = async (id: string) => {
+  const user = await usersRepo.find(id);
+  if (!user) throw new Error("User not found");
+  return user;
+};
 
 const update = async (id: string, updateUser: IUser) => {
-  const user = (await usersRepo.find(id))!;
+  const user = await find(id);
   toUpdateUser(user, updateUser);
   return await usersRepo.update(user);
 };
 
 const remove = async (id: string) => {
+  await find(id);
   await usersRepo.remove(id);
   await updateWithUser(id);
 };

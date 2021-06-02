@@ -5,13 +5,19 @@ const create = async (newTask) => {
     const task = toTask(newTask);
     return await tasksRepo.save(task);
 };
-const find = async (id) => await tasksRepo.find(id);
+const find = async (id) => {
+    const task = await tasksRepo.find(id);
+    if (!task)
+        throw new Error('Task not found');
+    return task;
+};
 const update = async (id, updateTask) => {
-    const task = (await tasksRepo.find(id));
+    const task = await find(id);
     toUpdateTask(task, updateTask);
     return await tasksRepo.update(task);
 };
 const remove = async (id) => {
+    await find(id);
     await tasksRepo.remove(id);
 };
 const removeWithBoard = async (boardId) => {

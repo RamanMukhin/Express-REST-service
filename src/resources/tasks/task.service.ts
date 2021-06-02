@@ -8,15 +8,20 @@ const create = async (newTask: ITask) => {
   return await tasksRepo.save(task);
 };
 
-const find = async (id: string) => await tasksRepo.find(id);
+const find = async (id: string) => {
+  const task = await tasksRepo.find(id);
+  if (!task) throw new Error('Task not found');
+  return task;
+};
 
 const update = async (id: string, updateTask: ITask) => {
-  const task = (await tasksRepo.find(id))!;
+  const task = await find(id);
   toUpdateTask(task, updateTask);
   return await tasksRepo.update(task);
 };
 
 const remove = async (id: string) => {
+  await find(id);
   await tasksRepo.remove(id);
 };
 
