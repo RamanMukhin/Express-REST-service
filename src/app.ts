@@ -7,6 +7,7 @@ import { router as userRouter } from './resources/users/user.router.js';
 import { router as boardRouter } from './resources/boards/board.router.js';
 import { router as taskRouter } from './resources/tasks/task.router.js';
 import { router as logEvents } from './middlewares/logging.js';
+import { errorHandler } from './middlewares/errorHandler.js';
 
 const app = express();
 const swaggerDocument = YAML.load(
@@ -32,5 +33,7 @@ app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 
 app.use('/boards', taskRouter);
+
+app.use(errorHandler);
 
 export { app };

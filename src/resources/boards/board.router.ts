@@ -2,7 +2,7 @@ import express from 'express';
 import * as boardsService from './board.service.js';
 import { toBoardDto, toColumnDto } from '../../common/boardUtil.js';
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router.route('/').get(async (_req, res) => {
   const boards = await boardsService.getAll();
