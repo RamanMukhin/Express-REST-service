@@ -20,7 +20,7 @@ router.route('/:id').get(async (req, res) => {
   const { id } = req.params;
   const user = await usersService.find(id);
   if (typeof user === 'undefined') {
-    res.status(404);
+    res.status(404).json();
   } else {
     res.json(User.toResponse(user));
   }
