@@ -10,14 +10,18 @@ const create = async (title: string, columns: Column[]) => {
   return await boardsRepo.save(board);
 };
 
-const find = async (id: string) => await boardsRepo.find(id);
+const find = async (id: string) => {
+  const board = await boardsRepo.find(id);
+  if (!board) throw new Error('Board not found');
+  return board;
+};
 
 const update = async (
   id: string,
   updateTitle: string,
   updateColumns: Column[]
 ) => {
-  const board = (await boardsRepo.find(id))!;
+  const board = await find(id);
   const columnsToUpdate: Column[] = board.columns;
   board.title = updateTitle;
   board.columns = toUpdateColumns(columnsToUpdate, updateColumns);
@@ -25,6 +29,7 @@ const update = async (
 };
 
 const remove = async (id: string) => {
+  await find(id);
   await boardsRepo.remove(id);
   await removeWithBoard(id);
 };

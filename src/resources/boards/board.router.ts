@@ -16,27 +16,36 @@ router.route('/').post(async (req, res) => {
   res.status(201).json(board);
 });
 
-router.route('/:id').get(async (req, res) => {
+router.route('/:id').get(async (req, res, next) => {
   const { id } = req.params;
-  const board = await boardsService.find(id);
-  if (typeof board === 'undefined') {
-    res.status(404);
+  try {
+    const board = await boardsService.find(id);
+    res.json(board);
+  } catch (err) {
+    next(err);
   }
-  res.json(board);
 });
 
-router.route('/:id').put(async (req, res) => {
+router.route('/:id').put(async (req, res, next) => {
   const { id } = req.params;
   const updateTitle = toBoardDto(req.body);
   const updateColumns = toColumnDto(req.body);
-  const board = await boardsService.update(id, updateTitle, updateColumns);
-  res.json(board);
+  try {
+    const board = await boardsService.update(id, updateTitle, updateColumns);
+    res.json(board);
+  } catch (err) {
+    next(err);
+  }
 });
 
-router.route('/:id').delete(async (req, res) => {
+router.route('/:id').delete(async (req, res, next) => {
   const { id } = req.params;
-  await boardsService.remove(id);
-  res.json();
+  try {
+    await boardsService.remove(id);
+    res.json('Board deleted');
+  } catch (err) {
+    next(err);
+  }
 });
 
 export { router };

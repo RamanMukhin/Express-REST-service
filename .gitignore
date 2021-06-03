@@ -1,4 +1,6 @@
 node_modules/
 docs/
-logs.txt
-errorLogs.txt
+logs/logs.txt
+logs/errorlogs.txt
+logs/unhandledRejectionLogs.txt
+logs/uncaughtExceptionLogs.txt

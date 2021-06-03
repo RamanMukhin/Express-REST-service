@@ -19,7 +19,6 @@ router.route('/:id').get(async (req, res, next) => {
         res.json(User.toResponse(user));
     }
     catch (err) {
-        res.statusCode = 404;
         next(err);
     }
 });
@@ -31,7 +30,6 @@ router.route('/:id').put(async (req, res, next) => {
         res.json(User.toResponse(user));
     }
     catch (err) {
-        res.statusCode = 404;
         next(err);
     }
 });
@@ -39,10 +37,9 @@ router.route('/:id').delete(async (req, res, next) => {
     const { id } = req.params;
     try {
         await usersService.remove(id);
-        res.json('Deleted');
+        res.json('User deleted');
     }
     catch (err) {
-        res.statusCode = 404;
         next(err);
     }
 });

@@ -2,7 +2,7 @@ import express from 'express';
 import { finished } from 'stream';
 import fs from 'fs';
 const router = express.Router({ mergeParams: true });
-const writeStream = fs.createWriteStream('./logs.txt');
+const writeStream = fs.createWriteStream('./logs/logs.txt');
 let recordNumber = 1;
 router.use((req, res, next) => {
     const receiptTime = new Date();

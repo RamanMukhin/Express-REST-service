@@ -18,7 +18,6 @@ router.route('/:id/tasks/:id').get(async (req, res, next) => {
         res.json(task);
     }
     catch (err) {
-        res.statusCode = 404;
         next(err);
     }
 });
@@ -30,7 +29,6 @@ router.route('/:id/tasks/:id').put(async (req, res, next) => {
         res.json(task);
     }
     catch (err) {
-        res.statusCode = 404;
         next(err);
     }
 });
@@ -38,10 +36,9 @@ router.route('/:id/tasks/:id').delete(async (req, res, next) => {
     const { id } = req.params;
     try {
         await tasksService.remove(id);
-        res.json('Deleted');
+        res.json('Task deleted');
     }
     catch (err) {
-        res.statusCode = 404;
         next(err);
     }
 });
