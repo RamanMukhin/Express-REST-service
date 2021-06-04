@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid';
+import { ITask } from '../../common/taskUtil';
 
 export class Task {
   id: string;
@@ -23,7 +24,7 @@ export class Task {
     userId = 'userId',
     boardId = 'boardId',
     columnId = 'columnId',
-  } = {}) {
+  }: ITask) {
     this.id = id;
     this.title = title;
     this.order = order;

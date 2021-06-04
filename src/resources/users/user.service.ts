@@ -1,30 +1,31 @@
 import * as usersRepo from './user.memory.repository.js';
 import { toUser, toUpdateUser, IUser } from '../../common/userUtil.js';
-import { updateWithUser } from '../tasks/task.service.js';
+import { updateTasksWithUser } from '../tasks/task.service.js';
+import { User } from './user.model.js';
 
-const getAll =async () => await usersRepo.getAll();
+const getAll = async (): Promise<User[]> => await usersRepo.getAll();
 
-const create = async (newUser: IUser) => {
+const create = async (newUser: IUser): Promise<User> => {
   const user = toUser(newUser);
-  return await usersRepo.save(user); 
+  return await usersRepo.save(user);
 };
 
-const find = async (id: string) => {
+const find = async (id: string): Promise<User> => {
   const user = await usersRepo.find(id);
-  if (!user) throw new Error("User not found");
+  if (!user) throw new Error('User not found');
   return user;
 };
 
-const update = async (id: string, updateUser: IUser) => {
+const update = async (id: string, userUpdateFrom: IUser): Promise<User> => {
   const user = await find(id);
-  toUpdateUser(user, updateUser);
+  toUpdateUser(user, userUpdateFrom);
   return await usersRepo.update(user);
 };
 
-const remove = async (id: string) => {
+const remove = async (id: string): Promise<void> => {
   await find(id);
   await usersRepo.remove(id);
-  await updateWithUser(id);
+  await updateTasksWithUser(id);
 };
 
 export { getAll, create, find, update, remove };

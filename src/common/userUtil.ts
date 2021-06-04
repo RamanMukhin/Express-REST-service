@@ -7,23 +7,23 @@ interface IUser {
   password: string;
 }
 
-function toUserDto(req: IUser) {
+function toUserDto(requestBody: IUser): IUser {
   return {
-    name: req.name,
-    login: req.login,
-    password: req.password,
+    name: requestBody.name,
+    login: requestBody.login,
+    password: requestBody.password,
   };
 }
 
-function toUser(newUser: IUser) {
+function toUser(newUser: IUser): User {
   return new User(newUser);
 }
 
-function toUpdateUser(user: User, update: IUser) {
-  Object.assign(user, update );
+function toUpdateUser(user: User, userUpdateFrom: IUser): void {
+  Object.assign(user, userUpdateFrom);
 }
 
-function findIndex(id: string, users: User[]) {
+function findIndex(id: string, users: User[]): number {
   return users.findIndex((user) => user.id === id);
 }
 

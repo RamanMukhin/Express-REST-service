@@ -1,4 +1,6 @@
 import express from 'express';
+import { StatusCodes } from 'http-status-codes';
+import { toTaskDto } from '../../common/taskUtil.js';
 import * as tasksService from './task.service.js';
 const router = express.Router({ mergeParams: true });
 router.route('/:id/tasks/').get(async (_req, res) => {
@@ -6,10 +8,10 @@ router.route('/:id/tasks/').get(async (_req, res) => {
     res.json(tasks);
 });
 router.route('/:id/tasks/').post(async (req, res) => {
-    const newTask = req.body;
+    const newTask = toTaskDto(req.body);
     newTask.boardId = req.params.id;
     const task = await tasksService.create(newTask);
-    res.status(201).json(task);
+    res.status(StatusCodes.CREATED).json(task);
 });
 router.route('/:id/tasks/:id').get(async (req, res, next) => {
     const { id } = req.params;
@@ -23,9 +25,9 @@ router.route('/:id/tasks/:id').get(async (req, res, next) => {
 });
 router.route('/:id/tasks/:id').put(async (req, res, next) => {
     const { id } = req.params;
-    const updateTask = req.body;
+    const taskUpdateFrom = toTaskDto(req.body);
     try {
-        const task = await tasksService.update(id, updateTask);
+        const task = await tasksService.update(id, taskUpdateFrom);
         res.json(task);
     }
     catch (err) {

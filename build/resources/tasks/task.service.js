@@ -11,19 +11,19 @@ const find = async (id) => {
         throw new Error('Task not found');
     return task;
 };
-const update = async (id, updateTask) => {
+const update = async (id, taskUpdateFrom) => {
     const task = await find(id);
-    toUpdateTask(task, updateTask);
+    toUpdateTask(task, taskUpdateFrom);
     return await tasksRepo.update(task);
 };
 const remove = async (id) => {
     await find(id);
     await tasksRepo.remove(id);
 };
-const removeWithBoard = async (boardId) => {
-    await tasksRepo.removeWithBoard(boardId);
+const removeTasksWithBoard = async (boardId) => {
+    await tasksRepo.removeTaskWithBoard(boardId);
 };
-const updateWithUser = async (userId) => {
+const updateTasksWithUser = async (userId) => {
     const arrOfTasks = await tasksRepo.findTasks(userId);
     for (let i = 0; i < arrOfTasks.length; i += 1) {
         const task = arrOfTasks[i];
@@ -31,4 +31,4 @@ const updateWithUser = async (userId) => {
         await tasksRepo.update(task);
     }
 };
-export { getAll, create, find, update, remove, removeWithBoard, updateWithUser, };
+export { getAll, create, find, update, remove, removeTasksWithBoard, updateTasksWithUser, };

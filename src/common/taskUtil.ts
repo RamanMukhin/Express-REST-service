@@ -10,7 +10,18 @@ interface ITask {
   columnId: string;
 }
 
-function toTask(newTask: ITask) {
+function toTaskDto(requestBody: ITask): ITask {
+  return {
+    title: requestBody.title,
+    order: requestBody.order,
+    description: requestBody.description,
+    userId: requestBody.userId!,
+    boardId: requestBody.boardId,
+    columnId: requestBody.columnId,
+  };
+}
+
+function toTask(newTask: ITask): Task {
   return new Task({
     title: newTask.title,
     order: newTask.order,
@@ -21,20 +32,28 @@ function toTask(newTask: ITask) {
   });
 }
 
-function toUpdateTask(task: Task, updateTask: ITask) {
-  Object.assign(task, updateTask);
+function toUpdateTask(task: Task, taskUpdateFrom: ITask): void {
+  Object.assign(task, taskUpdateFrom);
 }
 
-function findIndex(id: string | undefined, tasks: Task[]) {
+function findIndex(id: string, tasks: Task[]): number {
   return tasks.findIndex((task: Task) => task.id === id);
 }
 
-function findByBoardId(boardId: string, tasks: Task[]) {
+function findByBoardId(boardId: string, tasks: Task[]): Task[] {
   return tasks.filter((task) => task.boardId === boardId);
 }
 
-function findByUserId(userId: string, tasks: Task[]) {
+function findByUserId(userId: string, tasks: Task[]): Task[] {
   return tasks.filter((task: Task) => task.userId === userId);
 }
 
-export { toTask, toUpdateTask, findIndex, findByBoardId, findByUserId, ITask };
+export {
+  toTaskDto,
+  toTask,
+  toUpdateTask,
+  findIndex,
+  findByBoardId,
+  findByUserId,
+  ITask,
+};

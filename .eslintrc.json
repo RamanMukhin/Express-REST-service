@@ -36,6 +36,7 @@
     "no-await-in-loop": 0,
     "node/no-missing-import": "off",
     "import/no-unresolved" : "off",
-    "no-return-await": "off"
+    "no-return-await": "off",
+    "no-console": "off"
   }
 }

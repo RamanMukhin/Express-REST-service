@@ -3,21 +3,22 @@ import { User } from './user.model.js';
 
 const users: User[] = [];
 
-const getAll = async () => users;
+const getAll = async (): Promise<User[]> => users;
 
-const save = async (user: User) => {
+const save = async (user: User): Promise<User> => {
   users.push(user);
   return user;
 };
 
-const find = async (id: string) => users.find((user) => user.id === id);
+const find = async (id: string): Promise<User | undefined> =>
+  users.find((user): Boolean => user.id === id);
 
-const update = async (user: User) => {
+const update = async (user: User): Promise<User> => {
   users.splice(findIndex(user.id, users), 1, user);
   return user;
 };
 
-const remove = async (id: string) => {
+const remove = async (id: string): Promise<void> => {
   users.splice(findIndex(id, users), 1);
 };
 

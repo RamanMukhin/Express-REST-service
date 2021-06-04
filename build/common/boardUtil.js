@@ -1,10 +1,10 @@
 import { Board } from '../resources/boards/board.model.js';
 import { Column } from '../resources/boards/column.model.js';
-function toBoardDto(req) {
-    return req.title;
+function toBoardDto(requestBody) {
+    return requestBody.title;
 }
-function toColumnDto(req) {
-    return req.columns;
+function toColumnDto(requestBody) {
+    return requestBody.columns;
 }
 function toBoard(title, columns) {
     return new Board({
@@ -19,20 +19,20 @@ function toColumn(columns) {
     }
     return createdColumns;
 }
-function toUpdateColumns(columns, updateColumns) {
-    for (let i = 0; i < updateColumns.length; i += 1) {
-        const columnToUpdate = columns[i];
-        const columnUpdateFrom = updateColumns[i];
+function toUpdateColumns(columnsToUpdate, columnsUpdateFrom) {
+    for (let i = 0; i < columnsUpdateFrom.length; i += 1) {
+        const columnToUpdate = columnsToUpdate[i];
+        const columnUpdateFrom = columnsUpdateFrom[i];
         Object.assign(columnToUpdate, columnUpdateFrom);
     }
-    return columns;
+    return columnsToUpdate;
 }
-function updateBoard(board, updateTitle, updateColumns) {
-    const { columns } = board;
-    board.title = updateTitle;
-    board.columns = toUpdateColumns(columns, updateColumns);
+function toUpdateBoard(board, titleUpdateFrom, columnsUpdateFrom) {
+    const columnsToUpdate = board.columns;
+    board.title = titleUpdateFrom;
+    board.columns = toUpdateColumns(columnsToUpdate, columnsUpdateFrom);
 }
 function findIndex(id, boards) {
     return boards.findIndex((board) => board.id === id);
 }
-export { toBoardDto, toColumnDto, toBoard, toColumn, updateBoard, toUpdateColumns, findIndex, };
+export { toBoardDto, toColumnDto, toBoard, toColumn, toUpdateBoard, toUpdateColumns, findIndex, };

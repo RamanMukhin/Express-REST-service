@@ -13,7 +13,7 @@ const update = async (task) => {
 const remove = async (id) => {
     tasks.splice(findIndex(id, tasks), 1);
 };
-const removeWithBoard = async (boardId) => {
+const removeTaskWithBoard = async (boardId) => {
     const arrayTaskWithBoardId = findByBoardId(boardId, tasks);
     for (let i = 0; i < arrayTaskWithBoardId.length; i += 1) {
         const { id } = arrayTaskWithBoardId[i];
@@ -21,4 +21,4 @@ const removeWithBoard = async (boardId) => {
     }
 };
 const findTasks = async (userId) => findByUserId(userId, tasks);
-export { getAll, save, find, update, remove, removeWithBoard, findTasks };
+export { getAll, save, find, update, remove, removeTaskWithBoard, findTasks };

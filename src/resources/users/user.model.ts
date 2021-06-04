@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid';
+import { IUser } from '../../common/userUtil';
 
 export class User {
   id: string;
@@ -14,7 +15,7 @@ export class User {
     name = 'USER',
     login = 'user',
     password = 'P@55w0rd',
-  } = {}) {
+  }: IUser) {
     this.id = id;
     this.name = name;
     this.login = login;

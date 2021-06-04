@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-function uncaughtExceptionHandler(err: Error) {
+function uncaughtExceptionHandler(err: Error): void {
   const { name, message, stack } = err;
   const date = new Date();
 
@@ -21,7 +21,7 @@ let recordNumber = 1;
 function unhandledRejectionHandler(
   reason: {} | null | undefined,
   promise: Promise<any>
-) {
+): void {
   const date = new Date();
 
   const errorRecord = `
