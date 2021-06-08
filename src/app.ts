@@ -38,7 +38,7 @@ app.use('/', (req, res, next) => {
   next();
 });
 
-app.use('/', logEvents);
+app.use(logEvents);
 
 app.use('/users', userRouter);
 

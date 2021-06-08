@@ -1,8 +1,10 @@
+import { StatusCodes } from 'http-status-codes';
 import * as boardsRepo from './board.memory.repository.js';
 import { toBoard, toColumn, toUpdateBoard } from '../../common/boardUtil.js';
 import { removeTasksWithBoard } from '../tasks/task.service.js';
 import { Column } from './column.model.js';
 import { Board } from './board.model';
+import { NotFoundError } from '../../middlewares/errorHandler.js';
 
 const getAll = async (): Promise<Board[]> => await boardsRepo.getAll();
 
@@ -13,7 +15,7 @@ const create = async (title: string, columns: Column[]): Promise<Board> => {
 
 const find = async (id: string): Promise<Board> => {
   const board = await boardsRepo.find(id);
-  if (!board) throw new Error('Board not found');
+  if (!board) throw new NotFoundError(StatusCodes.NOT_FOUND, 'Board not found');
   return board;
 };
 
