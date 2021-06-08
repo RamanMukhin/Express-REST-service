@@ -1,7 +1,9 @@
-const router = require('express').Router();
-const tasksService = require('./task.service');
+import express from 'express';
+import * as tasksService from './task.service.js';
 
-router.route('/').get(async (req, res) => {
+const router = express.Router();
+
+router.route('/').get(async (_req, res) => {
   const tasks = await tasksService.getAll();
   res.json(tasks);
 });
@@ -10,15 +12,14 @@ router.route('/').post(async (req, res) => {
   const newTask = req.body;
   newTask.boardId = req.baseUrl.slice(8, -6);
   const task = await tasksService.create(newTask);
-  res.statusCode = 201;
-  res.json(task);
+  res.status(201).json(task);
 });
 
 router.route('/:id').get(async (req, res) => {
   const { id } = req.params;
   const task = await tasksService.find(id);
   if (typeof task === 'undefined') {
-    res.statusCode = 404;
+    res.status(404);
   }
   res.json(task);
 });
@@ -36,4 +37,4 @@ router.route('/:id').delete(async (req, res) => {
   res.json();
 });
 
-module.exports = router;
+export { router };

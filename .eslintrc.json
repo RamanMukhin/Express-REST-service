@@ -6,21 +6,25 @@
     "jest": true,
     "node": true
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "sourceType": "module",
+    "project": "./tsconfig.json",
     "ecmaVersion": 2021,
     "ecmaFeatures": {
       "impliedStrict": true
     }
   },
   "settings": {
-    "noInlineConfig": true
+    "noInlineConfig": true,
+    "allowKeywords" : false
   },
   "extends": [
     "eslint:recommended",
     "plugin:node/recommended",
     "airbnb-base",
-    "prettier"
+    "prettier",
+    "plugin:import/typescript"
   ],
   "rules": {
     "import/extensions": "off",
@@ -29,6 +33,9 @@
     "no-underscore-dangle": "off",
     "import/prefer-default-export": "off",
     "no-param-reassign": 0,
-    "no-await-in-loop": 0 
+    "no-await-in-loop": 0,
+    "node/no-missing-import": "off",
+    "import/no-unresolved" : "off",
+    "no-return-await": "off"
   }
 }
