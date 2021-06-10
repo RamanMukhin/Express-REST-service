@@ -1,6 +1,7 @@
 version: '3'
 services: 
   db:
+    container_name: db
     build: ./src/db/
     restart: always
     ports: 
@@ -13,22 +14,24 @@ services:
     networks:
       - my_docker_network 
     volumes: 
-      - my_docker_volume:/var/lib/backup/db     
+      - my_docker_volume:/var/lib/postgresql/data
 
   app:
+    container_name: app
     build: ./
     restart: always
     ports: 
       - ${PORT}:${PORT}
     depends_on: 
-      - 'db'
+      - db
     environment:
       COMPOSE_PROJECT_NAME: MY_EXPREE_REST_SERVICE_IN_DOCKER
       PORT: ${PORT} 
     networks: 
       - my_docker_network
     volumes: 
-      - my_docker_volume:/var/lib/backup/app  
+      # - my_docker_volume:/usr/app/
+      - ./:/usr/app 
     
 
 volumes: 
