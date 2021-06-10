@@ -11,3 +11,4 @@ export function logger(typeOfLog, messageToLog) {
         console.log(messageToLog);
     }
 }
+;

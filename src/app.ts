@@ -12,6 +12,7 @@ import {
   uncaughtExceptionHandler,
   unhandledRejectionHandler,
 } from './middlewares/uncaughtHandler.js';
+import { sequelize } from './db/db.js';
 
 const app = express();
 const swaggerDocument = YAML.load(
@@ -29,6 +30,8 @@ process.on('unhandledRejection', (reason, promise) => {
 app.use(express.json());
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
+sequelize.sync().catch(err=>console.log(`Wrong connection to DB. Reason: ${err.message}`));
 
 app.use('/', (req, res, next) => {
   if (req.originalUrl === '/') {
