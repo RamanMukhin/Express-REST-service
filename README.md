@@ -28,12 +28,12 @@ in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
 For more information about OpenAPI/Swagger please visit https://swagger.io/.
 
 ## Running application in DOCKER
-1. Run in terminal ##docker compose up## if you wont to see logs in terminal, else run ##docker compose up -d##
+1. Run in terminal ##docker compose up## if you want to see logs in terminal, else run ##docker compose up -d##
 2. Now it works! 
 3. To stop the application after comand ##docker compose up## enter in terminal ##Ctrl+c##
 4. To stop the application after comand ##docker compose up -d## enter in terminal ##docer compose down##
 5. Now it stops!
-6. If you wont to fix or add something in code - do it, and then run ##docker compose build##. 
+6. If you want to fix or add something in code - do it, and then run ##docker compose build##. 
 7. If you want to run the application again - see the paragraph above (1).
 
 ## Testing
