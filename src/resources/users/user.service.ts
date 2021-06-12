@@ -1,49 +1,31 @@
 import * as usersRepo from './user.memory.repository.js';
 import { toUser, toUpdateUser, IUser } from '../../common/userUtil.js';
-import { updateWithUser } from '../tasks/task.service.js';
+import { updateTasksWithUser } from '../tasks/task.service.js';
+import { User } from './user.model.js';
 
-/**
- * Returns all users
- * @returns {Array} array of users
- */
-const getAll =async () => await usersRepo.getAll();
+const getAll = async (): Promise<User[]> => await usersRepo.getAll();
 
-/**
- * Creates and returns a new user
- * @param {Object} newUser user create from
- * @returns {Object} new user
- */
-const create = async (newUser: IUser) => {
+const create = async (newUser: IUser): Promise<User> => {
   const user = toUser(newUser);
-  return await usersRepo.save(user); 
+  return await usersRepo.save(user);
 };
 
-/**
- * Returns the user by given id
- * @param {string} id given id
- * @returns {Object} the user
- */
-const find = async (id: string) => await usersRepo.find(id);
+const find = async (id: string): Promise<User> => {
+  const user = await usersRepo.find(id);
+  if (!user) throw new Error('User not found');
+  return user;
+};
 
-/**
- * Updates the user by given id
- * @param {string} id given id
- * @param {Object} updateUser user update from
- * @returns {Object} the user
- */
-const update = async (id: string, updateUser: IUser) => {
-  const user = (await usersRepo.find(id))!;
-  toUpdateUser(user, updateUser);
+const update = async (id: string, userUpdateFrom: IUser): Promise<User> => {
+  const user = await find(id);
+  toUpdateUser(user, userUpdateFrom);
   return await usersRepo.update(user);
 };
 
-/**
- * Deletes user by given id and reassigned its tasks
- * @param {string} id given id
- */
-const remove = async (id: string) => {
+const remove = async (id: string): Promise<void> => {
+  await find(id);
   await usersRepo.remove(id);
-  await updateWithUser(id);
+  await updateTasksWithUser(id);
 };
 
 export { getAll, create, find, update, remove };

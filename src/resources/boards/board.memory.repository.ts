@@ -3,44 +3,22 @@ import { findIndex } from '../../common/boardUtil.js';
 
 const boards: Board[] = [];
 
-/**
- * Returns the array of boards
- * @returns {Array} the array of boards
- */
-const getAll = async () => boards;
+const getAll = async (): Promise<Board[]> => boards;
 
-/**
- * Saves and returns given board
- * @param {Object} board given board
- * @returns {Object} board
- */
-const save = async (board: Board) => {
+const save = async (board: Board): Promise<Board> => {
   boards.push(board);
   return board;
 };
 
-/**
- * Searches and returns board by given id
- * @param {string} id given id
- * @returns {Object} board
- */
-const find = async (id: string) => boards.find((board) => board.id === id);
+const find = async (id: string): Promise<Board | undefined> =>
+  boards.find((board) => board.id === id);
 
-/**
- * Updates and returns the board with the given id
- * @param {Object} board board to update
- * @returns {Object} board
- */
-const update = async (board: Board) => {
+const update = async (board: Board): Promise<Board> => {
   boards.splice(findIndex(board.id, boards), 1, board);
   return board;
 };
 
-/**
- * Deletes user by given id
- * @param {string} id given id
- */
-const remove = async (id: string) => {
+const remove = async (id: string): Promise<void> => {
   boards.splice(findIndex(id, boards), 1);
 };
 

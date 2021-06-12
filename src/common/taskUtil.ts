@@ -10,12 +10,18 @@ interface ITask {
   columnId: string;
 }
 
-/**
- * Creates and returns a new object of class Task
- * @param {Object} newTask taskDto
- * @returns {Object} new task
- */
-function toTask(newTask: ITask) {
+function toTaskDto(requestBody: ITask): ITask {
+  return {
+    title: requestBody.title,
+    order: requestBody.order,
+    description: requestBody.description,
+    userId: requestBody.userId!,
+    boardId: requestBody.boardId,
+    columnId: requestBody.columnId,
+  };
+}
+
+function toTask(newTask: ITask): Task {
   return new Task({
     title: newTask.title,
     order: newTask.order,
@@ -26,48 +32,28 @@ function toTask(newTask: ITask) {
   });
 }
 
-/**
- * Updates given task object
- * @param {Object} task given task
- * @param {Object} updateTask task from update
- */
-function toUpdateTask(task: Task, updateTask: ITask) {
-  task.title = updateTask.title;
-  task.order = updateTask.order;
-  task.description = updateTask.description;
-  task.userId = updateTask.userId;
-  task.boardId = updateTask.boardId;
-  task.columnId = updateTask.columnId;
+function toUpdateTask(task: Task, taskUpdateFrom: ITask): void {
+  Object.assign(task, taskUpdateFrom);
 }
 
-/**
- * Searches and returns the index of the object with given id
- * @param {string} id given id
- * @param {Array} tasks array for searching in
- * @returns {Number} the index of the object with given id
- */
-function findIndex(id: string | undefined, tasks: Task[]) {
+function findIndex(id: string, tasks: Task[]): number {
   return tasks.findIndex((task: Task) => task.id === id);
 }
 
-/**
- * Returns an array of tasks assigned to boardId
- * @param {string} boardId assigned boardId
- * @param {Array} tasks array of tasks
- * @returns {Array} array of task assigned to boardId
- */
-function findByBoardId(boardId: string, tasks: Task[]) {
+function findByBoardId(boardId: string, tasks: Task[]): Task[] {
   return tasks.filter((task) => task.boardId === boardId);
 }
 
-/**
- * Returns an array of tasks assigned to userId
- * @param {string} userId assigned boardId
- * @param {Array} tasks array of tasks
- * @returns {Array} array of task assigned to userId
- */
-function findByUserId(userId: string, tasks: Task[]) {
+function findByUserId(userId: string, tasks: Task[]): Task[] {
   return tasks.filter((task: Task) => task.userId === userId);
 }
 
-export { toTask, toUpdateTask, findIndex, findByBoardId, findByUserId, ITask };
+export {
+  toTaskDto,
+  toTask,
+  toUpdateTask,
+  findIndex,
+  findByBoardId,
+  findByUserId,
+  ITask,
+};

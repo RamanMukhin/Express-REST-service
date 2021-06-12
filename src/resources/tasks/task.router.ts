@@ -1,40 +1,61 @@
 import express from 'express';
+import { StatusCodes } from 'http-status-codes';
+import { toTaskDto } from '../../common/taskUtil.js';
 import * as tasksService from './task.service.js';
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
-router.route('/').get(async (_req, res) => {
-  const tasks = await tasksService.getAll();
-  res.json(tasks);
-});
-
-router.route('/').post(async (req, res) => {
-  const newTask = req.body;
-  newTask.boardId = req.baseUrl.slice(8, -6);
-  const task = await tasksService.create(newTask);
-  res.status(201).json(task);
-});
-
-router.route('/:id').get(async (req, res) => {
-  const { id } = req.params;
-  const task = await tasksService.find(id);
-  if (typeof task === 'undefined') {
-    res.status(404);
+router.route('/:id/tasks/').get(
+  async (_req, res): Promise<void> => {
+    const tasks = await tasksService.getAll();
+    res.json(tasks);
   }
-  res.json(task);
-});
+);
 
-router.route('/:id').put(async (req, res) => {
-  const { id } = req.params;
-  const updateTask = req.body;
-  const task = await tasksService.update(id, updateTask);
-  res.json(task);
-});
+router.route('/:id/tasks/').post(
+  async (req, res): Promise<void> => {
+    const newTask = toTaskDto(req.body);
+    newTask.boardId = req.params.id;
+    const task = await tasksService.create(newTask);
+    res.status(StatusCodes.CREATED).json(task);
+  }
+);
 
-router.route('/:id').delete(async (req, res) => {
-  const { id } = req.params;
-  await tasksService.remove(id);
-  res.json();
-});
+router.route('/:id/tasks/:id').get(
+  async (req, res, next): Promise<void> => {
+    const { id } = req.params;
+    try {
+      const task = await tasksService.find(id);
+      res.json(task);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.route('/:id/tasks/:id').put(
+  async (req, res, next): Promise<void> => {
+    const { id } = req.params;
+    const taskUpdateFrom = toTaskDto(req.body);
+    try {
+      const task = await tasksService.update(id, taskUpdateFrom);
+      res.json(task);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.route('/:id/tasks/:id').delete(
+  async (req, res, next): Promise<void> => {
+    const { id } = req.params;
+    try {
+      await tasksService.remove(id);
+      res.json('Task deleted');
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
 export { router };

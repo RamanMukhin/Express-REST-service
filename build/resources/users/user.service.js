@@ -1,43 +1,25 @@
 import * as usersRepo from './user.memory.repository.js';
 import { toUser, toUpdateUser } from '../../common/userUtil.js';
-import { updateWithUser } from '../tasks/task.service.js';
-/**
- * Returns all users
- * @returns {Array} array of users
- */
+import { updateTasksWithUser } from '../tasks/task.service.js';
 const getAll = async () => await usersRepo.getAll();
-/**
- * Creates and returns a new user
- * @param {Object} newUser user create from
- * @returns {Object} new user
- */
 const create = async (newUser) => {
     const user = toUser(newUser);
     return await usersRepo.save(user);
 };
-/**
- * Returns the user by given id
- * @param {string} id given id
- * @returns {Object} the user
- */
-const find = async (id) => await usersRepo.find(id);
-/**
- * Updates the user by given id
- * @param {string} id given id
- * @param {Object} updateUser user update from
- * @returns {Object} the user
- */
-const update = async (id, updateUser) => {
-    const user = (await usersRepo.find(id));
-    toUpdateUser(user, updateUser);
+const find = async (id) => {
+    const user = await usersRepo.find(id);
+    if (!user)
+        throw new Error('User not found');
+    return user;
+};
+const update = async (id, userUpdateFrom) => {
+    const user = await find(id);
+    toUpdateUser(user, userUpdateFrom);
     return await usersRepo.update(user);
 };
-/**
- * Deletes user by given id and reassigned its tasks
- * @param {string} id given id
- */
 const remove = async (id) => {
+    await find(id);
     await usersRepo.remove(id);
-    await updateWithUser(id);
+    await updateTasksWithUser(id);
 };
 export { getAll, create, find, update, remove };

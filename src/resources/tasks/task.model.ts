@@ -1,8 +1,6 @@
 import { v4 as uuid } from 'uuid';
+import { ITask } from '../../common/taskUtil';
 
-/**
- * Class representing a Task
- */
 export class Task {
   id: string;
 
@@ -18,10 +16,6 @@ export class Task {
 
   columnId: string;
 
-  /**
-   * Create a task
-   * @param {Object} param0 object create from
-   */
   constructor({
     id = uuid(),
     title = 'TITLE',
@@ -30,7 +24,7 @@ export class Task {
     userId = 'userId',
     boardId = 'boardId',
     columnId = 'columnId',
-  } = {}) {
+  }: ITask) {
     this.id = id;
     this.title = title;
     this.order = order;
