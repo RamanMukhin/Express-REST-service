@@ -29,13 +29,11 @@ services:
       COMPOSE_PROJECT_NAME: MY_EXPREE_REST_SERVICE_IN_DOCKER
       PORT: ${PORT} 
       TZ: Europe/Moscow
-      legacyWatch: 'true'
     networks: 
       - my_docker_network
     volumes: 
       - ./:/usr/app/
       - my_app_volume:/usr/app/logs
-    
 
 volumes: 
   my_db_volume:
