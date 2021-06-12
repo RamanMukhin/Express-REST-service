@@ -32,7 +32,7 @@ services:
     networks: 
       - my_docker_network
     volumes: 
-      - ./:/usr/app/
+      - ./build:/usr/app/build
       - my_app_volume:/usr/app/logs
 
 volumes: 
