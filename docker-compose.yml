@@ -7,7 +7,6 @@ services:
     ports: 
       - ${DB_PORT}:${DB_PORT}
     environment:
-      COMPOSE_PROJECT_NAME: MY_EXPREE_REST_SERVICE_IN_DOCKER
       POSTGRES_USER: ${POSTGRES_USER}  
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
@@ -26,7 +25,6 @@ services:
     depends_on: 
       - db
     environment:
-      COMPOSE_PROJECT_NAME: MY_EXPREE_REST_SERVICE_IN_DOCKER
       PORT: ${PORT} 
       TZ: Europe/Moscow
     networks: 
