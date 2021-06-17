@@ -1,30 +1,18 @@
-import { Sequelize } from 'sequelize';
-import {
-  POSTGRES_DB,
-  POSTGRES_USER,
-  POSTGRES_PASSWORD,
-  DB_PORT,
-  DB_HOST,
-} from '../common/config.js';
+import { createConnection, Connection, getConnection } from 'typeorm';
+import { dbConfig } from '../common/ormconfig.js';
 
-const sequelize = new Sequelize(
-  String(POSTGRES_DB),
-  String(POSTGRES_USER),
-  String(POSTGRES_PASSWORD),
-  {
-    host: DB_HOST,
-    dialect: 'postgres',
-    port: +DB_PORT!
-  }
-);
-
-(async () => {
+const connectionToDB = async () => {
   try {
-    await sequelize.authenticate();
-    console.log(`Connected to DB on ${DB_PORT} port`);
+    const connection: Connection = getConnection();
+    if (connection) {
+      if (!connection.isConnected) await connection.connect();
+    } else {
+      createConnection(dbConfig);
+    }
+    console.log(`Connected to DB!`);
   } catch (err) {
     console.log(`Error: ${err}`);
   }
-})();
+};
 
-export { sequelize };
+

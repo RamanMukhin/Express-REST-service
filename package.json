@@ -50,10 +50,10 @@
   "nodemonConfig": {
     "restartable": "rs",
     "watch": [
-          "src"
-      ],
-     "ext": "ts",
-     "exec": "npm run follow"
+      "src"
+    ],
+    "ext": "ts",
+    "exec": "npm run follow"
   },
   "dependencies": {
     "cross-env": "7.0.3",
@@ -66,6 +66,7 @@
     "sequelize": "^6.6.2",
     "swagger-ui-express": "4.1.6",
     "ts-node": "^10.0.0",
+    "typeorm": "^0.2.34",
     "uuid": "8.3.2",
     "yamljs": "0.3.0"
   },
