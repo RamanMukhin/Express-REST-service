@@ -1,17 +1,14 @@
-import { v4 as uuid } from 'uuid';
-import { IBoard } from '../../common/boardUtil.js';
-import { Column } from './column.model.js';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { ColumnClass } from './column.model.js';
 
+@Entity()
 export class Board {
-  id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
 
-  title: string;
+  @Column()
+  title!: string;
 
-  columns: Column[];
-
-  constructor({ id = uuid(), title = 'TITLE', columns = [new Column()] }:IBoard) {
-    this.id = id;
-    this.title = title;
-    this.columns = columns;
-  }
+  @Column()
+  columns!: ColumnClass[];
 }

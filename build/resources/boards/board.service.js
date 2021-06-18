@@ -5,7 +5,8 @@ import { removeTasksWithBoard } from '../tasks/task.service.js';
 import { NotFoundError } from '../../middlewares/errorHandler.js';
 const getAll = async () => await boardsRepo.getAll();
 const create = async (title, columns) => {
-    const board = toBoard(title, toColumn(columns));
+    const columnsCreateFrom = await toColumn(columns);
+    const board = await toBoard(title, columnsCreateFrom);
     return await boardsRepo.save(board);
 };
 const find = async (id) => {
@@ -15,9 +16,9 @@ const find = async (id) => {
     return board;
 };
 const update = async (id, titleUpdateFrom, columnsUpdateFrom) => {
-    const board = await find(id);
-    toUpdateBoard(board, titleUpdateFrom, columnsUpdateFrom);
-    return await boardsRepo.update(board);
+    const boardToUpdate = await find(id);
+    const boardUpdateFrom = await toUpdateBoard(boardToUpdate, titleUpdateFrom, columnsUpdateFrom);
+    return await boardsRepo.update(id, boardUpdateFrom);
 };
 const remove = async (id) => {
     await find(id);

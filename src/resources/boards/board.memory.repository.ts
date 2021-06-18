@@ -1,25 +1,30 @@
+import { getRepository } from 'typeorm';
 import { Board } from './board.model.js';
-import { findIndex } from '../../common/boardUtil.js';
+import { IBoard } from '../../common/boardUtil.js';
 
-const boards: Board[] = [];
-
-const getAll = async (): Promise<Board[]> => boards;
-
-const save = async (board: Board): Promise<Board> => {
-  boards.push(board);
-  return board;
+const getAll = async (): Promise<Board[]> => {
+  const boardRepository = getRepository(Board);
+  return boardRepository.find({ where: {} });
 };
 
-const find = async (id: string): Promise<Board | undefined> =>
-  boards.find((board) => board.id === id);
+const save = async (board: Board): Promise<Board> => {
+  const boardRepository = getRepository(Board);
+  return boardRepository.save(board);
+};
 
-const update = async (board: Board): Promise<Board> => {
-  boards.splice(findIndex(board.id, boards), 1, board);
-  return board;
+const find = async (id: string): Promise<Board | undefined> => {
+  const boardRepository = getRepository(Board);
+  return boardRepository.findOne(id);
+};
+
+const update = async (id: string, boardUpdateFrom: IBoard): Promise<void> => {
+  const boardRepository = getRepository(Board);
+  boardRepository.update(id, boardUpdateFrom);
 };
 
 const remove = async (id: string): Promise<void> => {
-  boards.splice(findIndex(id, boards), 1);
+  const boardRepository = getRepository(Board);
+  boardRepository.delete(id);
 };
 
 export { getAll, save, find, update, remove };

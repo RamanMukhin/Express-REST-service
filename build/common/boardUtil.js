@@ -1,36 +1,48 @@
+import { getRepository } from 'typeorm';
 import { Board } from '../resources/boards/board.model.js';
-import { Column } from '../resources/boards/column.model.js';
+import { ColumnClass } from '../resources/boards/column.model.js';
 function toBoardDto(requestBody) {
     return requestBody.title;
 }
 function toColumnDto(requestBody) {
     return requestBody.columns;
 }
-function toBoard(title, columns) {
-    return new Board({
-        title,
-        columns,
-    });
+async function toBoard(title, columns) {
+    const boardCreateFrom = { title, columns };
+    const boardRepository = getRepository(Board);
+    return boardRepository.create(boardCreateFrom);
 }
-function toColumn(columns) {
+async function toColumn(columns) {
+    const columnRepository = getRepository(ColumnClass);
     const createdColumns = [];
     for (let i = 0; i < columns.length; i += 1) {
-        createdColumns.push(new Column(columns[i]));
+        const columnDto = columns[i];
+        const newColumn = columnRepository.create(columnDto);
+        createdColumns.push(newColumn);
     }
     return createdColumns;
 }
-function toUpdateColumns(columnsToUpdate, columnsUpdateFrom) {
-    for (let i = 0; i < columnsUpdateFrom.length; i += 1) {
+async function toUpdateColumns(columnsToUpdate, columnsUpdateFrom) {
+    const columnRepository = getRepository(ColumnClass);
+    const updatedColumns = [];
+    for (let i = 0; i < columnsToUpdate.length; i += 1) {
         const columnToUpdate = columnsToUpdate[i];
         const columnUpdateFrom = columnsUpdateFrom[i];
-        Object.assign(columnToUpdate, columnUpdateFrom);
+        const { id } = columnToUpdate;
+        columnRepository.update(id, columnUpdateFrom);
+        const updatedColumn = (await columnRepository.findOne(id));
+        updatedColumns.push(updatedColumn);
     }
-    return columnsToUpdate;
+    return updatedColumns;
 }
-function toUpdateBoard(board, titleUpdateFrom, columnsUpdateFrom) {
-    const columnsToUpdate = board.columns;
-    board.title = titleUpdateFrom;
-    board.columns = toUpdateColumns(columnsToUpdate, columnsUpdateFrom);
+async function toUpdateBoard(boardToUpdate, titleUpdateFrom, columnsUpdateFrom) {
+    const columnsToUpdate = boardToUpdate.columns;
+    const updatedColumns = await toUpdateColumns(columnsToUpdate, columnsUpdateFrom);
+    const boardUpdateFrom = {
+        title: titleUpdateFrom,
+        columns: updatedColumns,
+    };
+    return boardUpdateFrom;
 }
 function findIndex(id, boards) {
     return boards.findIndex((board) => board.id === id);

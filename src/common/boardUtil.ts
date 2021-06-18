@@ -1,55 +1,70 @@
+import { getRepository } from 'typeorm';
 import { Board } from '../resources/boards/board.model.js';
-import { Column } from '../resources/boards/column.model.js';
+import { ColumnClass } from '../resources/boards/column.model.js';
 
 interface IBoard {
   id?: string;
   title: string;
-  columns: Column[];
+  columns: ColumnClass[];
 }
 
 function toBoardDto(requestBody: IBoard): string {
   return requestBody.title;
 }
 
-function toColumnDto(requestBody: IBoard): Column[] {
+function toColumnDto(requestBody: IBoard): ColumnClass[] {
   return requestBody.columns;
 }
 
-function toBoard(title: string, columns: Column[]): Board {
-  return new Board({
-    title,
-    columns,
-  });
+async function toBoard(title: string, columns: ColumnClass[]): Promise<Board> {
+  const boardCreateFrom = { title, columns };
+  const boardRepository = getRepository(Board);
+  return boardRepository.create(boardCreateFrom);
 }
 
-function toColumn(columns: Column[]): Column[] {
+async function toColumn(columns: ColumnClass[]): Promise<ColumnClass[]> {
+  const columnRepository = getRepository(ColumnClass);
   const createdColumns = [];
   for (let i = 0; i < columns.length; i += 1) {
-    createdColumns.push(new Column(columns[i]));
+    const columnDto = columns[i]!;
+    const newColumn = columnRepository.create(columnDto);
+    createdColumns.push(newColumn);
   }
   return createdColumns;
 }
 
-function toUpdateColumns(
-  columnsToUpdate: Column[],
-  columnsUpdateFrom: Column[]
-): Column[] {
-  for (let i = 0; i < columnsUpdateFrom.length; i += 1) {
-    const columnToUpdate: Column = columnsToUpdate[i]!;
-    const columnUpdateFrom: Column = columnsUpdateFrom[i]!;
-    Object.assign(columnToUpdate, columnUpdateFrom);
+async function toUpdateColumns(
+  columnsToUpdate: ColumnClass[],
+  columnsUpdateFrom: ColumnClass[]
+): Promise<ColumnClass[]> {
+  const columnRepository = getRepository(ColumnClass);
+  const updatedColumns: ColumnClass[] = [];
+  for (let i = 0; i < columnsToUpdate.length; i += 1) {
+    const columnToUpdate = columnsToUpdate[i]!;
+    const columnUpdateFrom = columnsUpdateFrom[i]!;
+    const { id } = columnToUpdate;
+    columnRepository.update(id, columnUpdateFrom);
+    const updatedColumn = (await columnRepository.findOne(id))!;
+    updatedColumns.push(updatedColumn);
   }
-  return columnsToUpdate;
+  return updatedColumns;
 }
 
-function toUpdateBoard(
-  board: Board,
+async function toUpdateBoard(
+  boardToUpdate: Board,
   titleUpdateFrom: string,
-  columnsUpdateFrom: Column[]
-): void {
-  const columnsToUpdate: Column[] = board.columns;
-  board.title = titleUpdateFrom;
-  board.columns = toUpdateColumns(columnsToUpdate, columnsUpdateFrom);
+  columnsUpdateFrom: ColumnClass[]
+): Promise<IBoard> {
+  const columnsToUpdate = boardToUpdate.columns;
+  const updatedColumns = await toUpdateColumns(
+    columnsToUpdate,
+    columnsUpdateFrom
+  );
+  const boardUpdateFrom: IBoard = {
+    title: titleUpdateFrom,
+    columns: updatedColumns,
+  };
+  return boardUpdateFrom;
 }
 
 function findIndex(id: string, boards: Board[]): number {

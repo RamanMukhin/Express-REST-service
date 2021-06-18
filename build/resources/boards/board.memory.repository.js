@@ -1,16 +1,23 @@
-import { findIndex } from '../../common/boardUtil.js';
-const boards = [];
-const getAll = async () => boards;
-const save = async (board) => {
-    boards.push(board);
-    return board;
+import { getRepository } from 'typeorm';
+import { Board } from './board.model.js';
+const getAll = async () => {
+    const boardRepository = getRepository(Board);
+    return boardRepository.find({ where: {} });
 };
-const find = async (id) => boards.find((board) => board.id === id);
-const update = async (board) => {
-    boards.splice(findIndex(board.id, boards), 1, board);
-    return board;
+const save = async (board) => {
+    const boardRepository = getRepository(Board);
+    return boardRepository.save(board);
+};
+const find = async (id) => {
+    const boardRepository = getRepository(Board);
+    return boardRepository.findOne(id);
+};
+const update = async (id, boardUpdateFrom) => {
+    const boardRepository = getRepository(Board);
+    boardRepository.update(id, boardUpdateFrom);
 };
 const remove = async (id) => {
-    boards.splice(findIndex(id, boards), 1);
+    const boardRepository = getRepository(Board);
+    boardRepository.delete(id);
 };
 export { getAll, save, find, update, remove };

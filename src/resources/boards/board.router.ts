@@ -42,11 +42,12 @@ router.route('/:id').put(
       const { id } = req.params;
       const titleUpdateFrom = toBoardDto(req.body);
       const columnsUpdateFrom = toColumnDto(req.body);
-      const board = await boardsService.update(
+      await boardsService.update(
         String(id),
         titleUpdateFrom,
         columnsUpdateFrom
       );
+      const board = await boardsService.find(String(id));
       res.json(board);
     }
   )

@@ -1,15 +1,13 @@
-import { v4 as uuid } from 'uuid';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-export class Column {
-  id: string;
+@Entity()
+export class ColumnClass {
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
 
-  title: string;
+  @Column()
+  title!: string;
 
-  order: number;
-
-  constructor({ id = uuid(), title = 'title', order = 0 } = {}) {
-    this.id = id;
-    this.title = title;
-    this.order = order;
-  }
+  @Column()
+  order!: number;
 }

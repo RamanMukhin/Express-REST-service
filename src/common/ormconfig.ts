@@ -3,7 +3,8 @@ import { ConnectionOptions } from 'typeorm';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { User } from '../resources/users/user.model.js';
-
+import { Board } from '../resources/boards/board.model.js';
+import { ColumnClass } from '../resources/boards/column.model.js';
 
 dotenv.config({
   path: path.join(dirname(fileURLToPath(import.meta.url)), '../../.env'),
@@ -24,5 +25,5 @@ export const dbConfig: ConnectionOptions = {
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB,
   synchronize: true,
-  entities: [User],
+  entities: [User, Board, ColumnClass],
 };
