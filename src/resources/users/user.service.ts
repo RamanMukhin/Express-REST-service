@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import * as usersRepo from './user.memory.repository.js';
-import { toUser, toUpdateUser, IUser } from '../../common/userUtil.js';
+import { toUser, IUser } from '../../common/userUtil.js';
 import { updateTasksWithUser } from '../tasks/task.service.js';
 import { User } from './user.model.js';
 import { NotFoundError } from '../../middlewares/errorHandler.js';
@@ -18,10 +18,9 @@ const find = async (id: string): Promise<User> => {
   return user;
 };
 
-const update = async (id: string, userUpdateFrom: IUser): Promise<User> => {
-  const user = await find(id);
-  toUpdateUser(user, userUpdateFrom);
-  return await usersRepo.update(user);
+const update = async (id: string, userUpdateFrom: IUser): Promise<void> => {
+  await find(id);
+  return await usersRepo.update(id, userUpdateFrom);
 };
 
 const remove = async (id: string): Promise<void> => {

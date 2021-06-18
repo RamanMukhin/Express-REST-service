@@ -41,7 +41,8 @@ router.route('/:id').put(
     async (req, res): Promise<void> => {
       const { id } = req.params;
       const userUpdateFrom = toUserDto(req.body);
-      const user = await usersService.update(String(id), userUpdateFrom);
+      await usersService.update(String(id), userUpdateFrom);
+      const user = await usersService.find(String(id));
       res.json(User.toResponse(user));
     }
   )

@@ -1,26 +1,17 @@
-import { v4 as uuid } from 'uuid';
-import { IUser } from '../../common/userUtil';
-
+import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+@Entity()
 export class User {
-  id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
 
-  name: string;
+  @Column()
+  name!: string;
 
-  login: string;
+  @Column()
+  login!: string;
 
-  password: string;
-
-  constructor({
-    id = uuid(),
-    name = 'USER',
-    login = 'user',
-    password = 'P@55w0rd',
-  }: IUser) {
-    this.id = id;
-    this.name = name;
-    this.login = login;
-    this.password = password;
-  }
+  @Column()
+  password!: string;
 
   static toResponse(user: User) {
     const { id, name, login } = user;

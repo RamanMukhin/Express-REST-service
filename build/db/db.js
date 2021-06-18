@@ -1,4 +1,4 @@
-//import { createConnection, Connection, getConnection } from 'typeorm';
+// import { createConnection, Connection, getConnection } from 'typeorm';
 import { createConnection } from 'typeorm';
 import { logger } from '../common/Logger.js';
 import { dbConfig } from '../common/ormconfig.js';

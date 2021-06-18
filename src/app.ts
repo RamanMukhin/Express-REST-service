@@ -12,7 +12,6 @@ import {
   uncaughtExceptionHandler,
   unhandledRejectionHandler,
 } from './middlewares/uncaughtHandler.js';
-import { tryToconnectDB } from './db/db.js';
 
 const app = express();
 const swaggerDocument = YAML.load(
@@ -31,14 +30,12 @@ app.use(express.json());
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
-tryToconnectDB(() => console.log('OOOh, eeeeee!!!!!')).then(() => {
-  app.use('/', (req, res, next) => {
-    if (req.originalUrl === '/') {
-      res.send('Service is running!');
-      return;
-    }
-    next();
-  });
+app.use('/', (req, res, next) => {
+  if (req.originalUrl === '/') {
+    res.send('Service is running!');
+    return;
+  }
+  next();
 });
 
 app.use(logEvents);

@@ -2,12 +2,14 @@ import * as dotenv from 'dotenv';
 import { ConnectionOptions } from 'typeorm';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { User } from '../resources/users/user.model.js';
+
 
 dotenv.config({
   path: path.join(dirname(fileURLToPath(import.meta.url)), '../../.env'),
 });
 
-//const { TYPE } = process.env;
+// const { TYPE } = process.env;
 const { POSTGRES_HOST } = process.env;
 const { POSTGRES_PORT } = process.env;
 const { POSTGRES_USER } = process.env;
@@ -21,4 +23,6 @@ export const dbConfig: ConnectionOptions = {
   username: POSTGRES_USER,
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB,
+  synchronize: true,
+  entities: [User],
 };
