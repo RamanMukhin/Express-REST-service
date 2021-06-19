@@ -9,9 +9,9 @@ router.route('/').get(errorWrapper(async (_req, res) => {
     res.json(boards);
 }));
 router.route('/').post(errorWrapper(async (req, res) => {
-    const title = toBoardDto(req.body);
-    const columns = toColumnDto(req.body);
-    const board = await boardsService.create(title, columns);
+    const titleCreateFrom = toBoardDto(req.body);
+    const columnsCreateFrom = toColumnDto(req.body);
+    const board = await boardsService.create(titleCreateFrom, columnsCreateFrom);
     res.status(StatusCodes.CREATED).json(board);
 }));
 router.route('/:id').get(errorWrapper(async (req, res) => {

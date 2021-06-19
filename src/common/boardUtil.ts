@@ -22,50 +22,34 @@ async function toBoard(title: string, columns: ColumnClass[]): Promise<Board> {
   return boardRepository.create(boardCreateFrom);
 }
 
-async function toColumn(columns: ColumnClass[]): Promise<ColumnClass[]> {
+async function toColumn(
+  columnsCreateFrom: ColumnClass[]
+): Promise<ColumnClass[]> {
   const columnRepository = getRepository(ColumnClass);
   const createdColumns = [];
-  for (let i = 0; i < columns.length; i += 1) {
-    const columnDto = columns[i]!;
-    const newColumn = columnRepository.create(columnDto);
+  for (let i = 0; i < columnsCreateFrom.length; i += 1) {
+    const columnDto = columnsCreateFrom[i]!;
+    const newColumn = await columnRepository.save(columnDto);
     createdColumns.push(newColumn);
   }
   return createdColumns;
 }
 
 async function toUpdateColumns(
-  columnsToUpdate: ColumnClass[],
   columnsUpdateFrom: ColumnClass[]
-): Promise<ColumnClass[]> {
+): Promise<void> {
   const columnRepository = getRepository(ColumnClass);
-  const updatedColumns: ColumnClass[] = [];
-  for (let i = 0; i < columnsToUpdate.length; i += 1) {
-    const columnToUpdate = columnsToUpdate[i]!;
-    const columnUpdateFrom = columnsUpdateFrom[i]!;
-    const { id } = columnToUpdate;
-    columnRepository.update(id, columnUpdateFrom);
-    const updatedColumn = (await columnRepository.findOne(id))!;
-    updatedColumns.push(updatedColumn);
-  }
-  return updatedColumns;
+  await columnRepository.save(columnsUpdateFrom);
 }
 
-async function toUpdateBoard(
-  boardToUpdate: Board,
-  titleUpdateFrom: string,
-  columnsUpdateFrom: ColumnClass[]
-): Promise<IBoard> {
-  const columnsToUpdate = boardToUpdate.columns;
-  const updatedColumns = await toUpdateColumns(
-    columnsToUpdate,
-    columnsUpdateFrom
-  );
-  const boardUpdateFrom: IBoard = {
-    title: titleUpdateFrom,
-    columns: updatedColumns,
-  };
-  return boardUpdateFrom;
-}
+// async function toUpdateBoard(
+//   boardToUpdate: Board,
+//   titleUpdateFrom: string
+// ): Promise<IBoard> {
+//   const { id } = boardToUpdate;
+
+//   return boardUpdateFrom;
+// }
 
 function findIndex(id: string, boards: Board[]): number {
   return boards.findIndex((board) => board.id === id);
@@ -76,7 +60,7 @@ export {
   toColumnDto,
   toBoard,
   toColumn,
-  toUpdateBoard,
+  // toUpdateBoard,
   toUpdateColumns,
   findIndex,
   IBoard,

@@ -18,9 +18,12 @@ router.route('/').get(
 router.route('/').post(
   errorWrapper(
     async (req, res): Promise<void> => {
-      const title = toBoardDto(req.body);
-      const columns = toColumnDto(req.body);
-      const board = await boardsService.create(title, columns);
+      const titleCreateFrom = toBoardDto(req.body);
+      const columnsCreateFrom = toColumnDto(req.body);
+      const board = await boardsService.create(
+        titleCreateFrom,
+        columnsCreateFrom
+      );
       res.status(StatusCodes.CREATED).json(board);
     }
   )

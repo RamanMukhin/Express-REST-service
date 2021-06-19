@@ -1,6 +1,5 @@
 import { getRepository } from 'typeorm';
 import { Board } from './board.model.js';
-import { IBoard } from '../../common/boardUtil.js';
 
 const getAll = async (): Promise<Board[]> => {
   const boardRepository = getRepository(Board);
@@ -17,14 +16,14 @@ const find = async (id: string): Promise<Board | undefined> => {
   return boardRepository.findOne(id);
 };
 
-const update = async (id: string, boardUpdateFrom: IBoard): Promise<void> => {
+const update = async (id: string, title: string): Promise<Board> => {
   const boardRepository = getRepository(Board);
-  boardRepository.update(id, boardUpdateFrom);
+  return boardRepository.save({ id, title });
 };
 
 const remove = async (id: string): Promise<void> => {
   const boardRepository = getRepository(Board);
-  boardRepository.delete(id);
+  await boardRepository.delete(id);
 };
 
 export { getAll, save, find, update, remove };

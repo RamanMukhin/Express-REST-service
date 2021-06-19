@@ -7,7 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Board } from './board.model.js';
 let ColumnClass = class ColumnClass {
 };
 __decorate([
@@ -22,6 +23,13 @@ __decorate([
     Column(),
     __metadata("design:type", Number)
 ], ColumnClass.prototype, "order", void 0);
+__decorate([
+    ManyToOne(() => Board, (board) => board.columns, {
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+    }),
+    __metadata("design:type", Object)
+], ColumnClass.prototype, "board", void 0);
 ColumnClass = __decorate([
     Entity()
 ], ColumnClass);

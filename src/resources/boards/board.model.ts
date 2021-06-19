@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { ColumnClass } from './column.model.js';
 
 @Entity()
@@ -9,6 +9,9 @@ export class Board {
   @Column()
   title!: string;
 
-  @Column()
+  @OneToMany(() => ColumnClass, (column) => column.board, {
+    eager: true,
+    cascade: true,
+  })
   columns!: ColumnClass[];
 }

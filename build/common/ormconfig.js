@@ -21,5 +21,5 @@ export const dbConfig = {
     password: POSTGRES_PASSWORD,
     database: POSTGRES_DB,
     synchronize: true,
-    entities: [User, Board, ColumnClass],
+    entities: [User, ColumnClass, Board],
 };

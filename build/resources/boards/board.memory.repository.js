@@ -12,12 +12,12 @@ const find = async (id) => {
     const boardRepository = getRepository(Board);
     return boardRepository.findOne(id);
 };
-const update = async (id, boardUpdateFrom) => {
+const update = async (id, title) => {
     const boardRepository = getRepository(Board);
-    boardRepository.update(id, boardUpdateFrom);
+    return boardRepository.save({ id, title });
 };
 const remove = async (id) => {
     const boardRepository = getRepository(Board);
-    boardRepository.delete(id);
+    await boardRepository.delete(id);
 };
 export { getAll, save, find, update, remove };

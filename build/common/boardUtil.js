@@ -12,39 +12,30 @@ async function toBoard(title, columns) {
     const boardRepository = getRepository(Board);
     return boardRepository.create(boardCreateFrom);
 }
-async function toColumn(columns) {
+async function toColumn(columnsCreateFrom) {
     const columnRepository = getRepository(ColumnClass);
     const createdColumns = [];
-    for (let i = 0; i < columns.length; i += 1) {
-        const columnDto = columns[i];
-        const newColumn = columnRepository.create(columnDto);
+    for (let i = 0; i < columnsCreateFrom.length; i += 1) {
+        const columnDto = columnsCreateFrom[i];
+        const newColumn = await columnRepository.save(columnDto);
         createdColumns.push(newColumn);
     }
     return createdColumns;
 }
-async function toUpdateColumns(columnsToUpdate, columnsUpdateFrom) {
+async function toUpdateColumns(columnsUpdateFrom) {
     const columnRepository = getRepository(ColumnClass);
-    const updatedColumns = [];
-    for (let i = 0; i < columnsToUpdate.length; i += 1) {
-        const columnToUpdate = columnsToUpdate[i];
-        const columnUpdateFrom = columnsUpdateFrom[i];
-        const { id } = columnToUpdate;
-        columnRepository.update(id, columnUpdateFrom);
-        const updatedColumn = (await columnRepository.findOne(id));
-        updatedColumns.push(updatedColumn);
-    }
-    return updatedColumns;
+    await columnRepository.save(columnsUpdateFrom);
 }
-async function toUpdateBoard(boardToUpdate, titleUpdateFrom, columnsUpdateFrom) {
-    const columnsToUpdate = boardToUpdate.columns;
-    const updatedColumns = await toUpdateColumns(columnsToUpdate, columnsUpdateFrom);
-    const boardUpdateFrom = {
-        title: titleUpdateFrom,
-        columns: updatedColumns,
-    };
-    return boardUpdateFrom;
-}
+// async function toUpdateBoard(
+//   boardToUpdate: Board,
+//   titleUpdateFrom: string
+// ): Promise<IBoard> {
+//   const { id } = boardToUpdate;
+//   return boardUpdateFrom;
+// }
 function findIndex(id, boards) {
     return boards.findIndex((board) => board.id === id);
 }
-export { toBoardDto, toColumnDto, toBoard, toColumn, toUpdateBoard, toUpdateColumns, findIndex, };
+export { toBoardDto, toColumnDto, toBoard, toColumn, 
+// toUpdateBoard,
+toUpdateColumns, findIndex, };

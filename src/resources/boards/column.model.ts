@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Board } from './board.model.js';
 
 @Entity()
 export class ColumnClass {
@@ -10,4 +11,10 @@ export class ColumnClass {
 
   @Column()
   order!: number;
+
+  @ManyToOne(() => Board, (board) => board.columns, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  board!: Object;
 }

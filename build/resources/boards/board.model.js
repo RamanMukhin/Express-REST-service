@@ -7,7 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { ColumnClass } from './column.model.js';
 let Board = class Board {
 };
 __decorate([
@@ -19,7 +20,10 @@ __decorate([
     __metadata("design:type", String)
 ], Board.prototype, "title", void 0);
 __decorate([
-    Column(),
+    OneToMany(() => ColumnClass, (column) => column.board, {
+        eager: true,
+        cascade: true,
+    }),
     __metadata("design:type", Array)
 ], Board.prototype, "columns", void 0);
 Board = __decorate([
