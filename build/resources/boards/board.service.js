@@ -1,6 +1,8 @@
+import { StatusCodes } from 'http-status-codes';
 import * as boardsRepo from './board.memory.repository.js';
 import { toBoard, toColumn, toUpdateBoard } from '../../common/boardUtil.js';
 import { removeTasksWithBoard } from '../tasks/task.service.js';
+import { NotFoundError } from '../../middlewares/errorHandler.js';
 const getAll = async () => await boardsRepo.getAll();
 const create = async (title, columns) => {
     const board = toBoard(title, toColumn(columns));
@@ -9,7 +11,7 @@ const create = async (title, columns) => {
 const find = async (id) => {
     const board = await boardsRepo.find(id);
     if (!board)
-        throw new Error('Board not found');
+        throw new NotFoundError(StatusCodes.NOT_FOUND, 'Board not found');
     return board;
 };
 const update = async (id, titleUpdateFrom, columnsUpdateFrom) => {

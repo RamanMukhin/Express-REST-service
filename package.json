@@ -10,6 +10,7 @@
   "main": "src/server.js",
   "scripts": {
     "start": "tsc & nodemon build/server.js",
+    "start:docker": "tsc & nodemon -L --exitcrash build/server.js",
     "lint": "eslint --ext .js,.ts --fix src/",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
     "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace",
@@ -51,6 +52,8 @@
     "express": "4.17.1",
     "http-status-codes": "^2.1.4",
     "jsdoc": "^3.6.7",
+    "pg": "^8.6.0",
+    "sequelize": "^6.6.2",
     "swagger-ui-express": "4.1.6",
     "ts-node": "^10.0.0",
     "uuid": "8.3.2",

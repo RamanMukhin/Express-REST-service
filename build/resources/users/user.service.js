@@ -1,6 +1,8 @@
+import { StatusCodes } from 'http-status-codes';
 import * as usersRepo from './user.memory.repository.js';
 import { toUser, toUpdateUser } from '../../common/userUtil.js';
 import { updateTasksWithUser } from '../tasks/task.service.js';
+import { NotFoundError } from '../../middlewares/errorHandler.js';
 const getAll = async () => await usersRepo.getAll();
 const create = async (newUser) => {
     const user = toUser(newUser);
@@ -9,7 +11,7 @@ const create = async (newUser) => {
 const find = async (id) => {
     const user = await usersRepo.find(id);
     if (!user)
-        throw new Error('User not found');
+        throw new NotFoundError(StatusCodes.NOT_FOUND, 'User not found');
     return user;
 };
 const update = async (id, userUpdateFrom) => {

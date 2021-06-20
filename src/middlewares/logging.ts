@@ -1,6 +1,7 @@
 import express from 'express';
 import { finished } from 'stream';
 import fs from 'fs';
+import { logger } from '../common/Logger.js';
 
 const router = express.Router({ mergeParams: true });
 
@@ -32,7 +33,7 @@ router.use((req, res, next) => {
     status code:      ${statusCode}\n`;
 
     writeStream.write(event);
-    console.log(event);
+    logger('log', event);
     recordNumber += 1;
   });
 });

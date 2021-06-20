@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { logger } from '../common/Logger.js';
 function uncaughtExceptionHandler(err) {
     const { name, message, stack } = err;
     const date = new Date();
@@ -8,20 +9,16 @@ function uncaughtExceptionHandler(err) {
   errorName:       ${name}
   errorMessage:    ${message}
   errorStack:      ${stack}\n`;
-    fs.writeFileSync('./logs/uncaughtExceptionLogs.txt', errorRecord);
-    console.error(errorRecord);
-    process.exit(1);
+    fs.appendFileSync('./logs/uncaughtExceptionLogs.txt', errorRecord);
+    logger('uncaughtException', errorRecord);
 }
-let recordNumber = 1;
 function unhandledRejectionHandler(reason, promise) {
     const date = new Date();
     const errorRecord = `
-  Recording №             ${recordNumber}
   Unhandled Rejection at: ${JSON.stringify(promise)}
   time:                   ${date}
   reason:                 ${reason}\n`;
     fs.appendFileSync('./logs/unhandledRejectionLogs.txt', errorRecord);
-    console.warn(errorRecord);
-    recordNumber += 1;
+    logger('unhandledRejection', errorRecord);
 }
 export { uncaughtExceptionHandler, unhandledRejectionHandler };

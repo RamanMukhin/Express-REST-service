@@ -1,5 +1,7 @@
+import { StatusCodes } from 'http-status-codes';
 import * as tasksRepo from './task.memory.repository.js';
 import { toTask, toUpdateTask } from '../../common/taskUtil.js';
+import { NotFoundError } from '../../middlewares/errorHandler.js';
 const getAll = async () => await tasksRepo.getAll();
 const create = async (newTask) => {
     const task = toTask(newTask);
@@ -8,7 +10,7 @@ const create = async (newTask) => {
 const find = async (id) => {
     const task = await tasksRepo.find(id);
     if (!task)
-        throw new Error('Task not found');
+        throw new NotFoundError(StatusCodes.NOT_FOUND, 'Task not found');
     return task;
 };
 const update = async (id, taskUpdateFrom) => {

@@ -3,45 +3,31 @@ import { StatusCodes } from 'http-status-codes';
 import * as usersService from './user.service.js';
 import { toUserDto } from '../../common/userUtil.js';
 import { User } from './user.model.js';
+import { errorWrapper } from '../../common/errorWrapper.js';
 const router = express.Router({ mergeParams: true });
-router.route('/').get(async (_req, res) => {
+router.route('/').get(errorWrapper(async (_req, res) => {
     const users = await usersService.getAll();
     res.json(users.map(User.toResponse));
-});
-router.route('/').post(async (req, res) => {
+}));
+router.route('/').post(errorWrapper(async (req, res) => {
     const newUser = toUserDto(req.body);
     const user = await usersService.create(newUser);
     res.status(StatusCodes.CREATED).json(User.toResponse(user));
-});
-router.route('/:id').get(async (req, res, next) => {
+}));
+router.route('/:id').get(errorWrapper(async (req, res) => {
     const { id } = req.params;
-    try {
-        const user = await usersService.find(id);
-        res.json(User.toResponse(user));
-    }
-    catch (err) {
-        next(err);
-    }
-});
-router.route('/:id').put(async (req, res, next) => {
+    const user = await usersService.find(String(id));
+    res.json(User.toResponse(user));
+}));
+router.route('/:id').put(errorWrapper(async (req, res) => {
     const { id } = req.params;
     const userUpdateFrom = toUserDto(req.body);
-    try {
-        const user = await usersService.update(id, userUpdateFrom);
-        res.json(User.toResponse(user));
-    }
-    catch (err) {
-        next(err);
-    }
-});
-router.route('/:id').delete(async (req, res, next) => {
+    const user = await usersService.update(String(id), userUpdateFrom);
+    res.json(User.toResponse(user));
+}));
+router.route('/:id').delete(errorWrapper(async (req, res) => {
     const { id } = req.params;
-    try {
-        await usersService.remove(id);
-        res.json('User deleted');
-    }
-    catch (err) {
-        next(err);
-    }
-});
+    await usersService.remove(String(id));
+    res.json('User deleted');
+}));
 export { router };

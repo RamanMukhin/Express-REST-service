@@ -1,0 +1,43 @@
+version: '3.9'
+services: 
+  db:
+    container_name: db
+    build: ./src/db/
+    restart: always
+    ports: 
+      - ${DB_PORT}:${DB_PORT}
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}  
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      TZ: Europe/Moscow
+    networks:
+      - my_docker_network 
+    volumes: 
+      - my_db_volume:/var/lib/postgresql/data
+
+  app:
+    container_name: app
+    build: ./
+    restart: always
+    ports: 
+      - ${PORT}:${PORT}
+    depends_on: 
+      - db
+    environment:
+      PORT: ${PORT} 
+      TZ: Europe/Moscow
+    networks: 
+      - my_docker_network
+    volumes: 
+      - ./build:/usr/app/build
+      - my_app_volume:/usr/app/logs
+
+volumes: 
+  my_db_volume:
+  my_app_volume:      
+
+networks:   
+  my_docker_network:
+    driver: bridge
+
