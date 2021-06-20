@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Task } from '../tasks/task.model.js';
 import { ColumnClass } from './column.model.js';
 
 @Entity()
@@ -14,4 +15,9 @@ export class Board {
     cascade: true,
   })
   columns!: ColumnClass[];
+
+  @OneToMany(() => Task, (task) => task.boardId,{
+    cascade: true,
+  })
+  task!: Task[]
 }

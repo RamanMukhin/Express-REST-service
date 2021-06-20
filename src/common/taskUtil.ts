@@ -21,16 +21,16 @@ function toTaskDto(requestBody: ITask): ITask {
   };
 }
 
-function toTask(newTask: ITask): Task {
-  return new Task({
-    title: newTask.title,
-    order: newTask.order,
-    description: newTask.description,
-    userId: newTask.userId!,
-    boardId: newTask.boardId,
-    columnId: newTask.columnId,
-  });
-}
+// function toTask(newTask: ITask): Task {
+//   return new Task({
+//     title: newTask.title,
+//     order: newTask.order,
+//     description: newTask.description,
+//     userId: newTask.userId!,
+//     boardId: newTask.boardId,
+//     columnId: newTask.columnId,
+//   });
+// }
 
 function toUpdateTask(task: Task, taskUpdateFrom: ITask): void {
   Object.assign(task, taskUpdateFrom);
@@ -50,7 +50,7 @@ function findByUserId(userId: string, tasks: Task[]): Task[] {
 
 export {
   toTaskDto,
-  toTask,
+  // toTask,
   toUpdateTask,
   findIndex,
   findByBoardId,

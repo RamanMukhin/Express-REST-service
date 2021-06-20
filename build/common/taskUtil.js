@@ -1,4 +1,3 @@
-import { Task } from '../resources/tasks/task.model.js';
 function toTaskDto(requestBody) {
     return {
         title: requestBody.title,
@@ -9,16 +8,16 @@ function toTaskDto(requestBody) {
         columnId: requestBody.columnId,
     };
 }
-function toTask(newTask) {
-    return new Task({
-        title: newTask.title,
-        order: newTask.order,
-        description: newTask.description,
-        userId: newTask.userId,
-        boardId: newTask.boardId,
-        columnId: newTask.columnId,
-    });
-}
+// function toTask(newTask: ITask): Task {
+//   return new Task({
+//     title: newTask.title,
+//     order: newTask.order,
+//     description: newTask.description,
+//     userId: newTask.userId!,
+//     boardId: newTask.boardId,
+//     columnId: newTask.columnId,
+//   });
+// }
 function toUpdateTask(task, taskUpdateFrom) {
     Object.assign(task, taskUpdateFrom);
 }
@@ -31,4 +30,6 @@ function findByBoardId(boardId, tasks) {
 function findByUserId(userId, tasks) {
     return tasks.filter((task) => task.userId === userId);
 }
-export { toTaskDto, toTask, toUpdateTask, findIndex, findByBoardId, findByUserId, };
+export { toTaskDto, 
+// toTask,
+toUpdateTask, findIndex, findByBoardId, findByUserId, };
