@@ -36,7 +36,7 @@ export class Task {
   static toResponse(task: Task) {
     const { id, title, order, description, userId, columnId } = task;
     const board = <Board>task.boardId;
-    const boardId = (!board)? null : board.id;
+    const boardId = !board ? null : board.id;
     return { id, title, order, description, userId, boardId, columnId };
   }
 }

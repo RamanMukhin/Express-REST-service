@@ -1,7 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import * as usersRepo from './user.memory.repository.js';
 import { toUser, IUser } from '../../common/userUtil.js';
-// import { updateTasksWithUser } from '../tasks/task.service.js';
 import { User } from './user.model.js';
 import { NotFoundError } from '../../middlewares/errorHandler.js';
 
@@ -26,7 +25,6 @@ const update = async (id: string, userUpdateFrom: IUser): Promise<void> => {
 const remove = async (id: string): Promise<void> => {
   await find(id);
   await usersRepo.remove(id);
-  // await updateTasksWithUser(id);
 };
 
 export { getAll, create, find, update, remove };

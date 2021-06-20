@@ -42,26 +42,4 @@ async function toUpdateColumns(
   await columnRepository.save(columnsUpdateFrom);
 }
 
-// async function toUpdateBoard(
-//   boardToUpdate: Board,
-//   titleUpdateFrom: string
-// ): Promise<IBoard> {
-//   const { id } = boardToUpdate;
-
-//   return boardUpdateFrom;
-// }
-
-function findIndex(id: string, boards: Board[]): number {
-  return boards.findIndex((board) => board.id === id);
-}
-
-export {
-  toBoardDto,
-  toColumnDto,
-  toBoard,
-  toColumn,
-  // toUpdateBoard,
-  toUpdateColumns,
-  findIndex,
-  IBoard,
-};
+export { toBoardDto, toColumnDto, toBoard, toColumn, toUpdateColumns, IBoard };

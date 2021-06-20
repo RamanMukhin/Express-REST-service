@@ -10,4 +10,4 @@ export function logger(typeOfLog: string, messageToLog: string): void {
   } else {
     console.log(messageToLog);
   }
-};
+}

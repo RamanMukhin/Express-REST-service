@@ -11,7 +11,7 @@ const create = async (newTask: ITask): Promise<Task> => {
   const boardId = (await boardsRepo.find(newTask.boardId))!;
   const { title, order, description, userId, columnId } = newTask;
   const taskDto = { title, order, description, userId, boardId, columnId };
-  return await tasksRepo.save(taskDto)
+  return await tasksRepo.save(taskDto);
 };
 
 const find = async (id: string): Promise<Task> => {
@@ -30,20 +30,4 @@ const remove = async (id: string): Promise<void> => {
   await tasksRepo.remove(id);
 };
 
-// const removeTasksWithBoard = async (boardId: string): Promise<void> => {
-//   await tasksRepo.removeTaskWithBoard(boardId);
-// };
-
-// const updateTasksWithUser = async (userId: string): Promise<void> => {
-//   await tasksRepo.updateTaskWithUser(userId);
-// };
-
-export {
-  getAll,
-  create,
-  find,
-  update,
-  remove,
-  // removeTasksWithBoard,
-  // updateTasksWithUser,
-};
+export { getAll, create, find, update, remove };

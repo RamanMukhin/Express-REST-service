@@ -13,4 +13,4 @@ export function errorWrapper(handler: RequestHandler) {
     }
   }
   return wrapper;
-};
+}
