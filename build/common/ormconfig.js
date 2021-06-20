@@ -5,6 +5,7 @@ import { User } from '../resources/users/user.model.js';
 import { Board } from '../resources/boards/board.model.js';
 import { ColumnClass } from '../resources/boards/column.model.js';
 import { Task } from '../resources/tasks/task.model.js';
+import { Test21624208011527 } from '../migration/1624208011527-Test2.js';
 dotenv.config({
     path: path.join(dirname(fileURLToPath(import.meta.url)), '../../.env'),
 });
@@ -21,6 +22,8 @@ export const dbConfig = {
     username: POSTGRES_USER,
     password: POSTGRES_PASSWORD,
     database: POSTGRES_DB,
-    synchronize: true,
+    synchronize: false,
+    migrations: [Test21624208011527],
+    cli: { migrationsDir: 'migration' },
     entities: [User, ColumnClass, Board, Task],
 };

@@ -11,7 +11,8 @@ const connectionToDB = async () => {
     // } else {
     //   createConnection(dbConfig);
     // }
-    await createConnection(dbConfig);
+    const connection = await createConnection(dbConfig);
+    connection.runMigrations();
     logger('log', `Connected to DB!`);
   } catch (err) {
     const { name, message, stack } = err;
