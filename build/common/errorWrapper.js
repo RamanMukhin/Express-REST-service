@@ -9,4 +9,3 @@ export function errorWrapper(handler) {
     }
     return wrapper;
 }
-;

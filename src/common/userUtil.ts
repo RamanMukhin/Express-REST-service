@@ -1,6 +1,3 @@
-import { getRepository } from 'typeorm';
-import { User } from '../resources/users/user.model.js';
-
 interface IUser {
   id?: string;
   name: string;
@@ -16,9 +13,4 @@ function toUserDto(requestBody: IUser): IUser {
   };
 }
 
-function toUser(newUser: IUser): User {
-  const userRepository = getRepository(User);
-  return userRepository.create(newUser);
-}
-
-export { toUserDto, toUser, IUser };
+export { toUserDto, IUser };

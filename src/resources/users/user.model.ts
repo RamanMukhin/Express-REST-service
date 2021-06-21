@@ -1,9 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-// import { Task } from '../tasks/task.model.js';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  // @OneToMany(() => Task, task => task.userId)
   id!: string;
 
   @Column()

@@ -9,7 +9,6 @@ import { Test21624208011527 } from '../migration/1624208011527-Test2.js';
 dotenv.config({
     path: path.join(dirname(fileURLToPath(import.meta.url)), '../../.env'),
 });
-// const { TYPE } = process.env;
 const { POSTGRES_HOST } = process.env;
 const { POSTGRES_PORT } = process.env;
 const { POSTGRES_USER } = process.env;

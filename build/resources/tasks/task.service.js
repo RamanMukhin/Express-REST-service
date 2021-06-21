@@ -23,13 +23,4 @@ const remove = async (id) => {
     await find(id);
     await tasksRepo.remove(id);
 };
-// const removeTasksWithBoard = async (boardId: string): Promise<void> => {
-//   await tasksRepo.removeTaskWithBoard(boardId);
-// };
-// const updateTasksWithUser = async (userId: string): Promise<void> => {
-//   await tasksRepo.updateTaskWithUser(userId);
-// };
-export { getAll, create, find, update, remove,
-// removeTasksWithBoard,
-// updateTasksWithUser,
- };
+export { getAll, create, find, update, remove };

@@ -1,15 +1,8 @@
-// import { createConnection, Connection, getConnection } from 'typeorm';
 import { createConnection } from 'typeorm';
 import { logger } from '../common/Logger.js';
 import { dbConfig } from '../common/ormconfig.js';
 const connectionToDB = async () => {
     try {
-        // const connection: Connection | undefined = getConnection();
-        // if (connection) {
-        //   if (!connection.isConnected) await connection.connect();
-        // } else {
-        //   createConnection(dbConfig);
-        // }
         const connection = await createConnection(dbConfig);
         connection.runMigrations();
         logger('log', `Connected to DB!`);

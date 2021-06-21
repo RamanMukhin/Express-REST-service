@@ -7,7 +7,7 @@ const getAll = async (): Promise<User[]> => {
   return await userRepository.find({ where: {} });
 };
 
-const save = async (user: User): Promise<User> => {
+const save = async (user: IUser): Promise<User> => {
   const userRepository = getRepository(User);
   return await userRepository.save(user);
 };

@@ -1,4 +1,4 @@
-import { Table, TableForeignKey } from 'typeorm';
+import { Table, TableForeignKey, } from 'typeorm';
 export class Test21624208011527 {
     async up(queryRunner) {
         await queryRunner.createTable(new Table({
@@ -8,7 +8,7 @@ export class Test21624208011527 {
                     name: 'id',
                     type: 'uuid',
                     isPrimary: true,
-                    default: 'uuid_generate_v4()'
+                    default: 'uuid_generate_v4()',
                 },
                 {
                     name: 'name',
@@ -31,7 +31,7 @@ export class Test21624208011527 {
                     name: 'id',
                     type: 'uuid',
                     isPrimary: true,
-                    default: 'uuid_generate_v4()'
+                    default: 'uuid_generate_v4()',
                 },
                 {
                     name: 'title',
@@ -48,7 +48,7 @@ export class Test21624208011527 {
                 {
                     name: 'userIdId',
                     type: 'uuid',
-                    isNullable: true
+                    isNullable: true,
                 },
                 {
                     name: 'boardIdId',
@@ -57,7 +57,7 @@ export class Test21624208011527 {
                 {
                     name: 'columnId',
                     type: 'uuid',
-                    isNullable: true
+                    isNullable: true,
                 },
             ],
         }), true);
@@ -68,7 +68,7 @@ export class Test21624208011527 {
                     name: 'id',
                     type: 'uuid',
                     isPrimary: true,
-                    default: 'uuid_generate_v4()'
+                    default: 'uuid_generate_v4()',
                 },
                 {
                     name: 'title',
@@ -81,7 +81,7 @@ export class Test21624208011527 {
                 {
                     name: 'boardId',
                     type: 'uuid',
-                    isNullable: true
+                    isNullable: true,
                 },
             ],
         }), true);
@@ -92,7 +92,7 @@ export class Test21624208011527 {
                     name: 'id',
                     type: 'uuid',
                     isPrimary: true,
-                    default: 'uuid_generate_v4()'
+                    default: 'uuid_generate_v4()',
                 },
                 {
                     name: 'title',
@@ -100,38 +100,34 @@ export class Test21624208011527 {
                 },
             ],
         }), true);
-        await queryRunner.createForeignKey("task", new TableForeignKey({
-            columnNames: ["userIdId"],
-            referencedColumnNames: ["id"],
-            referencedTableName: "user",
-            onDelete: "SET NULL"
+        await queryRunner.createForeignKey('task', new TableForeignKey({
+            columnNames: ['userIdId'],
+            referencedColumnNames: ['id'],
+            referencedTableName: 'user',
+            onDelete: 'SET NULL',
         }));
-        await queryRunner.createForeignKey("column_class", new TableForeignKey({
-            columnNames: ["boardId"],
-            referencedColumnNames: ["id"],
-            referencedTableName: "board",
-            onDelete: "CASCADE"
+        await queryRunner.createForeignKey('column_class', new TableForeignKey({
+            columnNames: ['boardId'],
+            referencedColumnNames: ['id'],
+            referencedTableName: 'board',
+            onDelete: 'CASCADE',
         }));
-        await queryRunner.createForeignKey("task", new TableForeignKey({
-            columnNames: ["boardIdId"],
-            referencedColumnNames: ["id"],
-            referencedTableName: "board",
-            onDelete: "CASCADE"
+        await queryRunner.createForeignKey('task', new TableForeignKey({
+            columnNames: ['boardIdId'],
+            referencedColumnNames: ['id'],
+            referencedTableName: 'board',
+            onDelete: 'CASCADE',
         }));
     }
     async down(queryRunner) {
-        const taskTable = (await queryRunner.getTable("task"));
-        const foreignKey = taskTable.foreignKeys.find(fk => fk.columnNames.indexOf("boardIdId") !== -1);
-        await queryRunner.dropForeignKey("task", foreignKey);
-        const foreignKeyUser = taskTable.foreignKeys.find(fk => fk.columnNames.indexOf("userIdId") !== -1);
-        await queryRunner.dropForeignKey("task", foreignKeyUser);
-        const columnTable = (await queryRunner.getTable("column_class"));
-        console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-        const foreignKeycolumn = columnTable.foreignKeys.find(fk => fk.columnNames.indexOf("boardId") !== -1);
-        await queryRunner.dropForeignKey("column_class", foreignKeycolumn);
-        // const columnTable = (await queryRunner.getTable("column_class"))!;
-        // const foreignKeycolumn = columnTable.foreignKeys.find(fk => fk.columnNames.indexOf("boardId") !== -1);
-        // await queryRunner.dropForeignKey("answer", foreignKeycolumn!);
+        const taskTable = (await queryRunner.getTable('task'));
+        const foreignKey = taskTable.foreignKeys.find((fk) => fk.columnNames.indexOf('boardIdId') !== -1);
+        await queryRunner.dropForeignKey('task', foreignKey);
+        const foreignKeyUser = taskTable.foreignKeys.find((fk) => fk.columnNames.indexOf('userIdId') !== -1);
+        await queryRunner.dropForeignKey('task', foreignKeyUser);
+        const columnTable = (await queryRunner.getTable('column_class'));
+        const foreignKeycolumn = columnTable.foreignKeys.find((fk) => fk.columnNames.indexOf('boardId') !== -1);
+        await queryRunner.dropForeignKey('column_class', foreignKeycolumn);
         await queryRunner.dropTable('task');
         await queryRunner.dropTable('column_class');
         await queryRunner.dropTable('board');

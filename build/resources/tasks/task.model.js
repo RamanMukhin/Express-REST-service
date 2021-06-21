@@ -14,7 +14,7 @@ let Task = class Task {
     static toResponse(task) {
         const { id, title, order, description, userId, columnId } = task;
         const board = task.boardId;
-        const boardId = (!board) ? null : board.id;
+        const boardId = !board ? null : board.id;
         return { id, title, order, description, userId, boardId, columnId };
     }
 };

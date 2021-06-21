@@ -1,5 +1,6 @@
 import { getRepository } from 'typeorm';
 import { Board } from './board.model.js';
+import { ColumnClass } from './column.model.js';
 const getAll = async () => {
     const boardRepository = getRepository(Board);
     return boardRepository.find({ where: {} });
@@ -20,4 +21,12 @@ const remove = async (id) => {
     const boardRepository = getRepository(Board);
     await boardRepository.delete(id);
 };
-export { getAll, save, find, update, remove };
+async function saveColumns(columnsCreateFrom) {
+    const columnRepository = getRepository(ColumnClass);
+    return await Promise.all(columnsCreateFrom.map((column) => columnRepository.save(column)));
+}
+async function updateColumns(columnsUpdateFrom) {
+    const columnRepository = getRepository(ColumnClass);
+    await columnRepository.save(columnsUpdateFrom);
+}
+export { getAll, save, find, update, remove, saveColumns, updateColumns };

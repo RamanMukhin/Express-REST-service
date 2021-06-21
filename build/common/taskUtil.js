@@ -8,28 +8,4 @@ function toTaskDto(requestBody) {
         columnId: requestBody.columnId,
     };
 }
-// function toTask(newTask: ITask): Task {
-//   return new Task({
-//     title: newTask.title,
-//     order: newTask.order,
-//     description: newTask.description,
-//     userId: newTask.userId!,
-//     boardId: newTask.boardId,
-//     columnId: newTask.columnId,
-//   });
-// }
-function toUpdateTask(task, taskUpdateFrom) {
-    Object.assign(task, taskUpdateFrom);
-}
-function findIndex(id, tasks) {
-    return tasks.findIndex((task) => task.id === id);
-}
-function findByBoardId(boardId, tasks) {
-    return tasks.filter((task) => task.boardId === boardId);
-}
-function findByUserId(userId, tasks) {
-    return tasks.filter((task) => task.userId === userId);
-}
-export { toTaskDto, 
-// toTask,
-toUpdateTask, findIndex, findByBoardId, findByUserId, };
+export { toTaskDto };

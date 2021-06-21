@@ -1,15 +1,13 @@
 import { StatusCodes } from 'http-status-codes';
 import * as usersRepo from './user.memory.repository.js';
-import { toUser, IUser } from '../../common/userUtil.js';
+import { IUser } from '../../common/userUtil.js';
 import { User } from './user.model.js';
 import { NotFoundError } from '../../middlewares/errorHandler.js';
 
 const getAll = async (): Promise<User[]> => await usersRepo.getAll();
 
-const create = async (newUser: IUser): Promise<User> => {
-  const user = toUser(newUser);
-  return await usersRepo.save(user);
-};
+const create = async (newUser: IUser): Promise<User> =>
+  await usersRepo.save(newUser);
 
 const find = async (id: string): Promise<User> => {
   const user = await usersRepo.find(id);
