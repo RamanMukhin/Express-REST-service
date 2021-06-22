@@ -1,11 +1,9 @@
 function toTaskDto(requestBody) {
-    return {
-        title: requestBody.title,
-        order: requestBody.order,
-        description: requestBody.description,
-        userId: requestBody.userId,
-        boardId: requestBody.boardId,
-        columnId: requestBody.columnId,
-    };
+    const { title, order, description, userId, boardId, columnId } = requestBody;
+    return { title, order, description, userId, boardId, columnId };
 }
-export { toTaskDto };
+const toTask = (id, taskUpdateFrom) => {
+    const { title, order, description, userId, boardId, columnId } = taskUpdateFrom;
+    return { id, title, order, description, userId, boardId, columnId };
+};
+export { toTaskDto, toTask };

@@ -2,9 +2,9 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Board } from './board.model.js';
 
 @Entity()
-export class ColumnClass {
+class ColumnClass {
   @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  id?: string;
 
   @Column()
   title!: string;
@@ -18,3 +18,11 @@ export class ColumnClass {
   })
   board!: Object;
 }
+
+interface IColumnClass {
+  title: string;
+  order: number;
+}
+
+export {ColumnClass, IColumnClass}
+

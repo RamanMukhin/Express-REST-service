@@ -3,7 +3,7 @@ import { Board } from '../boards/board.model.js';
 import { User } from '../users/user.model.js';
 
 @Entity()
-export class Task {
+class Task {
   @PrimaryGeneratedColumn('uuid')
   id?: string;
 
@@ -40,3 +40,14 @@ export class Task {
     return { id, title, order, description, userId, boardId, columnId };
   }
 }
+
+interface ITask {
+  title: string;
+  order: number;
+  description: string;
+  userId: string | null;
+  boardId: string|Object;
+  columnId: string;
+}
+
+export { Task, ITask }

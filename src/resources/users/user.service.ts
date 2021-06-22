@@ -1,13 +1,12 @@
 import { StatusCodes } from 'http-status-codes';
 import * as usersRepo from './user.memory.repository.js';
-import { IUser } from '../../common/userUtil.js';
-import { User } from './user.model.js';
+import { User, IUser } from './user.model.js';
 import { NotFoundError } from '../../middlewares/errorHandler.js';
+import { toUpdateUser } from '../../common/userUtil.js';
 
 const getAll = async (): Promise<User[]> => await usersRepo.getAll();
 
-const create = async (newUser: IUser): Promise<User> =>
-  await usersRepo.save(newUser);
+const create = async (userCreateFrom: IUser): Promise<User> => await usersRepo.save(userCreateFrom);
 
 const find = async (id: string): Promise<User> => {
   const user = await usersRepo.find(id);
@@ -15,9 +14,10 @@ const find = async (id: string): Promise<User> => {
   return user;
 };
 
-const update = async (id: string, userUpdateFrom: IUser): Promise<void> => {
+const update = async (id: string, userUpdateFrom: IUser): Promise<User> => {
   await find(id);
-  return await usersRepo.update(id, userUpdateFrom);
+  const user = toUpdateUser(id, userUpdateFrom);
+  return await usersRepo.update(user);
 };
 
 const remove = async (id: string): Promise<void> => {

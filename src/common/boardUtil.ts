@@ -1,22 +1,12 @@
-import { ColumnClass } from '../resources/boards/column.model.js';
+import { Board, IBoard } from '../resources/boards/board.model.js';
+import { ColumnClass, IColumnClass } from '../resources/boards/column.model.js';
 
-interface IBoard {
-  id?: string;
-  title: string;
-  columns: ColumnClass[];
-}
+const toBoardDto = (requestBody: IBoard): string => requestBody.title;
 
-function toBoardDto(requestBody: IBoard): string {
-  return requestBody.title;
-}
+const toColumnDto = (requestBody: IBoard): IColumnClass[] => requestBody.columns;
 
-function toColumnDto(requestBody: IBoard): ColumnClass[] {
-  return requestBody.columns;
-}
+const toBoard = (title: string, columns: ColumnClass[]): IBoard => Object({ title, columns });
 
-function toBoard(title: string, columns: ColumnClass[]): IBoard {
-  const boardCreateFrom: IBoard = { title, columns };
-  return boardCreateFrom;
-}
+const toUdateBoard = (id: string, title: string): Board => Object({ id, title });
 
-export { toBoardDto, toColumnDto, toBoard, IBoard };
+export { toBoardDto, toColumnDto, toBoard, toUdateBoard };

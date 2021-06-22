@@ -3,9 +3,9 @@ import { Task } from '../tasks/task.model.js';
 import { ColumnClass } from './column.model.js';
 
 @Entity()
-export class Board {
+class Board {
   @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  id?: string;
 
   @Column()
   title!: string;
@@ -21,3 +21,10 @@ export class Board {
   })
   task!: Task[];
 }
+
+interface IBoard {
+  title: string;
+  columns: ColumnClass[];
+}
+
+export { Board, IBoard }

@@ -11,7 +11,6 @@ router.route('/:id/tasks/').get(
   errorWrapper(
     async (_req, res): Promise<void> => {
       const tasks = await tasksService.getAll();
-      console.log(tasks);
       res.json(tasks.map(Task.toResponse));
     }
   )
@@ -20,10 +19,10 @@ router.route('/:id/tasks/').get(
 router.route('/:id/tasks/').post(
   errorWrapper(
     async (req, res): Promise<void> => {
-      const newTask = toTaskDto(req.body);
+      const taskCreateFrom = toTaskDto(req.body);
       const { id } = req.params;
-      newTask.boardId = String(id);
-      const task = await tasksService.create(newTask);
+      taskCreateFrom.boardId = String(id);
+      const task = await tasksService.create(taskCreateFrom);
       res.status(StatusCodes.CREATED).json(Task.toResponse(task));
     }
   )
@@ -44,8 +43,7 @@ router.route('/:id/tasks/:id').put(
     async (req, res): Promise<void> => {
       const { id } = req.params;
       const taskUpdateFrom = toTaskDto(req.body);
-      await tasksService.update(String(id), taskUpdateFrom);
-      const task = await tasksService.find(String(id));
+      const task = await tasksService.update(String(id), taskUpdateFrom);
       res.json(Task.toResponse(task));
     }
   )

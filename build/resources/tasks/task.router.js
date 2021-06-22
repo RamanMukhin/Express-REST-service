@@ -7,7 +7,6 @@ import * as tasksService from './task.service.js';
 const router = express.Router({ mergeParams: true });
 router.route('/:id/tasks/').get(errorWrapper(async (_req, res) => {
     const tasks = await tasksService.getAll();
-    console.log(tasks);
     res.json(tasks.map(Task.toResponse));
 }));
 router.route('/:id/tasks/').post(errorWrapper(async (req, res) => {

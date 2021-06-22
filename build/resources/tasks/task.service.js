@@ -2,6 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import * as tasksRepo from './task.memory.repository.js';
 import * as boardsRepo from '../boards/board.memory.repository.js';
 import { NotFoundError } from '../../middlewares/errorHandler.js';
+import { toTask } from '../../common/taskUtil.js';
 const getAll = async () => await tasksRepo.getAll();
 const create = async (newTask) => {
     const boardId = (await boardsRepo.find(newTask.boardId));
@@ -15,9 +16,10 @@ const find = async (id) => {
         throw new NotFoundError(StatusCodes.NOT_FOUND, 'Task not found');
     return task;
 };
-const update = async (id, taksUpdateFrom) => {
+const update = async (id, taskUpdateFrom) => {
     await find(id);
-    await tasksRepo.update(id, taksUpdateFrom);
+    const task = toTask(id, taskUpdateFrom);
+    return await tasksRepo.update(task);
 };
 const remove = async (id) => {
     await find(id);

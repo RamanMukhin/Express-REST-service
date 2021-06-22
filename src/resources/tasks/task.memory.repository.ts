@@ -1,30 +1,14 @@
-import { getRepository } from 'typeorm';
-import { Task } from './task.model.js';
-import { ITask } from '../../common/taskUtil.js';
+import { getRepository, DeleteResult } from 'typeorm';
+import { Task, ITask } from './task.model.js';
 
-const getAll = async (): Promise<Task[]> => {
-  const taskRepository = getRepository(Task);
-  return await taskRepository.find({ where: {} });
-};
+const getAll = async (): Promise<Task[]> => await getRepository(Task).find();
 
-const save = async (newTask: Task): Promise<Task> => {
-  const taskRepository = getRepository(Task);
-  return await taskRepository.save(newTask);
-};
+const save = async (newTask: ITask): Promise<Task> => await getRepository(Task).save(newTask);
 
-const find = async (id: string): Promise<Task | undefined> => {
-  const taskRepository = getRepository(Task);
-  return await taskRepository.findOne(id);
-};
+const find = async (id: string): Promise<Task | undefined> => await getRepository(Task).findOne(id);
 
-const update = async (id: string, taksUpdateFrom: ITask): Promise<void> => {
-  const taskRepository = getRepository(Task);
-  await taskRepository.update(id, taksUpdateFrom);
-};
+const update = async (task: Task): Promise<Task> => await getRepository(Task).save(task);
 
-const remove = async (id: string): Promise<void> => {
-  const taskRepository = getRepository(Task);
-  await taskRepository.delete(id);
-};
+const remove = async (id: string): Promise<DeleteResult> => await getRepository(Task).delete(id);
 
 export { getAll, save, find, update, remove };

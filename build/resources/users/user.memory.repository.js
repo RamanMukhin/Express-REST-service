@@ -1,23 +1,8 @@
 import { getRepository } from 'typeorm';
 import { User } from './user.model.js';
-const getAll = async () => {
-    const userRepository = getRepository(User);
-    return await userRepository.find({ where: {} });
-};
-const save = async (user) => {
-    const userRepository = getRepository(User);
-    return await userRepository.save(user);
-};
-const find = async (id) => {
-    const userRepository = getRepository(User);
-    return await userRepository.findOne(id);
-};
-const update = async (id, userUpdateFrom) => {
-    const userRepository = getRepository(User);
-    await userRepository.update(id, userUpdateFrom);
-};
-const remove = async (id) => {
-    const userRepository = getRepository(User);
-    await userRepository.delete(id);
-};
+const getAll = async () => await getRepository(User).find({ where: {} });
+const save = async (user) => await getRepository(User).save(user);
+const find = async (id) => await getRepository(User).findOne(id);
+const update = async (user) => await getRepository(User).save(user);
+const remove = async (id) => await getRepository(User).delete(id);
 export { getAll, save, find, update, remove };

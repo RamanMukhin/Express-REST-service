@@ -44,13 +44,12 @@ router.route('/:id').put(
     async (req, res): Promise<void> => {
       const { id } = req.params;
       const titleUpdateFrom = toBoardDto(req.body);
-      const columnsUpdateFrom = toColumnDto(req.body);
-      await boardsService.update(
+      const columnsUpdateFrom = req.body.columns;
+      const board = await boardsService.update(
         String(id),
         titleUpdateFrom,
         columnsUpdateFrom
       );
-      const board = await boardsService.find(String(id));
       res.json(board);
     }
   )
