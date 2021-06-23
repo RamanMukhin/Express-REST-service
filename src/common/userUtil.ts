@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { User, IUser } from "../resources/users/user.model";
+import { User, IUser, ILoginUser } from "../resources/users/user.model";
 
 const toUser = async (userDto: IUser): Promise<IUser> => {
   const { name, login } = userDto;
@@ -19,4 +19,7 @@ const toUpdateUser = (id: string, userUpdateFrom: IUser): User => {
   return { id, name, login, password };
 };
 
-export { toUser, toUserDto, toUpdateUser };
+const checkUser = async (userLogin: ILoginUser, user: User): Promise<boolean> => 
+await bcrypt.compare(userLogin.password, user.password);
+
+export { toUser, toUserDto, toUpdateUser, checkUser };

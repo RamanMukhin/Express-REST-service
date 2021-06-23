@@ -26,4 +26,9 @@ interface IUser {
   password: string;
 }
 
-export { User, IUser }
+interface ILoginUser {
+  login: string;
+  password: string;
+}
+
+export { User, IUser, ILoginUser }

@@ -2,7 +2,7 @@ import { createConnection, Connection } from 'typeorm';
 import { logger } from '../common/Logger.js';
 import { dbConfig } from '../common/ormconfig.js';
 import { POSTGRES_TRY } from '../common/config.js';
-import { create, findAdmin } from '../resources/users/user.service.js';
+import { create, findUser } from '../resources/users/user.service.js';
 
 const connectionToDB = async () => {
   let connection: Connection;
@@ -16,7 +16,7 @@ const connectionToDB = async () => {
         await connection.runMigrations();
         logger('log', `Connected to DB!`);
 
-        const admin = await findAdmin();
+        const admin = await findUser({ login: 'admin', password: 'admin' });
 
         if (!admin) {
           await create({

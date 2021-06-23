@@ -10,6 +10,7 @@ const { PORT } = process.env;
 const { NODE_ENV } = process.env;
 const { MONGO_CONNECTION_STRING } = process.env;
 const { JWT_SECRET_KEY } = process.env;
+const { EXPIRATION_TIME } = process.env;
 const { AUTH_MODE } = process.env;
 const { POSTGRES_DB } = process.env;
 const { POSTGRES_USER } = process.env;
@@ -26,6 +27,7 @@ export {
   NODE_ENV,
   MONGO_CONNECTION_STRING,
   JWT_SECRET_KEY,
+  EXPIRATION_TIME,
   AUTH_MODE,
   POSTGRES_DB,
   POSTGRES_USER,
