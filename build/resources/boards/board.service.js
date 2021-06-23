@@ -1,12 +1,12 @@
 import { StatusCodes } from 'http-status-codes';
 import * as boardsRepo from './board.memory.repository.js';
-import { toBoard } from '../../common/boardUtil.js';
+import { toBoard, toUdateBoard } from '../../common/boardUtil.js';
 import { NotFoundError } from '../../middlewares/errorHandler.js';
 const getAll = async () => await boardsRepo.getAll();
 const create = async (titleCreateFrom, columnsCreateFrom) => {
     const createdColumns = await boardsRepo.saveColumns(columnsCreateFrom);
-    const board = toBoard(titleCreateFrom, createdColumns);
-    return await boardsRepo.save(board);
+    const boardCreateFrom = toBoard(titleCreateFrom, createdColumns);
+    return await boardsRepo.save(boardCreateFrom);
 };
 const find = async (id) => {
     const board = await boardsRepo.find(id);
@@ -17,7 +17,8 @@ const find = async (id) => {
 const update = async (id, titleUpdateFrom, columnsUpdateFrom) => {
     await find(id);
     await boardsRepo.updateColumns(columnsUpdateFrom);
-    return await boardsRepo.update(id, titleUpdateFrom);
+    const board = toUdateBoard(id, titleUpdateFrom);
+    return await boardsRepo.update(board);
 };
 const remove = async (id) => {
     await find(id);

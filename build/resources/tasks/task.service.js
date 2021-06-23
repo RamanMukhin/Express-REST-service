@@ -2,13 +2,12 @@ import { StatusCodes } from 'http-status-codes';
 import * as tasksRepo from './task.memory.repository.js';
 import * as boardsRepo from '../boards/board.memory.repository.js';
 import { NotFoundError } from '../../middlewares/errorHandler.js';
-import { toTask } from '../../common/taskUtil.js';
+import { toTask, toUpdateTask } from '../../common/taskUtil.js';
 const getAll = async () => await tasksRepo.getAll();
-const create = async (newTask) => {
-    const boardId = (await boardsRepo.find(newTask.boardId));
-    const { title, order, description, userId, columnId } = newTask;
-    const taskDto = { title, order, description, userId, boardId, columnId };
-    return await tasksRepo.save(taskDto);
+const create = async (taskDto) => {
+    const boardId = await boardsRepo.find(String(taskDto.boardId));
+    const taskCreateFrom = toTask(boardId, taskDto);
+    return await tasksRepo.save(taskCreateFrom);
 };
 const find = async (id) => {
     const task = await tasksRepo.find(id);
@@ -18,7 +17,7 @@ const find = async (id) => {
 };
 const update = async (id, taskUpdateFrom) => {
     await find(id);
-    const task = toTask(id, taskUpdateFrom);
+    const task = toUpdateTask(id, taskUpdateFrom);
     return await tasksRepo.update(task);
 };
 const remove = async (id) => {

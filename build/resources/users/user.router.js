@@ -10,8 +10,8 @@ router.route('/').get(errorWrapper(async (_req, res) => {
     res.json(users.map(User.toResponse));
 }));
 router.route('/').post(errorWrapper(async (req, res) => {
-    const newUser = toUserDto(req.body);
-    const user = await usersService.create(newUser);
+    const userCreateFrom = toUserDto(req.body);
+    const user = await usersService.create(userCreateFrom);
     res.status(StatusCodes.CREATED).json(User.toResponse(user));
 }));
 router.route('/:id').get(errorWrapper(async (req, res) => {

@@ -14,8 +14,10 @@ const { AUTH_MODE } = process.env;
 const { POSTGRES_DB } = process.env;
 const { POSTGRES_USER } = process.env;
 const { POSTGRES_PASSWORD } = process.env;
+const { POSTGRES_TRY } = process.env;
 const { DB_PORT } = process.env;
 const { DB_HOST } = process.env;
+
 
 // const AUTH_MODE = process.env['AUTH_MODE'] === 'true';
 
@@ -28,6 +30,7 @@ export {
   POSTGRES_DB,
   POSTGRES_USER,
   POSTGRES_PASSWORD,
+  POSTGRES_TRY,
   DB_PORT,
   DB_HOST,
 };

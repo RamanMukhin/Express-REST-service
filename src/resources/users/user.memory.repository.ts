@@ -7,8 +7,10 @@ const save = async (user: IUser): Promise<User> => await getRepository(User).sav
 
 const find = async (id: string): Promise<User | undefined> => await getRepository(User).findOne(id);
 
+const findAdmin = async (): Promise<User | undefined> => await getRepository(User).findOne({ where: { name: 'admin', login: 'admin' } });
+
 const update = async (user: User): Promise<User> => await getRepository(User).save(user);
 
 const remove = async (id: string): Promise<DeleteResult> => await getRepository(User).delete(id);
 
-export { getAll, save, find, update, remove };
+export { getAll, save, find, update, remove, findAdmin };

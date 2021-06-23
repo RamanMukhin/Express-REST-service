@@ -8,7 +8,7 @@ import { router as boardRouter } from './resources/boards/board.router.js';
 import { router as taskRouter } from './resources/tasks/task.router.js';
 import { router as logEvents } from './middlewares/logging.js';
 import { errorHandler } from './middlewares/errorHandler.js';
-import { uncaughtExceptionHandler, unhandledRejectionHandler, } from './middlewares/uncaughtHandler.js';
+import { uncaughtExceptionHandler, unhandledRejectionHandler } from './middlewares/uncaughtHandler.js';
 const app = express();
 const swaggerDocument = YAML.load(path.join(dirname(fileURLToPath(import.meta.url)), '../doc/api.yaml'));
 process.on('uncaughtException', (err) => {
