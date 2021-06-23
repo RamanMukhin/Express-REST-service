@@ -2,17 +2,22 @@ import { StatusCodes } from 'http-status-codes';
 import * as usersRepo from './user.memory.repository.js';
 import { User, IUser } from './user.model.js';
 import { NotFoundError } from '../../middlewares/errorHandler.js';
-import { toUpdateUser } from '../../common/userUtil.js';
+import { toUser, toUpdateUser } from '../../common/userUtil.js';
 
 const getAll = async (): Promise<User[]> => await usersRepo.getAll();
 
-const create = async (userCreateFrom: IUser): Promise<User> => await usersRepo.save(userCreateFrom);
+const create = async (userDto: IUser): Promise<User> => {
+  const userCreateFrom = await toUser(userDto);
+  return await usersRepo.save(userCreateFrom);
+};
 
 const find = async (id: string): Promise<User> => {
   const user = await usersRepo.find(id);
   if (!user) throw new NotFoundError(StatusCodes.NOT_FOUND, 'User not found');
   return user;
 };
+
+const findAdmin = async (): Promise<User | undefined> => await usersRepo.findAdmin();
 
 const update = async (id: string, userUpdateFrom: IUser): Promise<User> => {
   await find(id);
@@ -25,4 +30,4 @@ const remove = async (id: string): Promise<void> => {
   await usersRepo.remove(id);
 };
 
-export { getAll, create, find, update, remove };
+export { getAll, create, find, update, remove, findAdmin };
