@@ -1,20 +1,37 @@
 import express from 'express';
 import { StatusCodes } from 'http-status-codes';
 import jwt from 'jsonwebtoken';
+import jwt_decode from "jwt-decode";
 import { JWT_SECRET_KEY } from '../common/config.js';
 import { errorWrapper } from '../common/errorWrapper.js';
+import { find } from '../resources/users/user.memory.repository.js';
 const router = express.Router({ mergeParams: true });
 router.use(errorWrapper(async (req, res, next) => {
+    const unauthorized = (message) => res.status(StatusCodes.UNAUTHORIZED).json({
+        auth: false,
+        status: StatusCodes.UNAUTHORIZED,
+        message,
+    });
     const sessionToken = req.headers.authorization?.split(' ')[1];
     if (!sessionToken) {
-        res.status(StatusCodes.UNAUTHORIZED).json({ auth: false, message: "No token provided." });
+        unauthorized('No token provided');
     }
     else {
-        jwt.verify(sessionToken, String(JWT_SECRET_KEY), (err) => {
+        jwt.verify(sessionToken, String(JWT_SECRET_KEY), async (err) => {
             if (err) {
-                res.status(StatusCodes.UNAUTHORIZED).json({ auth: false, message: "Not authorized." });
+                unauthorized('Not authorized');
             }
-            next();
+            ;
+            const payload = jwt_decode(sessionToken);
+            const { id } = payload;
+            const user = await find(id);
+            if (!user) {
+                unauthorized('YOU are Not authorized');
+            }
+            else {
+                next();
+            }
+            ;
         });
     }
     ;
