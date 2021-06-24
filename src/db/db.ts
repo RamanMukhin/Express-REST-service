@@ -7,7 +7,7 @@ import { create, findUser } from '../resources/users/user.service.js';
 const connectionToDB = async () => {
   let connection: Connection;
   const numberOftryConnection = +POSTGRES_TRY!;
-
+  
   try {
     connection = await createConnection(dbConfig);
 

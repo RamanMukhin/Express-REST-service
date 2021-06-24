@@ -19,10 +19,10 @@ const find = async (id: string): Promise<User> => {
 
 const findUser = async (userLogin: ILoginUser): Promise<User | undefined> => {
   const user = await usersRepo.findUser(userLogin);
-  if  (user) {
+  if (user) {
     const isPassword = await checkUser(userLogin, user);
     if (isPassword) return user;
-  } 
+  }
   return undefined;
 };
 
