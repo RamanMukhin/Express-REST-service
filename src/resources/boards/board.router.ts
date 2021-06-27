@@ -18,9 +18,12 @@ router.route('/').get(
 router.route('/').post(
   errorWrapper(
     async (req, res): Promise<void> => {
-      const title = toBoardDto(req.body);
-      const columns = toColumnDto(req.body);
-      const board = await boardsService.create(title, columns);
+      const titleCreateFrom = toBoardDto(req.body);
+      const columnsCreateFrom = toColumnDto(req.body);
+      const board = await boardsService.create(
+        titleCreateFrom,
+        columnsCreateFrom
+      );
       res.status(StatusCodes.CREATED).json(board);
     }
   )
@@ -42,11 +45,12 @@ router.route('/:id').put(
       const { id } = req.params;
       const titleUpdateFrom = toBoardDto(req.body);
       const columnsUpdateFrom = toColumnDto(req.body);
-      const board = await boardsService.update(
+      await boardsService.update(
         String(id),
         titleUpdateFrom,
         columnsUpdateFrom
       );
+      const board = await boardsService.find(String(id));
       res.json(board);
     }
   )

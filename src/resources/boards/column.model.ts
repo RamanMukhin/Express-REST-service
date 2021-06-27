@@ -1,15 +1,20 @@
-import { v4 as uuid } from 'uuid';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Board } from './board.model.js';
 
-export class Column {
-  id: string;
+@Entity()
+export class ColumnClass {
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
 
-  title: string;
+  @Column()
+  title!: string;
 
-  order: number;
+  @Column()
+  order!: number;
 
-  constructor({ id = uuid(), title = 'title', order = 0 } = {}) {
-    this.id = id;
-    this.title = title;
-    this.order = order;
-  }
+  @ManyToOne(() => Board, (board) => board.columns, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  board!: Object;
 }

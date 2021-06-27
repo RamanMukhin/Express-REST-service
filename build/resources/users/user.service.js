@@ -1,7 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import * as usersRepo from './user.memory.repository.js';
-import { toUser, toUpdateUser } from '../../common/userUtil.js';
-import { updateTasksWithUser } from '../tasks/task.service.js';
+import { toUser } from '../../common/userUtil.js';
 import { NotFoundError } from '../../middlewares/errorHandler.js';
 const getAll = async () => await usersRepo.getAll();
 const create = async (newUser) => {
@@ -15,13 +14,12 @@ const find = async (id) => {
     return user;
 };
 const update = async (id, userUpdateFrom) => {
-    const user = await find(id);
-    toUpdateUser(user, userUpdateFrom);
-    return await usersRepo.update(user);
+    await find(id);
+    return await usersRepo.update(id, userUpdateFrom);
 };
 const remove = async (id) => {
     await find(id);
     await usersRepo.remove(id);
-    await updateTasksWithUser(id);
+    // await updateTasksWithUser(id);
 };
 export { getAll, create, find, update, remove };

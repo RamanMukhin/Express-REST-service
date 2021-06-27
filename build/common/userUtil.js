@@ -1,3 +1,4 @@
+import { getRepository } from 'typeorm';
 import { User } from '../resources/users/user.model.js';
 function toUserDto(requestBody) {
     return {
@@ -7,7 +8,8 @@ function toUserDto(requestBody) {
     };
 }
 function toUser(newUser) {
-    return new User(newUser);
+    const userRepository = getRepository(User);
+    return userRepository.create(newUser);
 }
 function toUpdateUser(user, userUpdateFrom) {
     Object.assign(user, userUpdateFrom);

@@ -5,7 +5,7 @@ services:
     build: ./src/db/
     restart: always
     ports: 
-      - ${DB_PORT}:${DB_PORT}
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
     environment:
       POSTGRES_USER: ${POSTGRES_USER}  
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -30,7 +30,7 @@ services:
     networks: 
       - my_docker_network
     volumes: 
-      - ./build:/usr/app/build
+      - ./src:/usr/app/src
       - my_app_volume:/usr/app/logs
 
 volumes: 

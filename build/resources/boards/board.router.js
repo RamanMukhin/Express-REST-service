@@ -9,9 +9,9 @@ router.route('/').get(errorWrapper(async (_req, res) => {
     res.json(boards);
 }));
 router.route('/').post(errorWrapper(async (req, res) => {
-    const title = toBoardDto(req.body);
-    const columns = toColumnDto(req.body);
-    const board = await boardsService.create(title, columns);
+    const titleCreateFrom = toBoardDto(req.body);
+    const columnsCreateFrom = toColumnDto(req.body);
+    const board = await boardsService.create(titleCreateFrom, columnsCreateFrom);
     res.status(StatusCodes.CREATED).json(board);
 }));
 router.route('/:id').get(errorWrapper(async (req, res) => {
@@ -23,7 +23,8 @@ router.route('/:id').put(errorWrapper(async (req, res) => {
     const { id } = req.params;
     const titleUpdateFrom = toBoardDto(req.body);
     const columnsUpdateFrom = toColumnDto(req.body);
-    const board = await boardsService.update(String(id), titleUpdateFrom, columnsUpdateFrom);
+    await boardsService.update(String(id), titleUpdateFrom, columnsUpdateFrom);
+    const board = await boardsService.find(String(id));
     res.json(board);
 }));
 router.route('/:id').delete(errorWrapper(async (req, res) => {

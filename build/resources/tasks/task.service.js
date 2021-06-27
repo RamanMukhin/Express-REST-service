@@ -1,11 +1,13 @@
 import { StatusCodes } from 'http-status-codes';
 import * as tasksRepo from './task.memory.repository.js';
-import { toTask, toUpdateTask } from '../../common/taskUtil.js';
+import * as boardsRepo from '../boards/board.memory.repository.js';
 import { NotFoundError } from '../../middlewares/errorHandler.js';
 const getAll = async () => await tasksRepo.getAll();
 const create = async (newTask) => {
-    const task = toTask(newTask);
-    return await tasksRepo.save(task);
+    const boardId = (await boardsRepo.find(newTask.boardId));
+    const { title, order, description, userId, columnId } = newTask;
+    const taskDto = { title, order, description, userId, boardId, columnId };
+    return await tasksRepo.save(taskDto);
 };
 const find = async (id) => {
     const task = await tasksRepo.find(id);
@@ -13,24 +15,21 @@ const find = async (id) => {
         throw new NotFoundError(StatusCodes.NOT_FOUND, 'Task not found');
     return task;
 };
-const update = async (id, taskUpdateFrom) => {
-    const task = await find(id);
-    toUpdateTask(task, taskUpdateFrom);
-    return await tasksRepo.update(task);
+const update = async (id, taksUpdateFrom) => {
+    await find(id);
+    await tasksRepo.update(id, taksUpdateFrom);
 };
 const remove = async (id) => {
     await find(id);
     await tasksRepo.remove(id);
 };
-const removeTasksWithBoard = async (boardId) => {
-    await tasksRepo.removeTaskWithBoard(boardId);
-};
-const updateTasksWithUser = async (userId) => {
-    const arrOfTasks = await tasksRepo.findTasks(userId);
-    for (let i = 0; i < arrOfTasks.length; i += 1) {
-        const task = arrOfTasks[i];
-        task.userId = null;
-        await tasksRepo.update(task);
-    }
-};
-export { getAll, create, find, update, remove, removeTasksWithBoard, updateTasksWithUser, };
+// const removeTasksWithBoard = async (boardId: string): Promise<void> => {
+//   await tasksRepo.removeTaskWithBoard(boardId);
+// };
+// const updateTasksWithUser = async (userId: string): Promise<void> => {
+//   await tasksRepo.updateTaskWithUser(userId);
+// };
+export { getAll, create, find, update, remove,
+// removeTasksWithBoard,
+// updateTasksWithUser,
+ };

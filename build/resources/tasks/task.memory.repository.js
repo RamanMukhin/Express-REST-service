@@ -1,24 +1,44 @@
-import { findIndex, findByBoardId, findByUserId, } from '../../common/taskUtil.js';
-const tasks = [];
-const getAll = async () => tasks;
-const save = async (task) => {
-    tasks.push(task);
-    return task;
+import { getRepository } from 'typeorm';
+import { Task } from './task.model.js';
+const getAll = async () => {
+    const taskRepository = getRepository(Task);
+    return await taskRepository.find({ where: {} });
 };
-const find = async (id) => tasks.find((task) => task.id === id);
-const update = async (task) => {
-    tasks.splice(findIndex(task.id, tasks), 1, task);
-    return task;
+const save = async (newTask) => {
+    const taskRepository = getRepository(Task);
+    return await taskRepository.save(newTask);
+};
+const find = async (id) => {
+    const taskRepository = getRepository(Task);
+    return await taskRepository.findOne(id);
+};
+const update = async (id, taksUpdateFrom) => {
+    const taskRepository = getRepository(Task);
+    await taskRepository.update(id, taksUpdateFrom);
 };
 const remove = async (id) => {
-    tasks.splice(findIndex(id, tasks), 1);
+    const taskRepository = getRepository(Task);
+    await taskRepository.delete(id);
 };
-const removeTaskWithBoard = async (boardId) => {
-    const arrayTaskWithBoardId = findByBoardId(boardId, tasks);
-    for (let i = 0; i < arrayTaskWithBoardId.length; i += 1) {
-        const { id } = arrayTaskWithBoardId[i];
-        await remove(id);
-    }
-};
-const findTasks = async (userId) => findByUserId(userId, tasks);
-export { getAll, save, find, update, remove, removeTaskWithBoard, findTasks };
+// const removeTaskWithBoard = async (boardId: string): Promise<void> => {
+//   const taskRepository = getRepository(Task);
+//   // eslint-disable-next-line object-shorthand
+//   const arrayTaskWithBoardId = await taskRepository.find({ boardId: boardId });
+//   for (let i = 0; i < arrayTaskWithBoardId.length; i += 1) {
+//     const { id } = arrayTaskWithBoardId[i]!;
+//     await remove(id);
+//   }
+// };
+// const updateTaskWithUser = async (userId: string): Promise<void> => {
+//   const taskRepository = getRepository(Task);
+//   // eslint-disable-next-line object-shorthand
+//   const arrayTaskWithUserId = await taskRepository.find({ userId: userId });
+//   for (let i = 0; i < arrayTaskWithUserId.length; i += 1) {
+//     const { id } = arrayTaskWithUserId[i]!;
+//     await taskRepository.update(id, { userId: null });
+//   }
+// };
+export { getAll, save, find, update, remove,
+// removeTaskWithBoard,
+// updateTaskWithUser,
+ };

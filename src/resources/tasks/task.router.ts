@@ -2,6 +2,7 @@ import express from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { errorWrapper } from '../../common/errorWrapper.js';
 import { toTaskDto } from '../../common/taskUtil.js';
+import { Task } from './task.model.js';
 import * as tasksService from './task.service.js';
 
 const router = express.Router({ mergeParams: true });
@@ -10,7 +11,8 @@ router.route('/:id/tasks/').get(
   errorWrapper(
     async (_req, res): Promise<void> => {
       const tasks = await tasksService.getAll();
-      res.json(tasks);
+      console.log(tasks);
+      res.json(tasks.map(Task.toResponse));
     }
   )
 );
@@ -22,7 +24,7 @@ router.route('/:id/tasks/').post(
       const { id } = req.params;
       newTask.boardId = String(id);
       const task = await tasksService.create(newTask);
-      res.status(StatusCodes.CREATED).json(task);
+      res.status(StatusCodes.CREATED).json(Task.toResponse(task));
     }
   )
 );
@@ -32,7 +34,7 @@ router.route('/:id/tasks/:id').get(
     async (req, res): Promise<void> => {
       const { id } = req.params;
       const task = await tasksService.find(String(id));
-      res.json(task);
+      res.json(Task.toResponse(task));
     }
   )
 );
@@ -42,8 +44,9 @@ router.route('/:id/tasks/:id').put(
     async (req, res): Promise<void> => {
       const { id } = req.params;
       const taskUpdateFrom = toTaskDto(req.body);
-      const task = await tasksService.update(String(id), taskUpdateFrom);
-      res.json(task);
+      await tasksService.update(String(id), taskUpdateFrom);
+      const task = await tasksService.find(String(id));
+      res.json(Task.toResponse(task));
     }
   )
 );

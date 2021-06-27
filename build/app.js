@@ -9,7 +9,6 @@ import { router as taskRouter } from './resources/tasks/task.router.js';
 import { router as logEvents } from './middlewares/logging.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { uncaughtExceptionHandler, unhandledRejectionHandler, } from './middlewares/uncaughtHandler.js';
-import { sequelize } from './db/db.js';
 const app = express();
 const swaggerDocument = YAML.load(path.join(dirname(fileURLToPath(import.meta.url)), '../doc/api.yaml'));
 process.on('uncaughtException', (err) => {
@@ -20,7 +19,6 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 app.use(express.json());
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-sequelize.sync().catch(err => console.log(`Wrong connection to DB. Reason: ${err.message}`));
 app.use('/', (req, res, next) => {
     if (req.originalUrl === '/') {
         res.send('Service is running!');

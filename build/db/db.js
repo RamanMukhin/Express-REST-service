@@ -1,17 +1,30 @@
-import { Sequelize } from 'sequelize';
-import { POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD, DB_PORT, DB_HOST, } from '../common/config.js';
-const sequelize = new Sequelize(String(POSTGRES_DB), String(POSTGRES_USER), String(POSTGRES_PASSWORD), {
-    host: DB_HOST,
-    dialect: 'postgres',
-    port: +DB_PORT
-});
-(async () => {
+// import { createConnection, Connection, getConnection } from 'typeorm';
+import { createConnection } from 'typeorm';
+import { logger } from '../common/Logger.js';
+import { dbConfig } from '../common/ormconfig.js';
+const connectionToDB = async () => {
     try {
-        await sequelize.authenticate();
-        console.log(`Connected to DB on ${DB_PORT} port`);
+        // const connection: Connection | undefined = getConnection();
+        // if (connection) {
+        //   if (!connection.isConnected) await connection.connect();
+        // } else {
+        //   createConnection(dbConfig);
+        // }
+        const connection = await createConnection(dbConfig);
+        connection.runMigrations();
+        logger('log', `Connected to DB!`);
     }
     catch (err) {
-        console.log(`Error: ${err}`);
+        const { name, message, stack } = err;
+        const errorRecord = `
+      errorName:    ${name}
+      errorMessage: ${message}
+      errorStack:   ${stack}\n`;
+        logger('error', errorRecord);
     }
-})();
-export { sequelize };
+};
+const tryToconnectDB = async (func) => {
+    await connectionToDB();
+    func();
+};
+export { tryToconnectDB };

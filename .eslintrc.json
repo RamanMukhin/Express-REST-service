@@ -37,6 +37,7 @@
     "node/no-missing-import": "off",
     "import/no-unresolved" : "off",
     "no-return-await": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "class-methods-use-this":"off"
   }
 }

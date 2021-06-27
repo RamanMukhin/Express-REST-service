@@ -1,40 +1,30 @@
+import { getRepository } from 'typeorm';
 import { Task } from './task.model.js';
-import {
-  findIndex,
-  findByBoardId,
-  findByUserId,
-} from '../../common/taskUtil.js';
+import { ITask } from '../../common/taskUtil.js';
 
-const tasks: Task[] = [];
-
-const getAll = async (): Promise<Task[]> => tasks;
-
-const save = async (task: Task): Promise<Task> => {
-  tasks.push(task);
-  return task;
+const getAll = async (): Promise<Task[]> => {
+  const taskRepository = getRepository(Task);
+  return await taskRepository.find({ where: {} });
 };
 
-const find = async (id: string): Promise<Task | undefined> =>
-  tasks.find((task) => task.id === id);
+const save = async (newTask: Task): Promise<Task> => {
+  const taskRepository = getRepository(Task);
+  return await taskRepository.save(newTask);
+};
 
-const update = async (task: Task): Promise<Task> => {
-  tasks.splice(findIndex(task.id, tasks), 1, task);
-  return task;
+const find = async (id: string): Promise<Task | undefined> => {
+  const taskRepository = getRepository(Task);
+  return await taskRepository.findOne(id);
+};
+
+const update = async (id: string, taksUpdateFrom: ITask): Promise<void> => {
+  const taskRepository = getRepository(Task);
+  await taskRepository.update(id, taksUpdateFrom);
 };
 
 const remove = async (id: string): Promise<void> => {
-  tasks.splice(findIndex(id, tasks), 1);
+  const taskRepository = getRepository(Task);
+  await taskRepository.delete(id);
 };
 
-const removeTaskWithBoard = async (boardId: string): Promise<void> => {
-  const arrayTaskWithBoardId = findByBoardId(boardId, tasks);
-  for (let i = 0; i < arrayTaskWithBoardId.length; i += 1) {
-    const { id } = arrayTaskWithBoardId[i]!;
-    await remove(id);
-  }
-};
-
-const findTasks = async (userId: string): Promise<Task[]> =>
-  findByUserId(userId, tasks);
-
-export { getAll, save, find, update, remove, removeTaskWithBoard, findTasks };
+export { getAll, save, find, update, remove };

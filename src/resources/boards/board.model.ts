@@ -1,17 +1,23 @@
-import { v4 as uuid } from 'uuid';
-import { IBoard } from '../../common/boardUtil.js';
-import { Column } from './column.model.js';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Task } from '../tasks/task.model.js';
+import { ColumnClass } from './column.model.js';
 
+@Entity()
 export class Board {
-  id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
 
-  title: string;
+  @Column()
+  title!: string;
 
-  columns: Column[];
+  @OneToMany(() => ColumnClass, (column) => column.board, {
+    eager: true,
+    cascade: true,
+  })
+  columns!: ColumnClass[];
 
-  constructor({ id = uuid(), title = 'TITLE', columns = [new Column()] }:IBoard) {
-    this.id = id;
-    this.title = title;
-    this.columns = columns;
-  }
+  @OneToMany(() => Task, (task) => task.boardId, {
+    cascade: true,
+  })
+  task!: Task[];
 }
