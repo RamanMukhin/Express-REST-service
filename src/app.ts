@@ -41,6 +41,7 @@ app.use(logEvents);
 
 app.use('/login', authorization);
 
+// locate endpoints for which authorization is needed below the next line, and for which no - above
 app.use(validate);
 
 app.use('/users', userRouter);

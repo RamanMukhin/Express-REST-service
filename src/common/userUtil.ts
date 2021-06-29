@@ -14,8 +14,11 @@ const toUserDto = (requestBody: IUser): IUser => {
   return { name, login, password };
 };
 
-const toUpdateUser = (id: string, userUpdateFrom: IUser): User => {
-  const { name, login, password } = userUpdateFrom;
+const toUpdateUser = async (id: string, userUpdateFrom: IUser): Promise<User> => {
+  const { name, login } = userUpdateFrom;
+  let { password } = userUpdateFrom;
+  const salt = await bcrypt.genSalt();
+  password = await bcrypt.hash(password, salt);
   return { id, name, login, password };
 };
 

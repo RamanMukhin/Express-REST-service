@@ -28,7 +28,7 @@ const findUser = async (userLogin: ILoginUser): Promise<User | undefined> => {
 
 const update = async (id: string, userUpdateFrom: IUser): Promise<User> => {
   await find(id);
-  const user = toUpdateUser(id, userUpdateFrom);
+  const user = await toUpdateUser(id, userUpdateFrom);
   return await usersRepo.update(user);
 };
 
