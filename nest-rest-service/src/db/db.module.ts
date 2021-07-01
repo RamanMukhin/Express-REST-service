@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { dbConfig } from 'src/common/dbConfig';
+import { dbConfig } from 'src/db/dbConfig';
 
 @Module({
   imports: [TypeOrmModule.forRoot(dbConfig)],
