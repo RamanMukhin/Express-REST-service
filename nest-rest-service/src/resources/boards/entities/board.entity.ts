@@ -1,6 +1,7 @@
+import { Task } from '../../tasks/entities/task.entity.js';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-// import { Task } from '../tasks/task.model.js';
 import { ColumnClass } from './column.entity.js';
+
 
 @Entity()
 export class Board {
@@ -16,10 +17,10 @@ export class Board {
   })
   columns: ColumnClass[];
 
-  // @OneToMany(() => Task, (task) => task.boardId, {
-  //   cascade: true,
-  // })
-  // task!: Task[];
+  @OneToMany(() => Task, (task) => task.boardId, {
+    cascade: true,
+  })
+  tasks: Task[];
 }
 
 

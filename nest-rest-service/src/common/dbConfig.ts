@@ -1,7 +1,8 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Board } from 'src/resources/boards/entities/board.entity';
 import { ColumnClass } from 'src/resources/boards/entities/column.entity';
-// import * as dotenv from 'dotenv';
+import { Task } from 'src/resources/tasks/entities/task.entity';
+// import * as dotenv src/tasks/entities/task.entity
 // import path from 'path';
 import { User } from 'src/resources/users/entities/user.entity';
 
@@ -19,5 +20,5 @@ export const dbConfig: TypeOrmModuleOptions = {
   synchronize: true,
   // migrations: [Test21624208011527],
   // cli: { migrationsDir: 'migration' },
-  entities: [User, Board, ColumnClass],
+  entities: [User, Board, ColumnClass, Task],
 };
