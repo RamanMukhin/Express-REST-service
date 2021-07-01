@@ -9,7 +9,6 @@ import { Board } from './entities/board.entity';
 
 @Injectable()
 export class BoardsService {
-
   constructor(
     private readonly boardsRepository: BoardsRepository,
     private readonly columnsRepository: ColumnsRepository,
@@ -28,9 +27,7 @@ export class BoardsService {
   }
 
   async find(id: string): Promise<Board> {
-    const board = await this.boardsRepository.find(id);
-    if (!board) throw new HttpException('Board not found', HttpStatus.NOT_FOUND);
-    return board;
+    return await this.boardsRepository.find(id);
   }
 
   async update(id: string, updateBoardDto: UpdateBoardDto): Promise<Board> {
@@ -41,7 +38,6 @@ export class BoardsService {
   }
 
   async remove(id: string): Promise<DeleteResult> {
-    await this.find(id);
     return await this.boardsRepository.remove(id);
   }
 }

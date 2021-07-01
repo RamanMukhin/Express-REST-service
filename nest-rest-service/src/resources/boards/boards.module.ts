@@ -12,4 +12,4 @@ import { ColumnClass } from './entities/column.entity';
   controllers: [BoardsController],
   providers: [BoardsService, BoardsRepository, ColumnsRepository]
 })
-export class BoardsModule {}
+export class BoardsModule { }

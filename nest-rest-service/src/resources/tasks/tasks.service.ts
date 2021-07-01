@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { toUpdateTask } from 'src/common/taskUtil';
 import { DeleteResult } from 'typeorm';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -8,7 +8,6 @@ import { TasksRepository } from './tasks.repository';
 
 @Injectable()
 export class TasksService {
-
   constructor(private readonly tasksRepository: TasksRepository) { }
 
   async getAll(): Promise<Task[]> {
@@ -19,10 +18,8 @@ export class TasksService {
     return await this.tasksRepository.save(createTaskDto);
   }
 
-  async find(id: string): Promise<Task> {
-    const task = await this.tasksRepository.find(id);
-    if (!task) throw new HttpException('Task not found', HttpStatus.NOT_FOUND);
-    return task;
+  async find(id: string): Promise<Task | undefined> {
+    return await this.tasksRepository.find(id);
   }
 
   async update(id: string, updateTaskDto: UpdateTaskDto): Promise<Task> {

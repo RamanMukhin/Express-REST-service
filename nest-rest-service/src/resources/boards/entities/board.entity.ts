@@ -2,7 +2,6 @@ import { Task } from '../../tasks/entities/task.entity.js';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { ColumnClass } from './column.entity.js';
 
-
 @Entity()
 export class Board {
   @PrimaryGeneratedColumn('uuid')

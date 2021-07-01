@@ -9,8 +9,8 @@ const toColumnDto = (createBoardDto: CreateBoardDto): CreateColumnDto[] => creat
 
 const toUpdateColumnDto = (updateBoardDto: UpdateBoardDto) => updateBoardDto.columns;
 
-const toBoard = (title: string, columns: ColumnClass[]): CreateBoardDto  => Object({ title, columns });
+const toBoard = (title: string, columns: ColumnClass[]): CreateBoardDto => Object({ title, columns });
 
-const toUdateBoard = (id: string, title: string)=> Object({ id, title });
+const toUdateBoard = (id: string, title: string) => Object({ id, title });
 
 export { toBoardDto, toColumnDto, toBoard, toUdateBoard, toUpdateColumnDto };

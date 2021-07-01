@@ -5,7 +5,6 @@ import { CreateBoardDto } from './dto/create-board.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
 import { Board } from './entities/board.entity';
 
-
 @Injectable()
 export class BoardsRepository {
   constructor(
@@ -21,7 +20,7 @@ export class BoardsRepository {
     return await this.boardsRepository.save(createBoardDto);
   }
 
-  async find(id: string): Promise<Board|undefined> {
+  async find(id: string): Promise<Board | undefined> {
     return await this.boardsRepository.findOne(id);
   }
 
@@ -29,8 +28,7 @@ export class BoardsRepository {
     return await this.boardsRepository.save(updateBoardDto);
   }
 
-  async remove(id: string):Promise<DeleteResult> {
+  async remove(id: string): Promise<DeleteResult> {
     return await this.boardsRepository.delete(id);
   }
-
 }

@@ -31,5 +31,4 @@ export class UsersRepository {
   async remove(id: string): Promise<DeleteResult> {
     return await this.usersRepository.delete(id);
   }
-
 }
