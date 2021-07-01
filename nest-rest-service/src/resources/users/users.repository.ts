@@ -20,7 +20,7 @@ export class UsersRepository {
     return await this.usersRepository.save(createUserDto);
   }
 
-  async find(id: string): Promise<User> {
+  async find(id: string): Promise<User | undefined> {
     return await this.usersRepository.findOne(id);
   }
 
@@ -28,7 +28,7 @@ export class UsersRepository {
     return await this.usersRepository.save(updateUserDto);
   }
 
-  async remove(id: string):Promise<DeleteResult> {
+  async remove(id: string): Promise<DeleteResult> {
     return await this.usersRepository.delete(id);
   }
 
