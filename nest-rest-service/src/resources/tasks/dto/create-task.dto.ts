@@ -1,4 +1,4 @@
-import { IsString, IsInt } from 'class-validator';
+import { IsString, IsInt, ValidateIf, IsUUID } from 'class-validator';
 
 export class CreateTaskDto {
   @IsString()
@@ -7,7 +7,16 @@ export class CreateTaskDto {
   order: number;
   @IsString()
   description: string;
+
+  @ValidateIf(obj => obj.userId !== null)
+  @IsUUID()
   userId: string | null;
-  boardId: string | Object;
+
+  @ValidateIf(obj => obj.boardId !== null)
+  @IsUUID()
+  boardId: string | null;
+
+  @ValidateIf(obj => obj.columnId !== null && obj.columnId !== undefined)
+  @IsUUID()
   columnId: string | null;
 }
