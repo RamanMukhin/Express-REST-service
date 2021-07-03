@@ -23,6 +23,10 @@ export class UsersService {
     return await this.usersRepository.find(id);
   }
 
+  async findUserbyLogin(login: string): Promise<User> {
+    return await this.usersRepository.findUserbyLogin(login);
+  }
+
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     const updatedUser = await toUpdateUser(id, updateUserDto);
     return await this.usersRepository.update(updatedUser);

@@ -24,6 +24,10 @@ export class UsersRepository {
     return await this.usersRepository.findOne(id);
   }
 
+  async findUserbyLogin(login: string): Promise<User | undefined> {
+    return await this.usersRepository.findOne({ where: { login: login } });
+  }
+
   async update(updateUserDto: UpdateUserDto): Promise<User> {
     return await this.usersRepository.save(updateUserDto);
   }

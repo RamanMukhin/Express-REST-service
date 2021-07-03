@@ -1,6 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from 'src/resources/users/dto/create-user.dto';
 import { UpdateUserDto } from 'src/resources/users/dto/update-user.dto';
+import { User } from 'src/resources/users/entities/user.entity';
 
 const toCreateUser = async (createUserDto: CreateUserDto): Promise<CreateUserDto> => {
   const { name, login } = createUserDto;
@@ -18,7 +19,7 @@ const toUpdateUser = async (id: string, updateUserDto: UpdateUserDto): Promise<U
   return { id, name, login, password };
 };
 
-// const checkUser = async (userLogin: ILoginUser, user: User): Promise<boolean> => 
-// await bcrypt.compare(userLogin.password, user.password);
+const checkUser = async ( user: User, password: string): Promise<boolean> => 
+await bcrypt.compare(password, user.password);
 
-export { toCreateUser, toUpdateUser };
+export { toCreateUser, toUpdateUser, checkUser };
