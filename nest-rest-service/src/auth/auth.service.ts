@@ -10,7 +10,6 @@ export class AuthService {
   constructor(private readonly usersService: UsersService) { }
 
   async validateUser(userLoginDto: UserLoginDto): Promise<Ipayload | null> {
-    console.log('зашёл');
     const user = await this.usersService.findUserbyLogin(userLoginDto.login);
     if (user) {
       const truePassword = await checkUser(user, userLoginDto.password);
