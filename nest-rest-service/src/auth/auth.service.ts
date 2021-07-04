@@ -26,11 +26,12 @@ export class AuthService {
     return null;
   }
 
-  async login(user: IUser): Promise<{ access_token: string; }> {
+  async login(user: IUser): Promise<{ message: string, token: string; }> {
     const { id, login } = user;
     const payload: Ipayload = { id, login };
     return {
-      access_token: this.jwtService.sign(payload),
+      message: 'Successfully authorized',
+      token: this.jwtService.sign(payload),
     };
   }
 
