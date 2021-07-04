@@ -1,10 +1,12 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, NotFoundException, ParseUUIDPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, NotFoundException, ParseUUIDPipe, UseGuards } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from './entities/task.entity';
+import { JwtAuthGuard } from 'src/auth/quards/jwt-auth.guard';
 
 @Controller('boards/:id/tasks')
+@UseGuards(JwtAuthGuard)
 export class TasksController {
   constructor(private readonly tasksService: TasksService) { }
 
