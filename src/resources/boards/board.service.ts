@@ -1,20 +1,19 @@
 import { StatusCodes } from 'http-status-codes';
 import * as boardsRepo from './board.memory.repository.js';
-import { toBoard, toColumn, toUpdateColumns } from '../../common/boardUtil.js';
-// import { removeTasksWithBoard } from '../tasks/task.service.js';
-import { ColumnClass } from './column.model.js';
-import { Board } from './board.model';
+import { toBoard, toUdateBoard } from '../../common/boardUtil.js';
+import { ColumnClass, IColumnClass } from './column.model.js';
+import { Board, IBoard } from './board.model';
 import { NotFoundError } from '../../middlewares/errorHandler.js';
 
 const getAll = async (): Promise<Board[]> => await boardsRepo.getAll();
 
 const create = async (
   titleCreateFrom: string,
-  columnsCreateFrom: ColumnClass[]
+  columnsCreateFrom: IColumnClass[]
 ): Promise<Board> => {
-  const createdColumns = await toColumn(columnsCreateFrom);
-  const board = await toBoard(titleCreateFrom, createdColumns);
-  return await boardsRepo.save(board);
+  const createdColumns = await boardsRepo.saveColumns(columnsCreateFrom);
+  const boardCreateFrom: IBoard = toBoard(titleCreateFrom, createdColumns);
+  return await boardsRepo.save(boardCreateFrom);
 };
 
 const find = async (id: string): Promise<Board> => {
@@ -29,14 +28,14 @@ const update = async (
   columnsUpdateFrom: ColumnClass[]
 ): Promise<Board> => {
   await find(id);
-  await toUpdateColumns(columnsUpdateFrom);
-  return await boardsRepo.update(id, titleUpdateFrom);
+  await boardsRepo.updateColumns(columnsUpdateFrom);
+  const board = toUdateBoard(id, titleUpdateFrom);
+  return await boardsRepo.update(board);
 };
 
 const remove = async (id: string): Promise<void> => {
   await find(id);
   await boardsRepo.remove(id);
-  // await removeTasksWithBoard(id);
 };
 
 export { getAll, create, find, update, remove };

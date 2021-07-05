@@ -1,45 +1,12 @@
-import { getRepository } from 'typeorm';
-import { Board } from '../resources/boards/board.model.js';
-import { ColumnClass } from '../resources/boards/column.model.js';
+import { Board, IBoard } from '../resources/boards/board.model.js';
+import { ColumnClass, IColumnClass } from '../resources/boards/column.model.js';
 
-interface IBoard {
-  id?: string;
-  title: string;
-  columns: ColumnClass[];
-}
+const toBoardDto = (requestBody: IBoard): string => requestBody.title;
 
-function toBoardDto(requestBody: IBoard): string {
-  return requestBody.title;
-}
+const toColumnDto = (requestBody: IBoard): IColumnClass[] => requestBody.columns;
 
-function toColumnDto(requestBody: IBoard): ColumnClass[] {
-  return requestBody.columns;
-}
+const toBoard = (title: string, columns: ColumnClass[]): IBoard => Object({ title, columns });
 
-async function toBoard(title: string, columns: ColumnClass[]): Promise<Board> {
-  const boardCreateFrom = { title, columns };
-  const boardRepository = getRepository(Board);
-  return boardRepository.create(boardCreateFrom);
-}
+const toUdateBoard = (id: string, title: string): Board => Object({ id, title });
 
-async function toColumn(
-  columnsCreateFrom: ColumnClass[]
-): Promise<ColumnClass[]> {
-  const columnRepository = getRepository(ColumnClass);
-  const createdColumns = [];
-  for (let i = 0; i < columnsCreateFrom.length; i += 1) {
-    const columnDto = columnsCreateFrom[i]!;
-    const newColumn = await columnRepository.save(columnDto);
-    createdColumns.push(newColumn);
-  }
-  return createdColumns;
-}
-
-async function toUpdateColumns(
-  columnsUpdateFrom: ColumnClass[]
-): Promise<void> {
-  const columnRepository = getRepository(ColumnClass);
-  await columnRepository.save(columnsUpdateFrom);
-}
-
-export { toBoardDto, toColumnDto, toBoard, toColumn, toUpdateColumns, IBoard };
+export { toBoardDto, toColumnDto, toBoard, toUdateBoard };

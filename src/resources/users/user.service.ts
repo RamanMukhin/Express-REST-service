@@ -1,14 +1,14 @@
 import { StatusCodes } from 'http-status-codes';
 import * as usersRepo from './user.memory.repository.js';
-import { toUser, IUser } from '../../common/userUtil.js';
-import { User } from './user.model.js';
+import { User, IUser, ILoginUser } from './user.model.js';
 import { NotFoundError } from '../../middlewares/errorHandler.js';
+import { toUser, toUpdateUser, checkUser } from '../../common/userUtil.js';
 
 const getAll = async (): Promise<User[]> => await usersRepo.getAll();
 
-const create = async (newUser: IUser): Promise<User> => {
-  const user = toUser(newUser);
-  return await usersRepo.save(user);
+const create = async (userDto: IUser): Promise<User> => {
+  const userCreateFrom = await toUser(userDto);
+  return await usersRepo.save(userCreateFrom);
 };
 
 const find = async (id: string): Promise<User> => {
@@ -17,9 +17,19 @@ const find = async (id: string): Promise<User> => {
   return user;
 };
 
-const update = async (id: string, userUpdateFrom: IUser): Promise<void> => {
+const findUser = async (userLogin: ILoginUser): Promise<User | undefined> => {
+  const user = await usersRepo.findUser(userLogin);
+  if (user) {
+    const isPassword = await checkUser(userLogin, user);
+    if (isPassword) return user;
+  }
+  return undefined;
+};
+
+const update = async (id: string, userUpdateFrom: IUser): Promise<User> => {
   await find(id);
-  return await usersRepo.update(id, userUpdateFrom);
+  const user = toUpdateUser(id, userUpdateFrom);
+  return await usersRepo.update(user);
 };
 
 const remove = async (id: string): Promise<void> => {
@@ -27,4 +37,4 @@ const remove = async (id: string): Promise<void> => {
   await usersRepo.remove(id);
 };
 
-export { getAll, create, find, update, remove };
+export { getAll, create, find, update, remove, findUser };

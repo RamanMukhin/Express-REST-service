@@ -1,30 +1,16 @@
-import { getRepository } from 'typeorm';
-import { IUser } from '../../common/userUtil.js';
-import { User } from './user.model.js';
+import { getRepository, DeleteResult } from 'typeorm';
+import { User, IUser, ILoginUser } from './user.model.js';
 
-const getAll = async (): Promise<User[]> => {
-  const userRepository = getRepository(User);
-  return await userRepository.find({ where: {} });
-};
+const getAll = async (): Promise<User[]> => await getRepository(User).find();
 
-const save = async (user: User): Promise<User> => {
-  const userRepository = getRepository(User);
-  return await userRepository.save(user);
-};
+const save = async (user: IUser): Promise<User> => await getRepository(User).save(user);
 
-const find = async (id: string): Promise<User | undefined> => {
-  const userRepository = getRepository(User);
-  return await userRepository.findOne(id);
-};
+const find = async (id: string): Promise<User | undefined> => await getRepository(User).findOne(id);
 
-const update = async (id: string, userUpdateFrom: IUser): Promise<void> => {
-  const userRepository = getRepository(User);
-  await userRepository.update(id, userUpdateFrom);
-};
+const findUser = async (user: ILoginUser): Promise<User | undefined> => await getRepository(User).findOne({where: { login: user.login }});
 
-const remove = async (id: string): Promise<void> => {
-  const userRepository = getRepository(User);
-  await userRepository.delete(id);
-};
+const update = async (user: User): Promise<User> => await getRepository(User).save(user);
 
-export { getAll, save, find, update, remove };
+const remove = async (id: string): Promise<DeleteResult> => await getRepository(User).delete(id);
+
+export { getAll, save, find, update, remove, findUser };

@@ -1,35 +1,13 @@
-function toTaskDto(requestBody) {
-    return {
-        title: requestBody.title,
-        order: requestBody.order,
-        description: requestBody.description,
-        userId: requestBody.userId,
-        boardId: requestBody.boardId,
-        columnId: requestBody.columnId,
-    };
-}
-// function toTask(newTask: ITask): Task {
-//   return new Task({
-//     title: newTask.title,
-//     order: newTask.order,
-//     description: newTask.description,
-//     userId: newTask.userId!,
-//     boardId: newTask.boardId,
-//     columnId: newTask.columnId,
-//   });
-// }
-function toUpdateTask(task, taskUpdateFrom) {
-    Object.assign(task, taskUpdateFrom);
-}
-function findIndex(id, tasks) {
-    return tasks.findIndex((task) => task.id === id);
-}
-function findByBoardId(boardId, tasks) {
-    return tasks.filter((task) => task.boardId === boardId);
-}
-function findByUserId(userId, tasks) {
-    return tasks.filter((task) => task.userId === userId);
-}
-export { toTaskDto, 
-// toTask,
-toUpdateTask, findIndex, findByBoardId, findByUserId, };
+const toTaskDto = (requestBody) => {
+    const { title, order, description, userId, boardId, columnId } = requestBody;
+    return { title, order, description, userId, boardId, columnId };
+};
+const toTask = (boardId, taskDto) => {
+    const { title, order, description, userId, columnId } = taskDto;
+    return { title, order, description, userId, boardId, columnId };
+};
+const toUpdateTask = (id, taskUpdateFrom) => {
+    const { title, order, description, userId, boardId, columnId } = taskUpdateFrom;
+    return { id, title, order, description, userId, boardId, columnId };
+};
+export { toTaskDto, toUpdateTask, toTask };

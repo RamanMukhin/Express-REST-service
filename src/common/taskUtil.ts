@@ -1,22 +1,19 @@
-interface ITask {
-  id?: string;
-  title: string;
-  order: number;
-  description: string;
-  userId: string | null;
-  boardId: string;
-  columnId: string;
-}
+import { Board } from "../resources/boards/board.model";
+import { Task, ITask } from "../resources/tasks/task.model";
 
-function toTaskDto(requestBody: ITask): ITask {
-  return {
-    title: requestBody.title,
-    order: requestBody.order,
-    description: requestBody.description,
-    userId: requestBody.userId!,
-    boardId: requestBody.boardId,
-    columnId: requestBody.columnId,
-  };
-}
+const toTaskDto = (requestBody: ITask): ITask => {
+  const { title, order, description, userId, boardId, columnId } = requestBody;
+  return { title, order, description, userId, boardId, columnId };
+};
 
-export { toTaskDto, ITask };
+const toTask = (boardId: Board, taskDto: ITask): ITask => {
+  const { title, order, description, userId, columnId } = taskDto;
+  return { title, order, description, userId, boardId, columnId };
+};
+
+const toUpdateTask = (id: string, taskUpdateFrom: ITask): Task => {
+  const { title, order, description, userId, boardId, columnId } = taskUpdateFrom;
+  return { id, title, order, description, userId, boardId, columnId };
+};
+
+export { toTaskDto, toUpdateTask, toTask };

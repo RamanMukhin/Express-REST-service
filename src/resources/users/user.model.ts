@@ -1,10 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-// import { Task } from '../tasks/task.model.js';
+
 @Entity()
-export class User {
+class User {
   @PrimaryGeneratedColumn('uuid')
-  // @OneToMany(() => Task, task => task.userId)
-  id!: string;
+  id?: string;
 
   @Column()
   name!: string;
@@ -20,3 +19,16 @@ export class User {
     return { id, name, login };
   }
 }
+
+interface IUser {
+  name: string;
+  login: string;
+  password: string;
+}
+
+interface ILoginUser {
+  login: string;
+  password: string;
+}
+
+export { User, IUser, ILoginUser }

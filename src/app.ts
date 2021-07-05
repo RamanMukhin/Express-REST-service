@@ -7,11 +7,10 @@ import { router as userRouter } from './resources/users/user.router.js';
 import { router as boardRouter } from './resources/boards/board.router.js';
 import { router as taskRouter } from './resources/tasks/task.router.js';
 import { router as logEvents } from './middlewares/logging.js';
+import { router as authorization } from './auth/auth.router.js';
 import { errorHandler } from './middlewares/errorHandler.js';
-import {
-  uncaughtExceptionHandler,
-  unhandledRejectionHandler,
-} from './middlewares/uncaughtHandler.js';
+import { router as validate } from './middlewares/validateUser.js';
+import { uncaughtExceptionHandler, unhandledRejectionHandler } from './middlewares/uncaughtHandler.js';
 
 const app = express();
 const swaggerDocument = YAML.load(
@@ -39,6 +38,10 @@ app.use('/', (req, res, next) => {
 });
 
 app.use(logEvents);
+
+app.use('/login', authorization);
+
+app.use(validate);
 
 app.use('/users', userRouter);
 

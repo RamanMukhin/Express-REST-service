@@ -1,24 +1,25 @@
-import { getRepository } from 'typeorm';
-import { User } from '../resources/users/user.model.js';
+import bcrypt from 'bcrypt';
+import { User, IUser, ILoginUser } from "../resources/users/user.model";
 
-interface IUser {
-  id?: string;
-  name: string;
-  login: string;
-  password: string;
-}
+const toUser = async (userDto: IUser): Promise<IUser> => {
+  const { name, login } = userDto;
+  let { password } = userDto;
+  const salt = await bcrypt.genSalt();
+  password = await bcrypt.hash(password, salt);
+  return { name, login, password };
+};
 
-function toUserDto(requestBody: IUser): IUser {
-  return {
-    name: requestBody.name,
-    login: requestBody.login,
-    password: requestBody.password,
-  };
-}
+const toUserDto = (requestBody: IUser): IUser => {
+  const { name, login, password } = requestBody;
+  return { name, login, password };
+};
 
-function toUser(newUser: IUser): User {
-  const userRepository = getRepository(User);
-  return userRepository.create(newUser);
-}
+const toUpdateUser = (id: string, userUpdateFrom: IUser): User => {
+  const { name, login, password } = userUpdateFrom;
+  return { id, name, login, password };
+};
 
-export { toUserDto, toUser, IUser };
+const checkUser = async (userLogin: ILoginUser, user: User): Promise<boolean> => 
+await bcrypt.compare(userLogin.password, user.password);
+
+export { toUser, toUserDto, toUpdateUser, checkUser };

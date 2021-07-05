@@ -1,23 +1,11 @@
 import { getRepository } from 'typeorm';
 import { Board } from './board.model.js';
-const getAll = async () => {
-    const boardRepository = getRepository(Board);
-    return boardRepository.find({ where: {} });
-};
-const save = async (board) => {
-    const boardRepository = getRepository(Board);
-    return boardRepository.save(board);
-};
-const find = async (id) => {
-    const boardRepository = getRepository(Board);
-    return boardRepository.findOne(id);
-};
-const update = async (id, title) => {
-    const boardRepository = getRepository(Board);
-    return boardRepository.save({ id, title });
-};
-const remove = async (id) => {
-    const boardRepository = getRepository(Board);
-    await boardRepository.delete(id);
-};
-export { getAll, save, find, update, remove };
+import { ColumnClass } from './column.model.js';
+const getAll = async () => await getRepository(Board).find();
+const save = async (board) => await getRepository(Board).save(board);
+const find = async (id) => await getRepository(Board).findOne(id);
+const update = async (board) => await getRepository(Board).save(board);
+const remove = async (id) => await getRepository(Board).delete(id);
+const saveColumns = async (columnsCreateFrom) => await Promise.all(columnsCreateFrom.map((column) => getRepository(ColumnClass).save(column)));
+const updateColumns = async (columnsUpdateFrom) => await getRepository(ColumnClass).save(columnsUpdateFrom);
+export { getAll, save, find, update, remove, saveColumns, updateColumns };

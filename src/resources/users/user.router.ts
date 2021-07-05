@@ -19,8 +19,8 @@ router.route('/').get(
 router.route('/').post(
   errorWrapper(
     async (req, res): Promise<void> => {
-      const newUser = toUserDto(req.body);
-      const user = await usersService.create(newUser);
+      const userCreateFrom = toUserDto(req.body);
+      const user = await usersService.create(userCreateFrom);
       res.status(StatusCodes.CREATED).json(User.toResponse(user));
     }
   )
@@ -41,8 +41,7 @@ router.route('/:id').put(
     async (req, res): Promise<void> => {
       const { id } = req.params;
       const userUpdateFrom = toUserDto(req.body);
-      await usersService.update(String(id), userUpdateFrom);
-      const user = await usersService.find(String(id));
+      const user = await usersService.update(String(id), userUpdateFrom);
       res.json(User.toResponse(user));
     }
   )

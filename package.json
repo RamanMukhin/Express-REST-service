@@ -56,12 +56,15 @@
     "exec": "npm run follow"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cross-env": "7.0.3",
     "dotenv": "9.0.0",
     "eslint-import-resolver-typescript": "^2.4.0",
     "express": "4.17.1",
     "http-status-codes": "^2.1.4",
     "jsdoc": "^3.6.7",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.6.2",
@@ -72,7 +75,9 @@
     "yamljs": "0.3.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.12",
+    "@types/jsonwebtoken": "^8.5.2",
     "@types/swagger-ui-express": "^4.1.2",
     "@types/uuid": "^8.3.0",
     "@types/yamljs": "^0.2.31",
