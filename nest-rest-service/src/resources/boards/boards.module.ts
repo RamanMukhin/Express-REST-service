@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { BoardsService } from './boards.service';
 import { BoardsController } from './boards.controller';
 import { Board } from './entities/board.entity';
@@ -10,6 +10,6 @@ import { ColumnClass } from './entities/column.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Board]), TypeOrmModule.forFeature([ColumnClass])],
   controllers: [BoardsController],
-  providers: [BoardsService, BoardsRepository, ColumnsRepository]
+  providers: [BoardsService, BoardsRepository, ColumnsRepository, Logger]
 })
 export class BoardsModule { }

@@ -14,7 +14,7 @@ import { BoardsController } from './resources/boards/boards.controller';
 import { AuthController } from './auth/auth.controller';
 
 @Module({
-  imports: [DbModule, UsersModule, BoardsModule, TasksModule, ConfigModule.forRoot({ isGlobal: true }), AuthModule],
+  imports: [DbModule, AuthModule, UsersModule, BoardsModule, TasksModule, ConfigModule.forRoot({ isGlobal: true })],
   controllers: [AppController],
   providers: [AppService, Logger],
 })
