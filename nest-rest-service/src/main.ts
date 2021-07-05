@@ -29,16 +29,22 @@ async function bootstrap() {
       ],
       exceptionHandlers: [
         new winston.transports.File({
-          filename: './logs/exceptions.log',
+          filename: './logs/uncaughtExceptions.log',
         }),
+        new winston.transports.Console({
+          format: winston.format.combine(
+            winston.format.timestamp(),
+          ),
+        })
       ],
+      exitOnError: true,
     }),
   });
+
   app.useGlobalPipes(new ValidationPipe());
+  
   await app.listen(PORT);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
-
-// throw new Error('sdbasbsBSbsBSBDSbvsV');
 
 bootstrap();

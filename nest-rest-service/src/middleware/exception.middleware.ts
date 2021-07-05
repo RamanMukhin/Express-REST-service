@@ -34,11 +34,10 @@ export class AllExceptionsFilter implements ExceptionFilter {
     response.status(statusCode).json({
       statusCode,
       message,
-      myErr: 'Yes'
     });
 
-    if (!(exception instanceof HttpException)) {
-      process.exit(1);
-    }
+    // if (!(exception instanceof HttpException)) {
+    //   process.exit(1);
+    // }
   }
 }

@@ -12,8 +12,6 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @HttpCode(200)
   async login(@Request() request) {
-
-    // throw new Error('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     return this.authService.login(request.user);
   }
 }
