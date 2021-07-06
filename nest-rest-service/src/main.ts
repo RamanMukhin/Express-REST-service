@@ -6,10 +6,18 @@ import {
   WinstonModule,
 } from 'nest-winston';
 import * as winston from 'winston';
+import { FastifyAdapter } from '@nestjs/platform-fastify';
+import { ExpressAdapter } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const { PORT } = process.env;
-  const app = await NestFactory.create(AppModule, {
+  const { PORT, USE_FASTIFY } = process.env;
+
+  const Adapter =
+    USE_FASTIFY === 'true'
+      ? FastifyAdapter
+      : ExpressAdapter;
+
+  const app = await NestFactory.create(AppModule, new Adapter(), {
     logger: WinstonModule.createLogger({
       transports: [
         new winston.transports.Console({
@@ -42,9 +50,10 @@ async function bootstrap() {
   });
 
   app.useGlobalPipes(new ValidationPipe());
-  
+
   await app.listen(PORT);
   console.log(`Application is running on: ${await app.getUrl()}`);
+  console.log('You use', Adapter, '!');
 }
 
 bootstrap();
