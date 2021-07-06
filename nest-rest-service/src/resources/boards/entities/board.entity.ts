@@ -21,6 +21,3 @@ export class Board {
   })
   tasks: Task[];
 }
-
-
-

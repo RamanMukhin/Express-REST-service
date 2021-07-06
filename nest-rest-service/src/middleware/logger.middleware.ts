@@ -4,7 +4,7 @@ import { finished } from 'stream';
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
-  constructor(private logger: Logger) { }
+  constructor(private logger: Logger) {}
 
   use(req: Request, res: Response, next: NextFunction) {
     const receiptTime = new Date().toLocaleString();
@@ -19,4 +19,3 @@ export class LoggerMiddleware implements NestMiddleware {
     });
   }
 }
-

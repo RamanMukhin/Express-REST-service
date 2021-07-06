@@ -5,4 +5,4 @@ import { dbConfig } from 'src/db/dbConfig';
 @Module({
   imports: [TypeOrmModule.forRoot(dbConfig)],
 })
-export class DbModule { }
+export class DbModule {}

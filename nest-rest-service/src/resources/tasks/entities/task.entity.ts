@@ -28,7 +28,7 @@ export class Task {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
-  boardId: Object;
+  boardId: Object | string | null;
 
   @Column({ nullable: true })
   columnId: string;

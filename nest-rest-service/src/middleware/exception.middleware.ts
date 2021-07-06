@@ -11,7 +11,7 @@ import { StatusCodes, getReasonPhrase } from 'http-status-codes';
 @Catch()
 @Injectable()
 export class AllExceptionsFilter implements ExceptionFilter {
-  constructor(private logger: Logger) { }
+  constructor(private logger: Logger) {}
 
   catch(exception: Error, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
@@ -35,9 +35,5 @@ export class AllExceptionsFilter implements ExceptionFilter {
       statusCode,
       message,
     });
-
-    // if (!(exception instanceof HttpException)) {
-    //   process.exit(1);
-    // }
   }
 }

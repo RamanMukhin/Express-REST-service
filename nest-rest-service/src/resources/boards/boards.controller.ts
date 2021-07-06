@@ -1,4 +1,16 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, NotFoundException, ParseUUIDPipe, UseGuards, UseFilters } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+  NotFoundException,
+  ParseUUIDPipe,
+  UseGuards,
+  UseFilters,
+} from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/quards/jwt-auth.guard';
 import { AllExceptionsFilter } from 'src/middleware/exception.middleware';
 import { BoardsService } from './boards.service';
@@ -9,7 +21,7 @@ import { UpdateBoardDto } from './dto/update-board.dto';
 @UseFilters(AllExceptionsFilter)
 @UseGuards(JwtAuthGuard)
 export class BoardsController {
-  constructor(private readonly boardsService: BoardsService) { }
+  constructor(private readonly boardsService: BoardsService) {}
 
   @Get()
   async getAll() {
@@ -23,11 +35,14 @@ export class BoardsController {
 
   @Get(':id')
   async findOne(@Param('id', ParseUUIDPipe) id: string) {
-    return await this.isBoard(id);;
+    return await this.isBoard(id);
   }
 
   @Put(':id')
-  async update(@Param('id', ParseUUIDPipe) id: string, @Body() updateBoardDto: UpdateBoardDto) {
+  async update(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() updateBoardDto: UpdateBoardDto,
+  ) {
     await this.isBoard(id);
     return await this.boardsService.update(id, updateBoardDto);
   }

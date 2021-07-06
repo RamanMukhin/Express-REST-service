@@ -1,5 +1,11 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { toBoard, toBoardDto, toColumnDto, toUdateBoard, toUpdateColumnDto } from 'src/common/boardUtil';
+import { Injectable } from '@nestjs/common';
+import {
+  toBoard,
+  toBoardDto,
+  toColumnDto,
+  toUdateBoard,
+  toUpdateColumnDto,
+} from 'src/common/boardUtil';
 import { DeleteResult } from 'typeorm';
 import { BoardsRepository } from './boards.repository';
 import { ColumnsRepository } from './columns.repository';
@@ -12,7 +18,7 @@ export class BoardsService {
   constructor(
     private readonly boardsRepository: BoardsRepository,
     private readonly columnsRepository: ColumnsRepository,
-  ) { }
+  ) {}
 
   async getAll(): Promise<Board[]> {
     return await this.boardsRepository.getAll();
@@ -20,7 +26,9 @@ export class BoardsService {
 
   async create(createBoardDto: CreateBoardDto): Promise<Board> {
     const createColumnsDto = toColumnDto(createBoardDto);
-    const createdColumns = await this.columnsRepository.saveColumns(createColumnsDto);
+    const createdColumns = await this.columnsRepository.saveColumns(
+      createColumnsDto,
+    );
     const title = toBoardDto(createBoardDto);
     const boardDto = toBoard(title, createdColumns);
     return await this.boardsRepository.save(boardDto);

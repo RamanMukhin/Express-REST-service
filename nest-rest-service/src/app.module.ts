@@ -14,15 +14,27 @@ import { BoardsController } from './resources/boards/boards.controller';
 import { AuthController } from './auth/auth.controller';
 
 @Module({
-  imports: [DbModule, AuthModule, UsersModule, BoardsModule, TasksModule, ConfigModule.forRoot({ isGlobal: true })],
+  imports: [
+    DbModule,
+    AuthModule,
+    UsersModule,
+    BoardsModule,
+    TasksModule,
+    ConfigModule.forRoot({ isGlobal: true }),
+  ],
   controllers: [AppController],
   providers: [AppService, Logger],
 })
-
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(LoggerMiddleware)
-      .forRoutes(AppController, AuthController, UsersController, BoardsController, TasksController);
+      .forRoutes(
+        AppController,
+        AuthController,
+        UsersController,
+        BoardsController,
+        TasksController,
+      );
   }
 }

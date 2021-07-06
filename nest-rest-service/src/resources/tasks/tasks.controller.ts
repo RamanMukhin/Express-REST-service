@@ -1,4 +1,16 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, NotFoundException, ParseUUIDPipe, UseGuards, UseFilters } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+  NotFoundException,
+  ParseUUIDPipe,
+  UseGuards,
+  UseFilters,
+} from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -10,7 +22,7 @@ import { AllExceptionsFilter } from 'src/middleware/exception.middleware';
 @UseFilters(AllExceptionsFilter)
 @UseGuards(JwtAuthGuard)
 export class TasksController {
-  constructor(private readonly tasksService: TasksService) { }
+  constructor(private readonly tasksService: TasksService) {}
 
   @Get()
   async getAll() {
@@ -31,7 +43,10 @@ export class TasksController {
   }
 
   @Put(':id')
-  async update(@Param('id', ParseUUIDPipe) id: string, @Body() updateTaskDto: UpdateTaskDto) {
+  async update(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() updateTaskDto: UpdateTaskDto,
+  ) {
     await this.isTask(id);
     const task = await this.tasksService.update(id, updateTaskDto);
     return Task.toResponse(task);
@@ -49,13 +64,3 @@ export class TasksController {
     return task;
   }
 }
-
-
-
-
-
-
-
-
-
-

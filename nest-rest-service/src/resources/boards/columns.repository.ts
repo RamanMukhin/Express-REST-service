@@ -10,10 +10,14 @@ export class ColumnsRepository {
   constructor(
     @InjectRepository(ColumnClass)
     private columnsRepository: Repository<ColumnClass>,
-  ) { }
+  ) {}
 
-  async saveColumns(createColumnsDto: CreateColumnDto[]): Promise<ColumnClass[]> {
-    return await Promise.all(createColumnsDto.map((column) => this.columnsRepository.save(column)));
+  async saveColumns(
+    createColumnsDto: CreateColumnDto[],
+  ): Promise<ColumnClass[]> {
+    return await Promise.all(
+      createColumnsDto.map((column) => this.columnsRepository.save(column)),
+    );
   }
 
   async updateColumns(updateColumnsDto: UpdateColumnDto[]) {

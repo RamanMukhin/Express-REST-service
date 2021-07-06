@@ -8,8 +8,11 @@ import { ColumnsRepository } from './columns.repository';
 import { ColumnClass } from './entities/column.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Board]), TypeOrmModule.forFeature([ColumnClass])],
+  imports: [
+    TypeOrmModule.forFeature([Board]),
+    TypeOrmModule.forFeature([ColumnClass]),
+  ],
   controllers: [BoardsController],
-  providers: [BoardsService, BoardsRepository, ColumnsRepository, Logger]
+  providers: [BoardsService, BoardsRepository, ColumnsRepository, Logger],
 })
-export class BoardsModule { }
+export class BoardsModule {}

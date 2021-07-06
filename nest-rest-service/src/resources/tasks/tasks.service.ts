@@ -8,7 +8,7 @@ import { TasksRepository } from './tasks.repository';
 
 @Injectable()
 export class TasksService {
-  constructor(private readonly tasksRepository: TasksRepository) { }
+  constructor(private readonly tasksRepository: TasksRepository) {}
 
   async getAll(): Promise<Task[]> {
     return await this.tasksRepository.getAll();
@@ -23,7 +23,7 @@ export class TasksService {
   }
 
   async update(id: string, updateTaskDto: UpdateTaskDto): Promise<Task> {
-    const updatedTask = toUpdateTask(id, updateTaskDto)
+    const updatedTask = toUpdateTask(id, updateTaskDto);
     return await this.tasksRepository.update(updatedTask);
   }
 

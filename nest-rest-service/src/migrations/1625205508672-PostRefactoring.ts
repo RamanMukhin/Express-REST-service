@@ -33,7 +33,7 @@ export class Test21624208011527 implements MigrationInterface {
           },
         ],
       }),
-      true
+      true,
     );
 
     await queryRunner.createTable(
@@ -74,7 +74,7 @@ export class Test21624208011527 implements MigrationInterface {
           },
         ],
       }),
-      true
+      true,
     );
 
     await queryRunner.createTable(
@@ -102,7 +102,7 @@ export class Test21624208011527 implements MigrationInterface {
           },
         ],
       }),
-      true
+      true,
     );
 
     await queryRunner.createTable(
@@ -121,7 +121,7 @@ export class Test21624208011527 implements MigrationInterface {
           },
         ],
       }),
-      true
+      true,
     );
 
     await queryRunner.createForeignKey(
@@ -131,7 +131,7 @@ export class Test21624208011527 implements MigrationInterface {
         referencedColumnNames: ['id'],
         referencedTableName: 'user',
         onDelete: 'SET NULL',
-      })
+      }),
     );
 
     await queryRunner.createForeignKey(
@@ -141,7 +141,7 @@ export class Test21624208011527 implements MigrationInterface {
         referencedColumnNames: ['id'],
         referencedTableName: 'board',
         onDelete: 'CASCADE',
-      })
+      }),
     );
 
     await queryRunner.createForeignKey(
@@ -151,30 +151,33 @@ export class Test21624208011527 implements MigrationInterface {
         referencedColumnNames: ['id'],
         referencedTableName: 'board',
         onDelete: 'CASCADE',
-      })
+      }),
     );
 
-    const admin = await toCreateUser({ name: 'admin', login: 'admin', password: 'admin' });
+    const admin = await toCreateUser({
+      name: 'admin',
+      login: 'admin',
+      password: 'admin',
+    });
     await queryRunner.manager.save(User, admin);
-
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    const taskTable = (await queryRunner.getTable('task'))!;
+    const taskTable = await queryRunner.getTable('task');
     const foreignKey = taskTable.foreignKeys.find(
-      (fk) => fk.columnNames.indexOf('boardIdId') !== -1
+      (fk) => fk.columnNames.indexOf('boardIdId') !== -1,
     );
-    await queryRunner.dropForeignKey('task', foreignKey!);
+    await queryRunner.dropForeignKey('task', foreignKey);
     const foreignKeyUser = taskTable.foreignKeys.find(
-      (fk) => fk.columnNames.indexOf('userIdId') !== -1
+      (fk) => fk.columnNames.indexOf('userIdId') !== -1,
     );
-    await queryRunner.dropForeignKey('task', foreignKeyUser!);
+    await queryRunner.dropForeignKey('task', foreignKeyUser);
 
-    const columnTable = (await queryRunner.getTable('column_class'))!;
+    const columnTable = await queryRunner.getTable('column_class');
     const foreignKeycolumn = columnTable.foreignKeys.find(
-      (fk) => fk.columnNames.indexOf('boardId') !== -1
+      (fk) => fk.columnNames.indexOf('boardId') !== -1,
     );
-    await queryRunner.dropForeignKey('column_class', foreignKeycolumn!);
+    await queryRunner.dropForeignKey('column_class', foreignKeycolumn);
 
     await queryRunner.dropTable('task');
     await queryRunner.dropTable('column_class');

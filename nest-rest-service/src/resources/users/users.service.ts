@@ -8,7 +8,7 @@ import { UsersRepository } from './users.repository';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly usersRepository: UsersRepository) { }
+  constructor(private readonly usersRepository: UsersRepository) {}
 
   async getAll(): Promise<User[]> {
     return await this.usersRepository.getAll();

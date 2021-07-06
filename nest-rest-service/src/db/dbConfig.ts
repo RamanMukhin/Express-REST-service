@@ -3,7 +3,7 @@ import { User } from 'src/resources/users/entities/user.entity';
 import { Board } from 'src/resources/boards/entities/board.entity';
 import { ColumnClass } from 'src/resources/boards/entities/column.entity';
 import { Task } from 'src/resources/tasks/entities/task.entity';
-import * as dotenv from 'dotenv'
+import * as dotenv from 'dotenv';
 import { Test21624208011527 } from 'src/migrations/1625205508672-PostRefactoring';
 
 dotenv.config();

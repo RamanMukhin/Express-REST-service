@@ -12,10 +12,7 @@ import { ExpressAdapter } from '@nestjs/platform-express';
 async function bootstrap() {
   const { PORT, USE_FASTIFY } = process.env;
 
-  const Adapter =
-    USE_FASTIFY === 'true'
-      ? FastifyAdapter
-      : ExpressAdapter;
+  const Adapter = USE_FASTIFY === 'true' ? FastifyAdapter : ExpressAdapter;
 
   const app = await NestFactory.create(AppModule, new Adapter(), {
     logger: WinstonModule.createLogger({
@@ -40,10 +37,8 @@ async function bootstrap() {
           filename: './logs/uncaughtExceptions.log',
         }),
         new winston.transports.Console({
-          format: winston.format.combine(
-            winston.format.timestamp(),
-          ),
-        })
+          format: winston.format.combine(winston.format.timestamp()),
+        }),
       ],
       exitOnError: true,
     }),

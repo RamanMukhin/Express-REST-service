@@ -1,4 +1,16 @@
-import { Controller, Get, Post, Body, Put, Param, Delete, NotFoundException, ParseUUIDPipe, UseGuards, UseFilters } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+  NotFoundException,
+  ParseUUIDPipe,
+  UseGuards,
+  UseFilters,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -10,7 +22,7 @@ import { AllExceptionsFilter } from 'src/middleware/exception.middleware';
 @UseFilters(AllExceptionsFilter)
 @UseGuards(JwtAuthGuard)
 export class UsersController {
-  constructor(private readonly usersService: UsersService) { }
+  constructor(private readonly usersService: UsersService) {}
 
   @Get()
   async getAll() {
@@ -31,7 +43,10 @@ export class UsersController {
   }
 
   @Put(':id')
-  async update(@Param('id', ParseUUIDPipe) id: string, @Body() updateUserDto: UpdateUserDto) {
+  async update(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
     await this.isUser(id);
     const user = await this.usersService.update(id, updateUserDto);
     return User.toResponse(user);

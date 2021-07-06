@@ -10,7 +10,7 @@ export class TasksRepository {
   constructor(
     @InjectRepository(Task)
     private tasksRepository: Repository<Task>,
-  ) { }
+  ) {}
 
   async getAll(): Promise<Task[]> {
     return await this.tasksRepository.find();
