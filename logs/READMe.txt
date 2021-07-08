@@ -1,1 +1,0 @@
-All logs will be written in this folder!
