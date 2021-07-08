@@ -72,9 +72,53 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](LICENSE).
 
+## Tables comparing performance of Nestjs express vs Nestjs fastify
+# Express
+**Summary**
 
-| Таблицы       | Это                | Круто |
-| ------------- |:------------------:| -----:|
-| столбец 3     | выровнен вправо    | $1600 |
-| столбец 2     | выровнен по центру |   $12 |
-| зебра-строки  | прикольные         |    $1 |
+|                    |       |
+| :-                 | :-    |
+|Test duration       |190 sec|
+|Scenarios created   |1366   |
+|Scenarios completed |1366   |
+
+**Scenario counts**
+
+|                                         |             |
+| :-                                      | :-          |
+|Get all users                            |263 (19.253%)|
+|Create a new user and then delete him    |292 (21.376%)|
+|Create a new user and then get him by id |291 (21.303%)|
+|Create a new user                        |249 (18.228%)|
+|Create a new user and then update him    |271 (19.839%)|
+
+**Overall Latency Distribution**
+
+|Min    |max       |median   |P95       |P99      |
+| :-    | :-       | :-      | :-       | :-      |
+|4 msec |3144 msec |250 msec |1167 msec |1837 msec|
+
+# Fastify
+**Summary**
+
+|                    |        |
+| :-                 | :-     |
+|Test duration       |190 sec |
+|Scenarios created   |1355    |
+|Scenarios completed |1355    |
+
+**Scenario counts**
+
+|                                         |             |
+| :-                                      | :-          |
+|Get all users                            |275 (20.295%)|
+|Create a new user and then delete him    |273 (20.148%)|
+|Create a new user and then get him by id |280 (20.664%)|
+|Create a new user                        |268 (19.779%)|
+|Create a new user and then update him    |259 (19.114%)|
+
+**Overall Latency Distribution**
+
+|Min    |max       |median   |P95       |P99      |
+| :-    | :-       | :-      | :-       | :-      |
+|3 msec |1448 msec |122 msec |421 msec  |695 msec |
