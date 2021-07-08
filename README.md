@@ -24,11 +24,9 @@ npm install
 
 ## Running application
 
-```
-npm run start:dev
-```
-
-## Running the app
+If you want to run the application locally, you must first have a postgress database running.
+Next, you need to specify the parameters for connecting to the database in the .env file.
+After completing these points, you can start launching the application.
 
 ```bash
 # development
@@ -41,12 +39,15 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+However, it is better to immediately launch the application in Docker.
+How to do it - read below.
+
 ## Running application in DOCKER
-1. If you want to see logs run in terminal  
+1. If you want to see logs run in terminal, run  
 ```
 docker compose up
 ```
-, else run 
+else run 
 ```
 docker compose up -d
 ```
@@ -66,18 +67,6 @@ docker compose build
 ```
 7. If you want to run the application again - see the paragraph above (1).
 
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
 ## Testing
 
 After application running open new terminal and enter:
@@ -107,6 +96,8 @@ npm run test:auth <suite name>
 ```
 
 ## Tables comparing performance of Nestjs express vs Nestjs fastify
+
+Full test results can be found in the corresponding files in the  **stressTestResults** folder.
 # Express
 **Summary**
 
