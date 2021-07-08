@@ -16,6 +16,12 @@ git clone https://github.com/RamanMukhin/Express-REST-service.git
 cd ./Express-REST-service
 ```
 
+## chekout on the branch task_9
+
+```
+git checkout task_9
+```
+
 ## Installing NPM modules
 
 ```
