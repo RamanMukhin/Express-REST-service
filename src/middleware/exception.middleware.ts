@@ -31,7 +31,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
     this.logger.error({ statusCode, name, message, stack });
 
-    response.status(statusCode).json({
+    response.status(statusCode).send({
       statusCode,
       message,
     });
