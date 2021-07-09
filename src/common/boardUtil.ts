@@ -1,12 +1,20 @@
-import { Board, IBoard } from '../resources/boards/board.model.js';
-import { ColumnClass, IColumnClass } from '../resources/boards/column.model.js';
+import { CreateBoardDto } from 'src/resources/boards/dto/create-board.dto.js';
+import { CreateColumnDto } from 'src/resources/boards/dto/create-column.dto';
+import { UpdateBoardDto } from 'src/resources/boards/dto/update-board.dto';
+import { ColumnClass } from 'src/resources/boards/entities/column.entity';
 
-const toBoardDto = (requestBody: IBoard): string => requestBody.title;
+const toBoardDto = (createBoardDto: CreateBoardDto): string =>
+  createBoardDto.title;
 
-const toColumnDto = (requestBody: IBoard): IColumnClass[] => requestBody.columns;
+const toColumnDto = (createBoardDto: CreateBoardDto): CreateColumnDto[] =>
+  createBoardDto.columns;
 
-const toBoard = (title: string, columns: ColumnClass[]): IBoard => Object({ title, columns });
+const toUpdateColumnDto = (updateBoardDto: UpdateBoardDto) =>
+  updateBoardDto.columns;
 
-const toUdateBoard = (id: string, title: string): Board => Object({ id, title });
+const toBoard = (title: string, columns: ColumnClass[]): CreateBoardDto =>
+  Object({ title, columns });
 
-export { toBoardDto, toColumnDto, toBoard, toUdateBoard };
+const toUdateBoard = (id: string, title: string) => Object({ id, title });
+
+export { toBoardDto, toColumnDto, toBoard, toUdateBoard, toUpdateColumnDto };

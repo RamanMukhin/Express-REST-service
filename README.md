@@ -1,14 +1,25 @@
 # RS School REST service
 
-## Prerequisites 
-
-- Git - [Download & Install Git](https://git-scm.com/downloads).
-- Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
+</p>
 
 ## Downloading
 
 ```
-git clone {repository URL}
+git clone https://github.com/RamanMukhin/Express-REST-service.git
+```
+
+## go to the Express-REST-service folder
+
+```
+cd ./Express-REST-service
+```
+
+## chekout on the branch task_9
+
+```
+git checkout task_9
 ```
 
 ## Installing NPM modules
@@ -19,21 +30,47 @@ npm install
 
 ## Running application
 
-```
-npm start
+If you want to run the application locally, you must first have a postgress database running.
+Next, you need to specify the parameters for connecting to the database in the .env file.
+After completing these points, you can start launching the application.
+
+```bash
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+$ npm run start:prod
 ```
 
-After starting the app on port (4000 as default) you can open
-in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
-For more information about OpenAPI/Swagger please visit https://swagger.io/.
+However, it is better to immediately launch the application in Docker.
+How to do it - read below.
 
 ## Running application in DOCKER
-1. Run in terminal ##docker compose up## if you want to see logs in terminal, else run ##docker compose up -d##
+1. If you want to see logs run in terminal, run  
+```
+docker compose up
+```
+else run 
+```
+docker compose up -d
+```
 2. Now it works! 
-3. To stop the application after comand ##docker compose up## enter in terminal ##Ctrl+c##
-4. To stop the application after comand ##docker compose up -d## enter in terminal ##docer compose down##
+3. To stop the application after comand **docker compose up** enter in terminal 
+```
+Ctrl+C
+```
+4. To stop the application after comand **docker compose up -d** enter in terminal 
+```
+docer compose down
+```
 5. Now it stops!
-6. If you want to fix or add something in code - do it, and then run ##docker compose build##. 
+6. If you want to fix or add something in code - do it, and then run 
+```
+docker compose build
+```
 7. If you want to run the application again - see the paragraph above (1).
 
 ## Testing
@@ -64,18 +101,55 @@ To run only specific test suite with authorization (users, boards or tasks)
 npm run test:auth <suite name>
 ```
 
-## Development
+## Tables comparing performance of Nestjs express vs Nestjs fastify
 
-If you're using VSCode, you can get a better developer experience from integration with [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) extensions.
+Full test results can be found in the corresponding files in the  **stressTestResults** folder.
+# Express
+**Summary**
 
-### Auto-fix and format
+|                    |       |
+| :-                 | :-    |
+|Test duration       |190 sec|
+|Scenarios created   |1366   |
+|Scenarios completed |1366   |
 
-```
-npm run lint
-```
+**Scenario counts**
 
-### Debugging in VSCode
+|                                         |             |
+| :-                                      | :-          |
+|Get all users                            |263 (19.253%)|
+|Create a new user and then delete him    |292 (21.376%)|
+|Create a new user and then get him by id |291 (21.303%)|
+|Create a new user                        |249 (18.228%)|
+|Create a new user and then update him    |271 (19.839%)|
 
-Press <kbd>F5</kbd> to debug.
+**Overall Latency Distribution**
 
-For more information, visit: https://code.visualstudio.com/docs/editor/debugging
+|Min    |max       |median   |P95       |P99      |
+| :-    | :-       | :-      | :-       | :-      |
+|4 msec |3144 msec |250 msec |1167 msec |1837 msec|
+
+# Fastify
+**Summary**
+
+|                    |        |
+| :-                 | :-     |
+|Test duration       |190 sec |
+|Scenarios created   |1355    |
+|Scenarios completed |1355    |
+
+**Scenario counts**
+
+|                                         |             |
+| :-                                      | :-          |
+|Get all users                            |275 (20.295%)|
+|Create a new user and then delete him    |273 (20.148%)|
+|Create a new user and then get him by id |280 (20.664%)|
+|Create a new user                        |268 (19.779%)|
+|Create a new user and then update him    |259 (19.114%)|
+
+**Overall Latency Distribution**
+
+|Min    |max       |median   |P95       |P99      |
+| :-    | :-       | :-      | :-       | :-      |
+|3 msec |1448 msec |122 msec |421 msec  |695 msec |
