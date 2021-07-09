@@ -9,7 +9,7 @@ export class LoggerMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
     const receiptTime = new Date().toLocaleString();
     const { method, body, query } = req;
-    const url = `http://localhost:4000${req.baseUrl + req.url}`;
+    const url = `http://localhost:4000${req.originalUrl}`;
 
     next();
 
